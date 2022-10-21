@@ -4,3 +4,19 @@ services:
     image: tubes-1:latest
     ports:
       - "8008:80"
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - "./database:/docker-entrypoint-initdb.d"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8001:80
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
