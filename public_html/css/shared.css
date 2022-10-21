@@ -1,0 +1,16 @@
+.navbar {
+    height: 100%;
+    width: 240px;
+    background-color: gray;
+
+    /* Placeholder width */
+    min-width: 240px;
+}
+
+header {
+    height: 64px;
+    background: rgba(0, 0, 0, 0.5);
+
+    /* Placeholder height */
+    min-height: 64px;
+}
