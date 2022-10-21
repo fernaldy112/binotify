@@ -7,7 +7,7 @@
     $SRC = __DIR__."/../";
 
     function html($fileName) {
-        template($fileName)->render([]);
+        return template($fileName)->bind([]);
     }
 
     function template($fileName) {

@@ -6,27 +6,44 @@ class TemplateEngine
 {
     private $template;
     private $vars;
+    private $bound;
 
     function __construct($template)
     {
         $this->template = $template;
+        $this->vars = [];
+        $this->bound = false;
     }
 
-    function render($vars) {
+    function render($vars = []) {
+        if (!$this->bound) {
+            $this->vars = $vars;
+        }
+        echo preg_replace_callback("/\{\{\s+(\w*)\s+}}/", array($this, "_getReplacement"), $this->template);
+    }
+
+    function _renderAsString() {
+        return preg_replace_callback("/\{\{\s+(\w*)\s+}}/", array($this, "_getReplacement"), $this->template);
+    }
+
+    function bind($vars) {
         $this->vars = $vars;
-        echo preg_replace_callback("/\{\{\s+(\w*)\s+}}/", array($this, "_get_replacement"), $this->template);
+        $this->bound = true;
+        return $this;
     }
 
-    function _get_replacement($match) {
+    function _getReplacement($match) {
 
         $name = $match[1];
 
         if (array_key_exists($name, $this->vars)) {
-            return $this->vars[$name];
-        } else if (isset($$name)) {
-            return $$name;
-        } else {
-            return "";
+            $replacement = $this->vars[$name];
+            if ($replacement instanceof TemplateEngine) {
+                return $replacement->_renderAsString();
+            }
+            return $replacement;
         }
+
+        return "";
     }
 }

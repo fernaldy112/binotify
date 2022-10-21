@@ -3,6 +3,8 @@
 
     template("components/index.html")->render(
         [
-            "message" => "Hello, world!",
+            "app" => template("components/app.html")->bind([
+                "greeting" => "Hello, world!"
+            ]),
         ]
     );
