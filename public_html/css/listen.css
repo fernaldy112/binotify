@@ -28,9 +28,14 @@
     gap: 8px;
 }
 
+.bar {
+    padding: 24px 32px;
+}
+
 .details-meta {
     font-size: 0.8em;
     font-weight: 500;
+    margin-bottom: 4px;
 }
 
 .item {
@@ -44,4 +49,17 @@
     font-weight: 800;
     padding: 0;
     margin: 0 0 0.2em 0;
+}
+
+.play-button {
+    cursor: pointer;
+    padding: 10px;
+    line-height: 1px;
+    box-sizing: border-box;
+    background-color: #1fdf64;
+    border-radius: 9999px;
+}
+
+.play-button .material-symbols-rounded {
+    font-size: 36px;
 }
