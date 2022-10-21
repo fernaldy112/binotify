@@ -4,9 +4,9 @@ namespace Binotify\Template;
 
 class TemplateEngine
 {
-    private $template;
-    private $vars;
-    private $bound;
+    private string $template;
+    private array $vars;
+    private bool $bound;
 
     function __construct($template)
     {
@@ -15,18 +15,21 @@ class TemplateEngine
         $this->bound = false;
     }
 
-    function render($vars = []) {
+    function render($vars = []): void
+    {
         if (!$this->bound) {
             $this->vars = $vars;
         }
         echo preg_replace_callback("/\{\{\s+(\w*)\s+}}/", array($this, "_getReplacement"), $this->template);
     }
 
-    function _renderAsString() {
+    function _renderAsString(): array|string|null
+    {
         return preg_replace_callback("/\{\{\s+(\w*)\s+}}/", array($this, "_getReplacement"), $this->template);
     }
 
-    function bind($vars) {
+    function bind($vars): static
+    {
         $this->vars = $vars;
         $this->bound = true;
         return $this;
