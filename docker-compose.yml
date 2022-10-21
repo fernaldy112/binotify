@@ -13,10 +13,12 @@ services:
       - MYSQL_ROOT_PASSWORD=password
     volumes:
       - "./database:/docker-entrypoint-initdb.d"
+    ports:
+      - "3306:3306"
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
-      - 8001:80
+      - "8001:80"
     environment:
       - PMA_HOST=db
       - PMA_PORT=3306
