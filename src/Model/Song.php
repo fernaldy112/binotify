@@ -4,6 +4,8 @@ namespace Binotify\Model;
 
 class Song
 {
+
+//    TODO: Add album name
     private int $id;
     private string $title;
     private string $artist;
