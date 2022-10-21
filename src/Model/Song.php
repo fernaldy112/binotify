@@ -38,4 +38,76 @@ class Song
         $this->image_path = $image_path;
         $this->album_id = $album_id;
     }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAlbumId(): int
+    {
+        return $this->album_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getArtist(): string
+    {
+        return $this->artist;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImagePath(): string
+    {
+        return $this->image_path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublishDate(): string
+    {
+        return $this->publish_date;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAudioPath(): string
+    {
+        return $this->audio_path;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDuration(): int
+    {
+        return $this->duration;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGenre(): string
+    {
+        return $this->genre;
+    }
 }
