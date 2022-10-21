@@ -90,6 +90,15 @@ class Song
     /**
      * @return string
      */
+    public function getPublishDateString(): string
+    {
+        $date = date_create($this->publish_date);
+        return $date->format("j M Y");
+    }
+
+    /**
+     * @return string
+     */
     public function getAudioPath(): string
     {
         return $this->audio_path;
@@ -101,6 +110,27 @@ class Song
     public function getDuration(): int
     {
         return $this->duration;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDurationString(): string
+    {
+        $hour = intdiv($this->duration, 3600);
+        $minutePortion = $this->duration % 3600;
+        $min = intdiv($minutePortion, 60);
+        $sec = $minutePortion % 60;
+
+        $duration = "";
+
+        if ($hour > 0) {
+            $duration = "$hour:";
+            $min = str_pad($min, 2, "0", 2);
+        }
+
+        $sec = str_pad($sec, 2, "0", 2);
+        return $duration."$min:$sec";
     }
 
     /**

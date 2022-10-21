@@ -1,8 +1,47 @@
 #main {
     flex-grow: 1;
-    background-color: deepskyblue;
+    background-color: #171717;
 }
 
-.hero {
-    width: 100%
+#hero {
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    height: 30vh;
+    max-height: 500px;
+    min-height: 340px;
+    padding: 24px 30px;
+    /*vertical-align: baseline;*/
+    align-items: end;
+}
+
+.cover {
+    margin-right: 24px;
+    width: 232px;
+    height: 232px;
+}
+
+.details {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.details-meta {
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.item {
+    font-size: 0.75em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.title {
+    font-size: 5em;
+    font-weight: 800;
+    padding: 0;
+    margin: 0 0 0.2em 0;
 }
