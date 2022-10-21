@@ -19,6 +19,7 @@
     margin-right: 24px;
     width: 232px;
     height: 232px;
+    box-shadow: 0 8px 16px 4px rgba(0, 0, 0, 0.6);
 }
 
 .details {
@@ -53,11 +54,17 @@
 
 .play-button {
     cursor: pointer;
+    will-change: scale;
+    transition: transform 300ms ease-out;
     padding: 10px;
     line-height: 1px;
     box-sizing: border-box;
     background-color: #1fdf64;
     border-radius: 9999px;
+}
+
+.play-button:hover {
+    transform: scale(1.1);
 }
 
 .play-button .material-symbols-rounded {
