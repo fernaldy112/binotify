@@ -15,6 +15,10 @@
     align-items: end;
 }
 
+audio {
+    display: none;
+}
+
 .cover {
     margin-right: 24px;
     width: 232px;
@@ -81,8 +85,15 @@
     background-color: #171717;
     border-top: 1px #242424 solid;
 
+    will-change: bottom;
+    transition: bottom 200ms ease-out;
+
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+}
+
+.play-bar.active {
+    bottom: 0;
 }
 
 .play-bar-left {
@@ -125,17 +136,16 @@
 }
 
 .playback-button, .volume-button {
-    padding: 4px;
     box-sizing: border-box;
     line-height: 1px;
     cursor: pointer;
+    color: #dfdfdf;
 }
 
-.playback-button {
-    color: #171717;
-    background-color: #dfdfdf;
-    border-radius: 9999px;
+.playback-button .icon {
+    font-size: 32px;
 }
+
 
 .playback-progress-bar {
     display: flex;
@@ -171,9 +181,6 @@
     align-items: center;
 }
 
-.volume-button {
-    color: #dfdfdf;
-}
 
 .volume {
     appearance: none;
@@ -198,4 +205,8 @@
 
 .volume::-webkit-slider-thumb:hover {
     transform: scale(1.5);
+}
+
+.audio-playback {
+    display: none;
 }
