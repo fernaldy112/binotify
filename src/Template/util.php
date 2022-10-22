@@ -21,3 +21,5 @@
 
         return new TemplateEngine("");
     }
+
+    session_start();

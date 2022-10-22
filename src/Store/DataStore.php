@@ -2,9 +2,10 @@
 
 namespace Binotify\Store;
 
-require_once(__DIR__."/../Model/Song.php");
+// require_once(__DIR__."/../Model/Song.php");
 require_once(__DIR__."/../Model/User.php");
-use Binotify\Model\Song;
+// use Binotify\Model\Song;
+use Binotify\Model\User;
 use mysqli;
 
 class DataStore {
@@ -13,7 +14,7 @@ class DataStore {
 
     function __construct()
     {
-        $this->mysqli = new mysqli("localhost:3306", "user", "password", "db");
+        $this->mysqli = new mysqli("db", "user", "password", "db");
     }
 
     function getSongById($id): Song|null
@@ -43,10 +44,14 @@ class DataStore {
 
     function getUserByEmail($email): User|null{
 
-        $result = $this->mysqli->query("SELECT * FROM user WHERE email=$email");
-        $rawData = $result->fetch_all(MYSQLI_ASSOC);
+        $result = $this->mysqli->query("SELECT * FROM user WHERE email='$email'");
 
-        if (!array_key_exists(0, $rawData)) {
+        if($result){
+            $rawData = $result->fetch_all(MYSQLI_ASSOC);
+            if (!array_key_exists(0, $rawData)) {
+                return null;
+            }    
+        } else {
             return null;
         }
 
@@ -64,10 +69,14 @@ class DataStore {
 
     function getUserByUsername($username): User|null{
 
-        $result = $this->mysqli->query("SELECT * FROM user WHERE username=$username");
-        $rawData = $result->fetch_all(MYSQLI_ASSOC);
+        $result = $this->mysqli->query("SELECT * FROM user WHERE username='$username'");
 
-        if (!array_key_exists(0, $rawData)) {
+        if($result){
+            $rawData = $result->fetch_all(MYSQLI_ASSOC);
+            if (!array_key_exists(0, $rawData)) {
+                return null;
+            }    
+        } else {
             return null;
         }
 
@@ -87,21 +96,23 @@ class DataStore {
 
         $result = $this->mysqli->query("SELECT * FROM user");
         $data = $result->fetch_all(MYSQLI_ASSOC);
-
-        for ($i=0; i<count($data); $i++){
-            $data[i] = new User(
-                $data[i]["user_id"], 
-                $data[i]["email"], 
-                $data[i]["password"], 
-                $data[i]["username"], 
-                $data[i]["isAdmin"]
+        
+        $users = array();
+        foreach($data as $row) {
+            $user = new User(
+                $row["user_id"], 
+                $row["email"], 
+                $row["password"], 
+                $row["username"], 
+                $row["isAdmin"]
             );
-        }
+            array_push($users, $user);
+         }
 
-        return $data;
+        return $users;
 
     }
 
 }
 
-const STORE = new DataStore();
+$STORE = new DataStore();
