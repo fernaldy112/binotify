@@ -216,3 +216,12 @@ audio {
 .material-symbols-rounded {
     user-select: none;
 }
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.album-url:hover {
+    text-decoration: underline;
+}

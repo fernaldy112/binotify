@@ -5,7 +5,6 @@ namespace Binotify\Model;
 class Song
 {
 
-//    TODO: Add album name
     private int $id;
     private string $title;
     private string $artist;
@@ -15,6 +14,7 @@ class Song
     private string $audio_path;
     private string $image_path;
     private int $album_id;
+    private string $album_title;
 
     function __construct(
         int $id,
@@ -26,6 +26,7 @@ class Song
         string $audio_path,
         string $image_path,
         int $album_id,
+        string $album_title
     )
     {
         $this->id = $id;
@@ -37,6 +38,7 @@ class Song
         $this->audio_path = $audio_path;
         $this->image_path = $image_path;
         $this->album_id = $album_id;
+        $this->album_title = $album_title;
     }
 
     /**
@@ -139,5 +141,13 @@ class Song
     public function getGenre(): string
     {
         return $this->genre;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlbumTitle(): string
+    {
+        return $this->album_title;
     }
 }

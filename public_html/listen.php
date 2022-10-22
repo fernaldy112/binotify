@@ -3,7 +3,7 @@
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
-// TODO: check if user is logged in & has listened to 3 songs
+// TODO: check if user is logged in or has listened to 3 songs
 
 $id = $_GET["s"];
 $song = STORE->getSongById($id);
@@ -19,7 +19,9 @@ $hero = template("components/listen/hero.html")->bind([
     "title" => $song->getTitle(),
     "artist" => $song->getArtist(),
     "date" => $song->getPublishDateString(),
-    "duration" => $song->getDurationString()
+    "duration" => $song->getDurationString(),
+    "genre" => $song->getGenre(),
+    "album_name" => $song->getAlbumTitle()
 ]);
 $playBar = template("components/listen/play-bar.html")->bind([
     "cover" => $song->getImagePath(),
