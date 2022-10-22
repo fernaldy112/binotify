@@ -5,6 +5,8 @@ require_once(__DIR__."/../src/Store/DataStore.php");
 
 use const Binotify\Store\STORE;
 
+// TODO: check if user is logged in & has listened to 3 songs
+
 $id = $_GET["s"];
 $song = STORE->getSongById($id);
 
@@ -21,12 +23,20 @@ $hero = template("components/listen/hero.html")->bind([
     "date" => $song->getPublishDateString(),
     "duration" => $song->getDurationString()
 ]);
+$playBar = template("components/listen/play-bar.html")->bind([
+    "cover" => $song->getImagePath(),
+    "cover_alt" => $song->getTitle(),
+    "title" => $song->getTitle(),
+    "artist" => $song->getArtist(),
+    "duration" => $song->getDurationString()
+]);
 
 template("components/listen.html")->bind([
-    "song" => "Test",
+    "song" => $song->getArtist()." - ".$song->getTitle(),
     "navbar" => html("components/shared/navbar.html"),
     "main" => template("components/listen/main.html")->bind([
         "header" => $header,
-        "hero" => $hero
-    ])
+        "hero" => $hero,
+    ]),
+    "playBar" => $playBar
 ])->render();

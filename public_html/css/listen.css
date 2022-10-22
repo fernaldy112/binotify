@@ -67,6 +67,135 @@
     transform: scale(1.1);
 }
 
-.play-button .material-symbols-rounded {
+.play-button .icon {
     font-size: 36px;
+}
+
+.play-bar {
+    position: fixed;
+    height: 96px;
+    bottom: -96px;
+    padding: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #171717;
+    border-top: 1px #242424 solid;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.play-bar-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    gap: 16px;
+}
+
+.play-details {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+}
+
+.play-cover {
+    height: 64px;
+}
+
+.play-details h5 {
+    font-size: 0.9em;
+    font-weight: 500;
+    margin: 0;
+}
+
+.play-details h6 {
+    font-size: 0.8em;
+    font-weight: 400;
+    opacity: 0.7;
+    margin: 0;
+}
+
+.play-bar-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    gap: 8px;
+}
+
+.playback-button, .volume-button {
+    padding: 4px;
+    box-sizing: border-box;
+    line-height: 1px;
+    cursor: pointer;
+}
+
+.playback-button {
+    color: #171717;
+    background-color: #dfdfdf;
+    border-radius: 9999px;
+}
+
+.playback-progress-bar {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+    opacity: 0.8;
+}
+
+.progress-bar {
+    background: rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    width: 400px;
+    height: 4px;
+    border-radius: 9999px;
+}
+
+.progress {
+    background: rgba(255, 255, 255, 0.6);
+    left: -5%;
+    position: absolute;
+    width: 400px;
+    height: 4px;
+    border-radius: 9999px;
+}
+
+.play-bar-right {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.volume-button {
+    color: #dfdfdf;
+}
+
+.volume {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.2);
+    width: 128px;
+    height: 4px;
+    border-radius: 9999px;
+}
+
+.volume::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    position: relative;
+    pointer-events:none;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: #dfdfdf;
+    cursor: pointer;
+    will-change: scale;
+    transition: transform 300ms ease-out;
+}
+
+.volume::-webkit-slider-thumb:hover {
+    transform: scale(1.5);
 }
