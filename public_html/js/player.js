@@ -32,6 +32,8 @@ class Player {
         this.durationTimeout = null;
 
         this.initListeners();
+
+        setInterval(this._sync, 10000)
     }
 
     initListeners() {
@@ -66,7 +68,11 @@ class Player {
         this.parent.addEventListener('timeupdate', _ => {
                 this._updateTime();
             }
-        )
+        );
+
+        this.parent.addEventListener('ended', _ => {
+            this._stopDurationTimeout();
+        });
     }
 
     play() {
@@ -141,6 +147,10 @@ class Player {
     _updateProgress() {
         const progress = this.time / this.parent.duration * 100;
         this.progressBar.children[0].style.left = `${progress - 100}%`;
+    }
+
+    _sync() {
+        this.time = this.parent.duration;
     }
 
     _formatTime() {
