@@ -38,5 +38,6 @@ template("components/listen.html")->bind([
         "header" => $header,
         "hero" => $hero,
     ]),
-    "playBar" => $playBar
+    "playBar" => $playBar,
+    "source" => $song->getAudioPath()
 ])->render();
