@@ -26,8 +26,10 @@ class Player {
         this.volumeOn = true;
         this.volume = 100;
         this.paused = false;
+        this.time = 0;
 
         this.updateTimeout = null;
+        this.durationTimeout = null;
 
         this.initListeners();
     }
@@ -35,37 +37,23 @@ class Player {
     initListeners() {
         this.volumeButton.addEventListener('click', e => {
             if (this.volumeOn) {
-                this.parent.muted = true;
-                this.volumeButton.children[0].textContent = 'volume_off';
+                this._mute();
             } else {
-                this.parent.muted = false;
-                this.volumeButton.children[0].textContent = 'volume_up';
+                this._unmute();
             }
-
-            this.volumeOn = !this.volumeOn;
         });
 
-        this.volumeSlider.addEventListener('input', e => {
+        this.volumeSlider.addEventListener('input', _ => {
             if (this.updateTimeout) {
                 return;
             }
 
-            this.updateTimeout = setTimeout(() => {
-                this.updateTimeout = null;
-            }, 100);
-
-            const newVolume = parseInt(this.volumeSlider.value);
-
-            if (newVolume === 0) {
-                this.parent.muted = true;
-                this.volumeOn = false;
-                return;
-            }
-
-            this.volumeOn = true;
-            this.volume = newVolume;
-            this.parent.volume = this.volume / 100;
+            this._updateVolume();
         });
+
+        this.volumeSlider.addEventListener('change', e => {
+            this._forceUpdateVolume();
+        })
 
         this.playButton.addEventListener('click', _ => {
             if (this.paused) {
@@ -75,10 +63,15 @@ class Player {
             }
         });
 
+        this.parent.addEventListener('timeupdate', _ => {
+                this._updateTime();
+            }
+        )
     }
 
     play() {
         this.parent.play().then(() => {
+            this._startDurationTimeout();
             this.paused = false;
             this.playButton.children[0].textContent = 'play_circle';
         });
@@ -88,6 +81,83 @@ class Player {
         this.parent.pause();
         this.paused = true;
         this.playButton.children[0].textContent = 'pause_circle';
+        this._stopDurationTimeout();
+    }
+
+    _updateVolume() {
+        this.updateTimeout = setTimeout(() => {
+            clearTimeout(this.updateTimeout)
+        }, 100);
+
+        const newVolume = parseInt(this.volumeSlider.value);
+
+        if (newVolume === 0) {
+            this._mute();
+            return;
+        }
+
+        if (!this.volumeOn) {
+            this._unmute();
+        }
+
+        this.volume = newVolume;
+        this.parent.volume = this.volume / 100;
+    }
+
+    _mute() {
+        this.parent.muted = true;
+        this.volumeOn = false;
+        this.volumeButton.children[0].textContent = 'volume_off';
+    }
+
+    _unmute() {
+        this.parent.muted = false;
+        this.volumeOn = true;
+        this.volumeButton.children[0].textContent = 'volume_up';
+    }
+
+    _forceUpdateVolume() {
+        clearTimeout(this.updateTimeout);
+        this._updateVolume();
+    }
+
+    _startDurationTimeout() {
+        this.durationTimeout = setTimeout(() => {
+            this.time += 1;
+            this._updateTime();
+            this._startDurationTimeout();
+        }, 1000);
+    }
+
+    _stopDurationTimeout() {
+        clearTimeout(this.durationTimeout);
+    }
+
+    _updateTime() {
+        this.playbackTime.textContent = this._formatTime();
+        this._updateProgress();
+    }
+
+    _updateProgress() {
+        const progress = this.time / this.parent.duration * 100;
+        this.progressBar.children[0].style.left = `${progress - 100}%`;
+    }
+
+    _formatTime() {
+        const hour = Math.floor(this.time / 3600);
+        const minutePortion = this.time % 3600;
+        let min = Math.floor(minutePortion / 60) + "";
+        let sec = minutePortion % 60 + "";
+
+        let dur = "";
+
+        if (hour > 0) {
+            dur = `${hour}:`;
+            min = min.padStart(2, '0');
+        }
+
+        sec = sec.padStart(2, '0');
+        return `${dur}${min}:${sec}`;
     }
 }
 

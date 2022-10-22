@@ -3,8 +3,6 @@
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
-use const Binotify\Store\STORE;
-
 // TODO: check if user is logged in & has listened to 3 songs
 
 $id = $_GET["s"];
