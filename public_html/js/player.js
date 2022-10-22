@@ -73,6 +73,17 @@ class Player {
         this.parent.addEventListener('ended', _ => {
             this._stopDurationTimeout();
         });
+
+        this.progressBar.addEventListener('click', e => {
+            /**
+             * @type {PointerEvent}
+             */
+            let event = e;
+            const offset = this.progressBar.getBoundingClientRect().left;
+            const diff = event.clientX - offset;
+            const progress = diff / this.progressBar.clientWidth;
+            this.seek(progress * this.parent.duration);
+        })
     }
 
     play() {
@@ -88,6 +99,12 @@ class Player {
         this.paused = true;
         this.playButton.children[0].textContent = 'pause_circle';
         this._stopDurationTimeout();
+    }
+
+    seek(time) {
+        this.time = Math.round(time);
+        this.parent.currentTime = time;
+        this._updateTime();
     }
 
     _updateVolume() {

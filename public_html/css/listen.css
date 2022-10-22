@@ -163,6 +163,7 @@ audio {
     width: 400px;
     height: 4px;
     border-radius: 9999px;
+    cursor: pointer;
 }
 
 .progress {
@@ -192,7 +193,7 @@ audio {
 }
 
 .volume::-webkit-slider-thumb {
-    -webkit-appearance: none !important;
+    appearance: none;
     position: relative;
     pointer-events:none;
     width: 8px;
