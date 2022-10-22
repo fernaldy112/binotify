@@ -1,5 +1,9 @@
 FROM php:8.0-apache
 COPY . /usr/src/binotify
+
+RUN docker-php-ext-install mysqli
+RUN docker-php-ext-enable mysqli
+
 WORKDIR /usr/src/binotify
 
 ENV APACHE_DOCUMENT_ROOT /usr/src/binotify/public_html
