@@ -1,8 +1,22 @@
-<form action="register.php" method="post">
-    <p>{{  invalidLogin  }}</p>
-    <h1>Binotify</h1>
-    <input type="email" id="userEmailRegister" name="userEmailRegister" placeholder="Email" required>
-    <input type="password" id="userPasswordRegister" name="userPasswordRegister" placeholder="Create a password" required>
-    <input type="text" id="userNameRegister" name="userNameRegister" placeholder="What should we call you?" required>
-    <button type="submit" name="register">Sign up</button>
-</form>
+<div id="registerContainer">
+    <form action="register.php" method="post">
+        <h1>Binotify</h1>
+        <label for="userEmailRegister">What's your email?</label>
+        <input type="email" id="userEmailRegister" name="userEmailRegister" placeholder="Enter your email" oninput="checkUnique('email')" required>
+        <p>{{ emailError }}</p>
+        <label for="userNameRegister">What should we call you?</label>
+        <input type="text" id="userNameRegister" name="userNameRegister" placeholder="Enter a username" oninput="checkUnique('username')" required>
+        <p>{{ usernameError }}</p>
+        <label for="userPasswordRegister">Create a password</label>
+        <input type="password" id="userPasswordRegister" name="userPasswordRegister" placeholder="Create a password" required>
+        <p>{{ passwordError }}</p>
+        <label for="userPassword2Register">Enter your password again</label>
+        <input type="password" id="userPassword2Register" name="userPassword2Register" placeholder="Enter your password again" required>
+        <p>{{ password2Error }}</p>
+        <button type="submit" name="register">Sign up</button>
+    </form>
+    <form action="register.php" method="post" id="redirectLoginForm">
+        <label for="logInButton">Have an account?</label>
+        <button type="submit" id="logInButton" name="redirectLogIn">Log In</button>
+    </form>
+</div>

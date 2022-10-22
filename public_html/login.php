@@ -11,9 +11,10 @@
         
         $user = $STORE->getUserByEmail($identity) ?? $STORE->getUserByUsername($identity);
 
-        if (!$user || $password !== $user->getPassword()){
+        if (!$user || md5($password) !== $user->getPassword()){
             $invalidLogin = "Incorrect credential.";
         } else {
+            $_SESSION["username"] = $user->getUsername();
             header("Location: index.php");
         }
     } 

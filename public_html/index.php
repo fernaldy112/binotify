@@ -4,7 +4,7 @@
     template("components/index.html")->render(
         [
             "app" => template("components/app.html")->bind([
-                "greeting" => "Hello, world!"
+                "greeting" => "Hello, ".$_SESSION["username"]."!"
             ]),
         ]
     );

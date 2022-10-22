@@ -113,6 +113,14 @@ class DataStore {
 
     }
 
+    function insertUser($email, $username, $password){
+        
+        $isAdmin = 0;
+        $result = mysqli_query($this->mysqli, "INSERT INTO user (email, password, username, isAdmin) VALUES ('$email', '$password', '$username', $isAdmin)");
+        return $this->getUserByEmail($email);
+
+    }
+
 }
 
 $STORE = new DataStore();
