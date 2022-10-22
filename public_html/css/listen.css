@@ -167,7 +167,8 @@ audio {
 
 .progress {
     background: rgba(255, 255, 255, 0.6);
-    left: -5%;
+    left: -100%;
+    transition: left 50ms ease-in;
     position: absolute;
     width: 400px;
     height: 4px;
@@ -209,4 +210,8 @@ audio {
 
 .audio-playback {
     display: none;
+}
+
+.material-symbols-rounded {
+    user-select: none;
 }
