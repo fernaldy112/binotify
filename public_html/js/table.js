@@ -97,7 +97,10 @@ class TableRenderer {
         return button;
     }
 
-    change(data, page) {
+    change(result, page) {
+        const data = result["data"];
+        const hasNext = result["hasNext"];
+
         this.page = page;
         this.data = data.map(song => {
             song['publish_date'] = new Date(song['publish_date']);
@@ -116,7 +119,17 @@ class TableRenderer {
             });
         }
 
-        // TODO: check has next
+        if (!hasNext) {
+            this.hasNext = false;
+            this.nextButtons.forEach(button => {
+                button.setAttribute('hidden', true);
+            });
+        } else {
+            this.hasNext = true;
+            this.nextButtons.forEach(button => {
+                button.setAttribute('hidden', false);
+            });
+        }
 
         this.render();
     }

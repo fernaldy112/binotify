@@ -29,14 +29,16 @@ if (!isset($STORE)) {
     return;
 }
 
-$musics = $sortBy
+$res = $sortBy
     ? $STORE->getSongBySimilarName($query, $page)
     : $STORE->getSongBySimilarNameSorted($query, $page, $sortBy, $order);
-$hasResult = sizeof($musics) !== 0;
+
+
+$hasResult = sizeof($res["data"]) !== 0;
 
 if ($dataOnly) {
     header('Content-Type: application/json; charset=utf-8');
-    echo json_encode($musics);
+    echo json_encode($res);
     return;
 }
 
@@ -52,6 +54,6 @@ template("components/search.html")->bind([
     "query" => $query,
     "navbar" => html("components/shared/navbar.html"),
     "main" => $main,
-    "json_result" => json_encode($musics),
+    "json_result" => json_encode($res),
     "page" => $page
 ])->render();
