@@ -91,3 +91,34 @@ tr:not(:nth-child(1)) td:last-child {
     width: 0;
     height: 0;
 }
+
+th.sortable {
+    cursor: pointer;
+    text-align: center;
+}
+
+th.sortable::after {
+    font-family: 'Material Symbols Rounded';
+    font-weight: normal;
+    font-style: normal;
+    line-height: 0;
+    text-transform: none;
+    font-size: 24px;
+    letter-spacing: normal;
+    display: inline;
+    white-space: nowrap;
+    word-wrap: normal;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+
+    position: relative;
+    bottom: -6px;
+}
+
+th.sortable.descending::after {
+    content: "arrow_drop_up";
+}
+
+th.sortable.ascending::after {
+    content: "arrow_drop_down";
+}
