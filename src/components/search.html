@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ query }} | Binotify</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/search.css" />
+    <script>
+        var result = {{ json_result }};
+    </script>
+</head>
+<body>
+    <div id="app">
+        {{ navbar }}
+        {{ main }}
+    </div>
+</body>
+</html>
