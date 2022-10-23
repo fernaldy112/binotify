@@ -5,9 +5,19 @@
 
 .search-result {
     box-sizing: border-box;
-    padding: 64px 64px;
+    padding: 24px 64px;
     display: flex;
+    flex-flow: column;
     width: 100%;
+    align-items: center;
+}
+
+.result-table {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    align-items: center;
+    gap: 24px;
 }
 
 table {
@@ -53,4 +63,31 @@ tr:not(:nth-child(1)) td:first-child  {
 tr:not(:nth-child(1)) td:last-child {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+}
+
+.table-button.material-symbols-rounded {
+    background-color: #1DB954;
+    box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 9999px;
+    font-size: 36px;
+    color: #171717;
+    cursor: pointer;
+    will-change: transform;
+    transition: transform 200ms ease-out;
+}
+
+.table-button:hover {
+    transform: scale(1.1);
+}
+
+.table-controls {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.separator {
+    width: 0;
+    height: 0;
 }

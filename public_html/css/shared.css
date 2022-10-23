@@ -33,3 +33,7 @@ header {
             'GRAD' 200,
             'opsz' 48
 }
+
+[hidden] {
+    display: none !important;
+}

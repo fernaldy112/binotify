@@ -6,6 +6,55 @@ class TableRenderer {
 
         this.hasNext = false;
         this.hasPrev = false;
+
+        this.nextButtons = [];
+        this.prevButtons = [];
+
+        this._createContent();
+    }
+
+    _createContent() {
+        this.controlsUpper = this._createControls();
+        this.controlsLower = this._createControls();
+        this.table = document.createElement('table');
+
+        this.parent.appendChild(this.controlsUpper);
+        this.parent.appendChild(this.table);
+        this.parent.appendChild(this.controlsLower);
+    }
+
+    _createControls() {
+        const controls = document.createElement('div');
+        const separator = document.createElement('div');
+        separator.classList.add('separator');
+        controls.classList.add('table-controls');
+        controls.appendChild(this._createPrevButton());
+        controls.appendChild(separator);
+        controls.appendChild(this._createNextButton());
+        return controls;
+    }
+
+    _createNextButton() {
+        const button = this._createButton('navigate_next');
+        this.nextButtons.push(button);
+        button.addEventListener('click', this.next);
+        return button;
+
+    }
+
+    _createPrevButton() {
+        const button = this._createButton('navigate_before');
+        this.prevButtons.push(button);
+        button.addEventListener('click', this.prev);
+        return button;
+    }
+
+    _createButton(text) {
+        const button = document.createElement('button');
+        button.textContent = text;
+        button.classList.add('material-symbols-rounded');
+        button.classList.add('table-button');
+        return button;
     }
 
     change(data, page) {
@@ -17,12 +66,14 @@ class TableRenderer {
 
         if (this.page === 1) {
             this.hasPrev = false;
-            // TODO: disable prev button
-
+            this.prevButtons.forEach(button => {
+                button.setAttribute('hidden', true);
+            });
         } else {
             this.hasPrev = true;
-
-            // TODO: enable prev button
+            this.prevButtons.forEach(button => {
+                button.setAttribute('hidden', false);
+            });
         }
 
         // TODO: check has next
@@ -53,7 +104,7 @@ class TableRenderer {
             rows += this._renderRow(entry, order);
             order++;
         }
-        this.parent.innerHTML = `<table>${head}${rows}</table>`;
+        this.table.innerHTML = `${head}${rows}`;
     }
 
     _fetch(page) {
@@ -93,7 +144,6 @@ class TableRenderer {
 
     _renderRow(row, order) {
         const ord = order + (this.page - 1) * 20;
-        console.log(row)
 
         return `
             <tr>
