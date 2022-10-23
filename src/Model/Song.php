@@ -41,6 +41,22 @@ class Song
         $this->album_title = $album_title;
     }
 
+    public static function deserialize($deserialized, $albumTitle): Song
+    {
+        return new Song(
+            $deserialized["song_id"],
+            $deserialized["judul"],
+            $deserialized["penyanyi"],
+            $deserialized["tanggal_terbit"],
+            $deserialized["genre"],
+            $deserialized["duration"],
+            $deserialized["audio_path"],
+            $deserialized["image_path"],
+            $deserialized["album_id"],
+            $albumTitle
+        );
+    }
+
     /**
      * @return int
      */

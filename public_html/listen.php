@@ -6,10 +6,18 @@ require_once(__DIR__."/../src/Store/DataStore.php");
 // TODO: check if user is logged in or has listened to 3 songs
 
 $id = $_GET["s"];
-$song = STORE->getSongById($id);
+
+if (!isset($STORE)) {
+//    TODO: display 500
+    return;
+}
+
+$song = $STORE->getSongById($id);
 
 if ($song === null) {
 //    TODO: display 404
+    http_response_code(404);
+    return;
 }
 
 $header = html("components/shared/header.html");

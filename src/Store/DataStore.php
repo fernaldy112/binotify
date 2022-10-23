@@ -15,6 +15,11 @@ class DataStore {
         $this->mysqli = new mysqli("localhost:3306", "user", "password", "db");
     }
 
+    function get(): DataStore
+    {
+        return new DataStore();
+    }
+
     function getSongById($id): Song|null
     {
 
@@ -27,19 +32,33 @@ class DataStore {
 
         $songData = $rawData[0];
 
-        return new Song(
-            $songData["song_id"],
-            $songData["judul"],
-            $songData["penyanyi"],
-            $songData["tanggal_terbit"],
-            $songData["genre"],
-            $songData["duration"],
-            $songData["audio_path"],
-            $songData["image_path"],
-            $songData["album_id"],
-        );
+        $albumId = $songData["album_id"];
+        $albumData = $this->getAlbumById($albumId);
+
+        return Song::deserialize($songData, $albumData["judul"]);
     }
 
+    function getSongBySimilarName($query): array
+    {
+        $res = [];
+
+        $names = preg_replace("/\s+/", "|", $query);
+        $result = $this->mysqli->query("SELECT * FROM song WHERE judul REGEXP '$names'");
+        $rawData = $result->fetch_all(MYSQLI_ASSOC);
+
+        foreach ($rawData as $songData) {
+            $albumData = $this->getAlbumById($songData["album_id"]);
+            $res[] = Song::deserialize($songData, $albumData["judul"]);
+        }
+
+        return $res;
+    }
+
+    function getAlbumById($albumId) {
+        $result = $this->mysqli->query("SELECT * FROM album WHERE album_id = $albumId");
+        $rawData = $result->fetch_all(MYSQLI_ASSOC);
+        return $rawData[0];
+    }
 }
 
-const STORE = new DataStore();
+$STORE = new DataStore();
