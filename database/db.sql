@@ -74,7 +74,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `email`, `password`, `username`, `isAdmin`) VALUES
-(1, 'admin1@gmail.com', '123456', 'admin1', 1);
+(1, 'admin1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'admin1', 1);
 
 --
 -- Indexes for dumped tables
