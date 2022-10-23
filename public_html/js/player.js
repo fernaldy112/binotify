@@ -27,6 +27,7 @@ class Player {
         this.volume = 100;
         this.paused = false;
         this.time = 0;
+        this.ended = false;
 
         this.updateTimeout = null;
         this.durationTimeout = null;
@@ -58,7 +59,7 @@ class Player {
         })
 
         this.playButton.addEventListener('click', _ => {
-            if (this.paused) {
+            if (this.paused || this.ended) {
                 this.play();
             } else {
                 this.pause();
@@ -72,6 +73,8 @@ class Player {
 
         this.parent.addEventListener('ended', _ => {
             this._stopDurationTimeout();
+            this.ended = true;
+            this._stop();
         });
 
         this.progressBar.addEventListener('click', e => {
@@ -87,17 +90,27 @@ class Player {
     }
 
     play() {
+        if (this.ended) {
+            this.ended = false;
+            this.time = 0;
+            this._updateProgress();
+        }
+
         this.parent.play().then(() => {
             this._startDurationTimeout();
             this.paused = false;
-            this.playButton.children[0].textContent = 'play_circle';
+            this.playButton.children[0].textContent = 'pause_circle';
         });
     }
 
     pause() {
         this.parent.pause();
         this.paused = true;
-        this.playButton.children[0].textContent = 'pause_circle';
+        this._stop()
+    }
+
+    _stop() {
+        this.playButton.children[0].textContent = 'play_circle';
         this._stopDurationTimeout();
     }
 
@@ -110,6 +123,7 @@ class Player {
     _updateVolume() {
         this.updateTimeout = setTimeout(() => {
             clearTimeout(this.updateTimeout)
+            this.updateTimeout = null;
         }, 100);
 
         const newVolume = parseInt(this.volumeSlider.value);
