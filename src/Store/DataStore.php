@@ -12,7 +12,7 @@ class DataStore {
 
     function __construct()
     {
-        $this->mysqli = new mysqli("localhost:3306", "user", "password", "db");
+        $this->mysqli = new mysqli("db", "user", "password", "db");
     }
 
     function getAlbumById($id): Album|null
@@ -40,4 +40,4 @@ class DataStore {
 
 }
 
-const STORE = new DataStore();
+$STORE = new DataStore();
