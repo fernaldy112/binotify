@@ -1,6 +1,6 @@
 #main {
     flex-grow: 1;
-    background: linear-gradient(to bottom, #1DB954 0%, #171717 80%);
+    background: #171717;
 }
 
 .search-result {
