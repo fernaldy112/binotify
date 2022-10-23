@@ -1,4 +1,56 @@
 #main {
     flex-grow: 1;
-    background-color: #171717;
+    background: linear-gradient(to bottom, #1DB954 0%, #171717 80%);
+}
+
+.search-result {
+    box-sizing: border-box;
+    padding: 64px 64px;
+    display: flex;
+    width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    /*background: rgba(0, 0, 0, 0.5);*/
+}
+
+th {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 16px 8px;
+    font-weight: 400;
+    font-size: 0.8em;
+    letter-spacing: 2px;
+}
+
+td {
+    text-align: center;
+    font-size: 1em;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    padding: 16px 8px;
+}
+
+tr {
+    margin: 8px 0;
+    border-radius: 16px;
+}
+
+tr:not(.head) {
+    cursor: pointer;
+}
+
+tr:not(.head):hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+tr:not(:nth-child(1)) td:first-child  {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+tr:not(:nth-child(1)) td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
