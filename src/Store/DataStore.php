@@ -45,16 +45,25 @@ class DataStore {
 
         $names = preg_replace("/\s+/", "|", $query);
         $result = $this->mysqli->query(
-            "SELECT * FROM song WHERE judul REGEXP '$names'$ext LIMIT 20 OFFSET $offset"
+            "SELECT * FROM song WHERE judul REGEXP '$names'$ext LIMIT 21 OFFSET $offset"
         );
         $rawData = $result->fetch_all(MYSQLI_ASSOC);
+
+        $hasNext = false;
+        if (array_key_exists(20, $rawData)) {
+            $hasNext = true;
+            array_pop($rawData);
+        }
 
         foreach ($rawData as $songData) {
             $albumData = $this->getAlbumById($songData["album_id"]);
             $res[] = Song::deserialize($songData, $albumData["judul"]);
         }
 
-        return $res;
+        return [
+            "data" => $res,
+            "hasNext" => $hasNext
+        ];
     }
 
     function getAlbumById($albumId) {
