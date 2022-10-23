@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', _ => {
-    const table = new TableRenderer('.search-result');
+    const table = new TableRenderer('.result-table');
 
     table.change(result, page);
 })
