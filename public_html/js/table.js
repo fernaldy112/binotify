@@ -96,15 +96,14 @@ class TableRenderer {
     }
 
     render() {
-        const head = this._renderHead();
         let order = 1;
-        let rows = '';
+        this.table.innerHTML = "";
+        this.table.appendChild(this._renderHead());
 
         for (const entry of this.data) {
-            rows += this._renderRow(entry, order);
+            this.table.appendChild(this._renderRow(entry, order));
             order++;
         }
-        this.table.innerHTML = `${head}${rows}`;
     }
 
     _fetch(page) {
@@ -129,32 +128,35 @@ class TableRenderer {
     }
 
     _renderHead() {
-        return `
-            <tr class="head">
-                <th>#</th>
+        const head = document.createElement('tr');
+        head.classList.add('head');
+        head.innerHTML = `
+            <th>#</th>
                 <th>TITLE</th>
                 <th>ARTIST</th>
                 <th>GENRE</th>
                 <th>ALBUM</th>
                 <th>PUBLISHED YEAR</th>
                 <th>LENGTH</th>
-            </tr>
         `;
+        return head;
     }
 
     _renderRow(row, order) {
         const ord = order + (this.page - 1) * 20;
-
-        return `
-            <tr>
-                <td>${ord}</td>
+        const tableRow = document.createElement('tr');
+        tableRow.innerHTML = `
+            <td>${ord}</td>
                 <td>${row['title']}</td>
                 <td>${row['artist']}</td>
                 <td>${row['genre']}</td>
                 <td>${row['album_title']}</td>
                 <td>${row['publish_date'].getFullYear()}</td>
                 <td>${toDurationString(row['duration'])}</td>
-            </tr>
         `;
+        tableRow.addEventListener('click', () => {
+            location.href = `/listen.php?s=${row['id']}`;
+        })
+        return tableRow;
     }
 }
