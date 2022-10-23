@@ -44,8 +44,9 @@ class DataStore {
         $offset = ($page - 1) * 20;
 
         $names = preg_replace("/\s+/", "|", $query);
+        $cond = "judul REGEXP '$names' OR penyanyi REGEXP '$names' OR YEAR(tanggal_terbit) REGEXP '$names'";
         $result = $this->mysqli->query(
-            "SELECT * FROM song WHERE judul REGEXP '$names'$ext LIMIT 21 OFFSET $offset"
+            "SELECT * FROM song WHERE $cond$ext LIMIT 21 OFFSET $offset"
         );
         $rawData = $result->fetch_all(MYSQLI_ASSOC);
 
