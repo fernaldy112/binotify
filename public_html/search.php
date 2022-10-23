@@ -4,6 +4,7 @@ require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
 $query = $_GET["q"];
+$page = $_GET["p"] ?? 1;
 
 if (!isset($STORE)) {
 //    TODO: display 500
@@ -25,5 +26,6 @@ template("components/search.html")->bind([
     "query" => $query,
     "navbar" => html("components/shared/navbar.html"),
     "main" => $main,
-    "json_result" => json_encode($musics)
+    "json_result" => json_encode($musics),
+    "page" => $page
 ])->render();

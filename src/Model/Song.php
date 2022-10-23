@@ -2,7 +2,7 @@
 
 namespace Binotify\Model;
 
-class Song
+class Song implements \JsonSerializable
 {
 
     private int $id;
@@ -56,6 +56,23 @@ class Song
             $albumTitle
         );
     }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            "id" => $this->id,
+            "title" => $this->title,
+            "artist" => $this->artist,
+            "publish_date" => $this->publish_date,
+            "genre" => $this->genre,
+            "duration" => $this->duration,
+            "audio_path" => $this->audio_path,
+            "image_path" => $this->image_path,
+            "album_id" => $this->album_id,
+            "album_title" => $this->album_title
+        ];
+    }
+
 
     /**
      * @return int
