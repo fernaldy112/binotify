@@ -3,6 +3,9 @@ class TableRenderer {
     constructor(selector) {
         this.parent = document.querySelector(selector);
         this.data = {};
+
+        this.hasNext = false;
+        this.hasPrev = false;
     }
 
     change(data, page) {
@@ -12,7 +15,33 @@ class TableRenderer {
             return song;
         });
 
+        if (this.page === 1) {
+            this.hasPrev = false;
+            // TODO: disable prev button
+
+        } else {
+            this.hasPrev = true;
+
+            // TODO: enable prev button
+        }
+
+        // TODO: check has next
+
         this.render();
+    }
+
+    next() {
+        if (!this.hasNext) {
+            return;
+        }
+        this._fetch(this.page + 1);
+    }
+
+    prev() {
+        if (!this.hasPrev) {
+            return;
+        }
+        this._fetch(this.page - 1);
     }
 
     render() {
@@ -25,6 +54,27 @@ class TableRenderer {
             order++;
         }
         this.parent.innerHTML = `<table>${head}${rows}</table>`;
+    }
+
+    _fetch(page) {
+        const endpoint = new URL('/search.php');
+        const queryParams = new Proxy(new URLSearchParams(window.location.search), {
+            get: (queryParams, prop) => queryParams.get(prop),
+        });
+        queryParams.set('p', page);
+        queryParams.set('d', '1');
+        endpoint.search = queryParams.toString();
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', endpoint);
+        xhr.onload = _ => {
+            const data = JSON.parse(xhr.responseText);
+            this.change(data, page);
+
+        //    TODO: push state
+        }
+
+        xhr.send();
     }
 
     _renderHead() {
