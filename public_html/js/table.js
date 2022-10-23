@@ -79,7 +79,7 @@ class TableRenderer {
 
     _renderHead() {
         return `
-            <tr>
+            <tr class="head">
                 <th>#</th>
                 <th>TITLE</th>
                 <th>ARTIST</th>
@@ -92,7 +92,7 @@ class TableRenderer {
     }
 
     _renderRow(row, order) {
-        const ord = order + this.page * 20;
+        const ord = order + (this.page - 1) * 20;
         console.log(row)
 
         return `
