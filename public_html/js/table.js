@@ -10,7 +10,47 @@ class TableRenderer {
         this.nextButtons = [];
         this.prevButtons = [];
 
+        this.titleOrder = 'DESCENDING';
+        this.titleCell = null;
+        this.yearOrder = null;
+        this.yearCell = null;
+
+        this._createHead();
         this._createContent();
+
+        this.titleCell.classList.add(this.titleOrder.toLowerCase());
+    }
+
+    _createHead() {
+        const head = document.createElement('tr');
+        head.classList.add('head');
+        head.appendChild(this._createHeadCell('#'));
+
+        this.titleCell = this._createClickableHeadCell('TITLE', this._sortByTitle.bind(this));
+        head.appendChild(this.titleCell);
+
+        head.appendChild(this._createHeadCell('ARTIST'));
+        head.appendChild(this._createHeadCell('GENRE'));
+        head.appendChild(this._createHeadCell('ALBUM'));
+
+        this.yearCell = this._createClickableHeadCell('PUBLISHED YEAR', this._sortByYear.bind(this));
+        head.appendChild(this.yearCell);
+
+        head.appendChild(this._createHeadCell('LENGTH'));
+        this.head = head;
+    }
+
+    _createClickableHeadCell(text, onClick) {
+        const cell = this._createHeadCell(text);
+        cell.addEventListener('click', onClick);
+        cell.classList.add('sortable');
+        return cell;
+    }
+
+    _createHeadCell(text) {
+        const cell = document.createElement('th');
+        cell.textContent = text;
+        return cell;
     }
 
     _createContent() {
@@ -128,18 +168,7 @@ class TableRenderer {
     }
 
     _renderHead() {
-        const head = document.createElement('tr');
-        head.classList.add('head');
-        head.innerHTML = `
-            <th>#</th>
-                <th>TITLE</th>
-                <th>ARTIST</th>
-                <th>GENRE</th>
-                <th>ALBUM</th>
-                <th>PUBLISHED YEAR</th>
-                <th>LENGTH</th>
-        `;
-        return head;
+        return this.head;
     }
 
     _renderRow(row, order) {
@@ -158,5 +187,48 @@ class TableRenderer {
             location.href = `/listen.php?s=${row['id']}`;
         })
         return tableRow;
+    }
+
+    _sortByTitle() {
+        this._resetSort();
+
+        if (!this.titleOrder) {
+            this.titleOrder = 'ASCENDING';
+        } else {
+            this.titleOrder = this.titleOrder === 'ASCENDING'
+                ? 'DESCENDING'
+                : 'ASCENDING';
+        }
+
+        this.titleCell.classList.add(this.titleOrder.toLowerCase());
+
+    //    TODO: fetch
+    }
+
+    _sortByYear() {
+        this._resetSort();
+
+        if (!this.yearOrder) {
+            this.yearOrder = 'ASCENDING';
+        } else {
+            this.yearOrder = this.yearOrder === 'ASCENDING'
+                ? 'DESCENDING'
+                : 'ASCENDING';
+        }
+
+        this.yearCell.classList.add(this.yearOrder.toLowerCase());
+
+        //    TODO: fetch
+
+    }
+
+    _resetSort() {
+        this._removeSortClass(this.titleCell);
+        this._removeSortClass(this.yearCell);
+    }
+
+    _removeSortClass(node) {
+        node.classList.remove('ascending');
+        node.classList.remove('descending');
     }
 }
