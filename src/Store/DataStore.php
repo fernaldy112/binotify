@@ -43,7 +43,7 @@ class DataStore {
         $res = [];
 
         $names = preg_replace("/\s+/", "|", $query);
-        $result = $this->mysqli->query("SELECT * FROM song WHERE judul REGEXP '$names'");
+        $result = $this->mysqli->query("SELECT * FROM song WHERE judul REGEXP '$names' ORDER BY judul ASC LIMIT 20");
         $rawData = $result->fetch_all(MYSQLI_ASSOC);
 
         foreach ($rawData as $songData) {
