@@ -3,16 +3,42 @@
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
+if (!array_key_exists("q", $_GET)) {
+    // TODO: redirect
+}
+
 $query = $_GET["q"];
 $page = $_GET["p"] ?? 1;
+$sortBy = $_GET["s"] ?? null;
+if ($sortBy !== null) {
+    if ($sortBy != "year" || $sortBy != "title") {
+        $sortBy = null;
+    }
+}
+$order = $_GET["o"] ?? "asc";
+if ($order !== null) {
+    if ($order != "asc" || $order != "desc") {
+        $order = "asc";
+    }
+}
+
+$dataOnly = array_key_exists("d", $_GET) && $_GET["d"] === 1;
 
 if (!isset($STORE)) {
 //    TODO: display 500
     return;
 }
 
-$musics = $STORE->getSongBySimilarName($query);
+$musics = $sortBy
+    ? $STORE->getSongBySimilarName($query, $page)
+    : $STORE->getSongBySimilarNameSorted($query, $page, $sortBy, $order);
 $hasResult = sizeof($musics) !== 0;
+
+if ($dataOnly) {
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($musics);
+    return;
+}
 
 $header = html("components/shared/header.html");
 $result = template("components/search/result.html")->bind(["query" => $query]);
