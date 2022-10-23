@@ -170,22 +170,8 @@ class Player {
         this.time = this.parent.duration;
     }
 
-    // TODO: refactor to use toDurationString()
     _formatTime() {
-        const hour = Math.floor(this.time / 3600);
-        const minutePortion = this.time % 3600;
-        let min = Math.floor(minutePortion / 60) + "";
-        let sec = minutePortion % 60 + "";
-
-        let dur = "";
-
-        if (hour > 0) {
-            dur = `${hour}:`;
-            min = min.padStart(2, '0');
-        }
-
-        sec = sec.padStart(2, '0');
-        return `${dur}${min}:${sec}`;
+        return toDurationString(this.time);
     }
 }
 
