@@ -34,7 +34,7 @@ class Player {
 
         this.initListeners();
 
-        setInterval(this._sync, 10000)
+        setInterval(this._sync.bind(this), 10000)
     }
 
     initListeners() {
@@ -181,7 +181,8 @@ class Player {
     }
 
     _sync() {
-        this.time = this.parent.duration;
+        this.time = Math.round(this.parent.currentTime);
+        console.log(this.time)
     }
 
     _formatTime() {
