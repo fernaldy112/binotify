@@ -1,14 +1,14 @@
-#signUpButtonContainer{
+.submitContainer{
     width: 75%;
     margin: 0 auto;
     text-align: center;
 }
 
-#registerForm{
+.dataForm{
     width: 40%;
 }
 
-#registerForm button{
+.dataForm button{
     background-color: rgb(30, 215, 64);
     margin-top: 13px;
     margin-bottom: 2px;
@@ -20,7 +20,7 @@
     font-size: 16px;
 }
 
-#registerForm button:hover{
+.dataForm button:hover{
     background-color: rgb(32, 244, 60);
     margin-top: 10px;
     margin-bottom: 0px;
