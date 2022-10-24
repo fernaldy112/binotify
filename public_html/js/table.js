@@ -54,6 +54,7 @@ class TableRenderer {
     }
 
     _createContent() {
+        this._createFilterBar();
         this.controlsUpper = this._createControls();
         this.controlsLower = this._createControls();
         this.table = document.createElement('table');
@@ -61,6 +62,13 @@ class TableRenderer {
         this.parent.appendChild(this.controlsUpper);
         this.parent.appendChild(this.table);
         this.parent.appendChild(this.controlsLower);
+    }
+
+    _createFilterBar() {
+        const bar = document.createElement('div');
+        bar.classList.add('table-filter-bar');
+        this.parent.appendChild(bar);
+        this.filterBar = bar;
     }
 
     _createControls() {
@@ -95,6 +103,19 @@ class TableRenderer {
         button.classList.add('material-symbols-rounded');
         button.classList.add('table-button');
         return button;
+    }
+
+    registerGenres(genres) {
+        const select = document.createElement('select');
+        select.name = 'genre';
+        for (const genre of genres) {
+            const option = document.createElement('option');
+            option.value = genre;
+            option.innerText = genre;
+            select.appendChild(option);
+        }
+        this.filterBar.appendChild(select);
+        this.genreSelector = select;
     }
 
     change(result, page) {
@@ -161,9 +182,7 @@ class TableRenderer {
 
     _fetch(page) {
         const endpoint = new URL('/search.php');
-        const queryParams = new Proxy(new URLSearchParams(window.location.search), {
-            get: (queryParams, prop) => queryParams.get(prop),
-        });
+        const queryParams = new URLSearchParams(window.location.search);
         queryParams.set('p', page);
         queryParams.set('d', '1');
         endpoint.search = queryParams.toString();

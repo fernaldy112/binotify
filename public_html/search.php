@@ -32,7 +32,7 @@ if (!isset($STORE)) {
 $res = $sortBy
     ? $STORE->getSongBySimilarName($query, $page)
     : $STORE->getSongBySimilarNameSorted($query, $page, $sortBy, $order);
-
+$genres = $STORE->getSongGenres();
 
 $hasResult = sizeof($res["data"]) !== 0;
 
@@ -55,5 +55,6 @@ template("components/search.html")->bind([
     "navbar" => html("components/shared/navbar.html"),
     "main" => $main,
     "json_result" => json_encode($res),
+    "genres" => json_encode($genres),
     "page" => $page
 ])->render();
