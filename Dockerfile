@@ -3,6 +3,9 @@ COPY . /usr/src/binotify
 
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-enable mysqli
+RUN a2enmod rewrite
+RUN a2enmod headers
+RUN apachectl restart
 
 WORKDIR /usr/src/binotify
 
