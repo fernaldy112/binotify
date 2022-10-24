@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link href="http://fonts.cdnfonts.com/css/gotham" rel="stylesheet">
+    <link rel="stylesheet" href="css/authentication.css" />
+    <link rel="stylesheet" href="css/addData.css" />
+</head>
+<body>
+    <div class="addSongContainer">
+        <h1 class="logo">Binotify</h1>
+        <hr>
+        <form action="addsong.php" method="post" id="addSongForm" class="dataForm">
+            <label for="songTitle">Title</label>
+            <input type="text" id="songTitle" name="songTitle" placeholder="Enter song title">
+            {{ titleError }}
+            <label for="songSinger">Singer</label>
+            <input type="text" id="songSinger" name="songSinger" placeholder="Enter song singer">
+            {{ singerError }}
+            <label for="songDate">Release date</label>
+            <input type="date" id="songDate" name="songDate">
+            {{ dateError }}
+            <label for="songGenre">Genre</label>
+            <input type="text" id="songGenre" name="songGenre" placeholder="Enter song genre">
+            {{ genreError }}
+            <label for="songFile">Upload song</label>
+            <input type="file" id="songFile" name="songFile">
+            {{ fileError }}
+            <label for="songImage">Upload image</label>
+            <input type="file" id="songImage" name="songImage">
+            {{ imageError }}
+            <label for="songAlbum">Enter the album id</label>
+            <input type="number" id="songAlbum" name="songAlbum" placeholder="Enter album id">
+            {{ albumError }}
+            <div id="submitSongContainer" class="submitContainer">
+                {{ success }}
+                <button type="submit" name="addSong">Submit</button>
+            </div>
+        </form>
+    </div>    
+</body>
+</html>
