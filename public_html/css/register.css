@@ -1,12 +1,16 @@
 #signUpButtonContainer{
-    width: 30%;
+    width: 75%;
     margin: 0 auto;
     text-align: center;
 }
 
+#registerForm{
+    width: 40%;
+}
+
 #registerForm button{
     background-color: rgb(30, 215, 64);
-    margin-top: 3px;
+    margin-top: 13px;
     margin-bottom: 2px;
     height: 50px;
     width: 140px;
@@ -18,7 +22,7 @@
 
 #registerForm button:hover{
     background-color: rgb(32, 244, 60);
-    margin-top: 0px;
+    margin-top: 10px;
     margin-bottom: 0px;
     height: 55px;
     width: 145px;
@@ -39,4 +43,13 @@
 
 #redirectLoginForm button:hover{
     color: rgb(32, 244, 60);
+}
+
+.regError{
+    color: red;
+    font-weight: normal;
+    width: 75%;
+    margin-left: 12%;
+    margin-top: 0;
+    margin-bottom: 0;
 }

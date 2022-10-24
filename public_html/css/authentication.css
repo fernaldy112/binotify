@@ -18,7 +18,7 @@ html, body {
     margin-bottom: 10px;
 }
 
-.authContainer p{
+.authContainer>p{
     font-size: 14px;
     font-weight: bold;
     margin-top: 40px;
@@ -38,15 +38,15 @@ form{
 
 .dataForm label{
     display: block;
-    width: 30%;
+    width: 75%;
     margin: 5px auto;
+    margin-top: 20px;;
 }
 
 .dataForm input{
     display: block;
-    width: 30%;
+    width: 75%;
     margin: 8px auto;
-    margin-bottom: 20px;
     height: 35px;
     border-radius: 5px;
     border-width: 1px;

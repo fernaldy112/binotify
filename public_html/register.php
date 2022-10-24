@@ -3,6 +3,13 @@
     require_once(__DIR__."/../src/Template/util.php");
     require_once(__DIR__."/../src/Store/DataStore.php");
 
+    function checkMsg($msg){
+        if (strlen($msg) !==0){
+            $msg = "<p class='regError'>".$msg."</p>";
+        }
+        return $msg;
+    }
+
     $emailError = "";
     $usernameError = "";
     $passwordError = "";
@@ -42,6 +49,19 @@
             $valid = false;
         }
 
+        if (strlen(trim($email))===0){
+            $emailError = "You need to enter your email.";
+        }
+        if (strlen(trim($username))===0){
+            $usernameError = "Enter a name for your profile.";
+        }
+        if (strlen(trim($password))===0){
+            $passwordError = "You need to enter a password.";
+        }
+        if (strlen(trim($password2))===0){
+            $password2Error = "You need to confirm your password.";
+        }
+
         if ($valid){
             $password = md5($password);
             $user = $STORE->insertUser($email, $username, $password);
@@ -54,6 +74,11 @@
     if (isset($_POST["redirectLogIn"])){
         header("Location: login.php");
     }
+
+    $emailError = checkMsg($emailError);
+    $usernameError = checkMsg($usernameError);
+    $passwordError = checkMsg($passwordError);
+    $password2Error = checkMsg($password2Error);
 
     template("components/authentication.html")->render(
         [

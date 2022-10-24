@@ -1,7 +1,11 @@
 #logInButtonContainer{
-    width: 30%;
+    width: 75%;
     margin: 0 auto;
     text-align: right;
+}
+
+#loginForm{
+    width: 40%;
 }
 
 #loginForm button{
@@ -25,7 +29,7 @@
 
 #loginForm hr{
     margin-top: 15px;
-    width: 31%;;
+    width: 77.5%;
 }
 
 #redirectSignUpForm{
@@ -55,4 +59,15 @@
 
 #redirectSignUpForm button:hover{
     border-color: black;
+}
+
+.loginError{
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 0;
+    background-color: red;
+    color: white;
+    line-height: 50px;
 }

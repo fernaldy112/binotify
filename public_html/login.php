@@ -11,7 +11,9 @@
         
         $user = $STORE->getUserByEmail($identity) ?? $STORE->getUserByUsername($identity);
 
-        if (!$user || md5($password) !== $user->getPassword()){
+        if (strlen(trim($identity))===0 || strlen(trim($password))===0){
+            $invalidLogin = "Every input must be filled.";
+        } else if (!$user || md5($password) !== $user->getPassword()){
             $invalidLogin = "Incorrect credential.";
         } else {
             $_SESSION["username"] = $user->getUsername();
@@ -21,6 +23,10 @@
     
     if (isset($_POST["redirectSignUp"])){
         header("Location: register.php");
+    }
+
+    if (strlen($invalidLogin) !==0){
+        $invalidLogin = "<p class='loginError'>".$invalidLogin."</p>";
     }
 
     template("components/authentication.html")->render(
