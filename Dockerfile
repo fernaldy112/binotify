@@ -15,3 +15,20 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 EXPOSE 80
+
+# FROM php:8.0-apache
+# RUN apt-get -y update
+# RUN apt-get -y upgrade
+# RUN docker-php-ext-install mysqli
+# RUN apt-get install -y ffmpeg
+# COPY . /usr/src/binotify
+# WORKDIR /usr/src/binotify
+
+# USER root
+
+# ENV APACHE_DOCUMENT_ROOT /usr/src/binotify/public_html
+
+# RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+# RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# EXPOSE 80
