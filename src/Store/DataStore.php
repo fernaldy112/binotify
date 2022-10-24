@@ -70,6 +70,9 @@ class DataStore {
     function getAlbumById($albumId) {
         $result = $this->mysqli->query("SELECT * FROM album WHERE album_id = $albumId");
         $rawData = $result->fetch_all(MYSQLI_ASSOC);
+        if (!array_key_exists(0, $rawData)) {
+            return null;
+        }
         return $rawData[0];
     }
 
@@ -97,6 +100,16 @@ class DataStore {
 
     static function genreMap($genreRow) {
         return $genreRow["genre"];
+    }
+
+    function addAlbumTotalDuration($albumId, $extraDuration){
+        $result = mysqli_query($this->mysqli, "UPDATE album SET duration = duration + $extraDuration WHERE album_id = '$albumId'");
+        return $result;
+    }
+
+    function addSong($title, $singer, $releaseDate, $genre, $duration, $audioPath, $imgPath, $albumId){
+        $result = mysqli_query($this->mysqli, "INSERT INTO song (judul, penyanyi, tanggal_terbit, genre, duration, audio_path, image_path, album_id) VALUES ('$title', '$singer', '$releaseDate', '$genre', '$duration', '$audioPath', '$imgPath', '$albumId')");
+        return $result;
     }
 }
 
