@@ -51,15 +51,19 @@
 
         if (strlen(trim($email))===0){
             $emailError = "You need to enter your email.";
+            $valid = false;
         }
         if (strlen(trim($username))===0){
             $usernameError = "Enter a name for your profile.";
+            $valid = false;
         }
         if (strlen(trim($password))===0){
             $passwordError = "You need to enter a password.";
+            $valid = false;
         }
         if (strlen(trim($password2))===0){
             $password2Error = "You need to confirm your password.";
+            $valid = false;
         }
 
         if ($valid){
