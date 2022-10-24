@@ -68,7 +68,7 @@ class DataStore {
     }
 
     function getAlbumById($albumId) {
-        $result = $this->mysqli->query("SELECT * FROM album WHERE album_id = $albumId");
+        $result = $this->mysqli->query("SELECT * FROM album WHERE album_id = '$albumId'");
         $rawData = $result->fetch_all(MYSQLI_ASSOC);
         if (!array_key_exists(0, $rawData)) {
             return null;

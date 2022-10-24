@@ -11,7 +11,7 @@
     <div class="addSongContainer">
         <h1 class="logo">Binotify</h1>
         <hr>
-        <form action="addsong.php" method="post" id="addSongForm" class="dataForm">
+        <form action="addsong.php" method="post" id="addSongForm" class="dataForm" enctype="multipart/form-data">
             <label for="songTitle">Title</label>
             <input type="text" id="songTitle" name="songTitle" placeholder="Enter song title">
             {{ titleError }}

@@ -10,6 +10,12 @@
         return $msg;
     }
 
+    function checkInputLength($var, $errorkey, $msg, &$addSongError){
+        if (strlen(trim($var))===0){
+            $addSongError[$errorkey] = $msg;
+            $addSongError["valid"] = false;
+        }
+    }
 
     $addSongError = [
         "titleError" => "",
@@ -24,39 +30,55 @@
     $successMsg = "";
 
     if (isset($_POST["addSong"])){
+        var_dump($_FILES);
         $title = $_POST["songTitle"];
         $singer = $_POST["songSinger"];
         $date = $_POST["songDate"];
         $genre = $_POST["songGenre"];
-        $file = $_POST["songFile"];
-        $image = $_POST["songImage"];
         $albumId = $_POST["songAlbum"];
 
-        $date = date("Y-m-d");
+        $file = $_FILES['songFile'];
+        $image = $_FILES['songImage'];
 
-        if (strlen(trim($title))===0){
-            $addSongError["titleError"] = "You need to enter the title.";
-            $addSongError["valid"] = false;
-        }
-        if (strlen(trim($singer))===0){
-            $addSongError["singerError"] = "You need to enter the singer.";
-            $addSongError["valid"] = false;
-        }
-        if (strlen(trim($date))===0){
-            $addSongError["dateError"] = "You need to enter the date.";
-            $addSongError["valid"] = false;
-        }
-        if (strlen(trim($genre))===0){
-            $addSongError["genreError"] = "You need to enter the genre.";
-            $addSongError["valid"] = false;
-        }
-        if (strlen(trim($albumId))===0){
-            $addSongError["albumError"] = "You need to enter the album id.";
-            $addSongError["valid"] = false;
-        }
+        // TODO
+        // $date = date("Y-m-d");
+
+        checkInputLength($title, "titleError", "You need to enter the title.", $addSongError);
+        checkInputLength($singer, "singerError", "You need to enter the singer.", $addSongError);
+        checkInputLength($date, "dateError", "You need to enter the date.", $addSongError);
+        checkInputLength($genre, "genreError", "You need to enter the genre.", $addSongError);
+        checkInputLength($albumId, "albumError", "You need to enter the album id.", $addSongError);
 
         // TODO: check file and image uploaded
-        // TODO: check extension file dan image
+        if ($file['error']===4){
+            $addSongError["fileError"] = "You need to upload the song file.";
+        } else {
+            $arrOfFileName = explode('.', $file["name"]);
+            $fileExtension = strtolower(end($arrOfFileName));
+            if ($fileExtension !== "mp3"){
+                $addSongError["fileError"] = "File extension should be mp3";
+            } else if ($file['size'] > 8000000) {
+                $addSongError["fileError"] = "File size is too big.";
+            } else {
+                $filePath = "music/".strval(time())."_".$file["name"];
+                move_uploaded_file($file["tmp_name"], $filePath);
+            }
+        }
+
+        if ($image['error']===4){
+            $addSongError["imageError"] = "You need to upload the image file.";
+        } else {
+            $arrOfImgName = explode('.', $image["name"]);
+            $imgExtension = strtolower(end($arrOfImgName));
+            if ($imgExtension !== "jpg" && $imgExtension !== "jpeg" && $imgExtension !== "png"){
+                $addSongError["imageError"] = "Image extension should be jpg, jpeg, or png";
+            } else if ($file['size'] > 8000000) {
+                $addSongError["imgError"] = "Image size is too big.";
+            } else {
+                $imgPath = "image/".strval(time())."_".$image["name"];
+                move_uploaded_file($image["tmp_name"], $imgPath);
+            }
+        }
 
         // TODO: count song duration
         // ffmpeg
@@ -92,6 +114,8 @@
             "dateError" => $addSongError["dateError"],
             "genreError" => $addSongError["genreError"],
             "albumError" => $addSongError["albumError"],
+            "fileError" => $addSongError["fileError"],
+            "imageError" => $addSongError["imageError"],
             "success" => $successMsg,
         ]
     );
