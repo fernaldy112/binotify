@@ -87,6 +87,17 @@ class DataStore {
 
         return $this->getSongBySimilarName($query, $page, $queryExt);
     }
+
+    function getSongGenres(): array
+    {
+        $result = $this->mysqli->query('SELECT DISTINCT genre FROM song;');
+        $rawData = $result->fetch_all(MYSQLI_ASSOC);
+        return array_map(array("self", "genreMap"), $rawData);
+    }
+
+    static function genreMap($genreRow) {
+        return $genreRow["genre"];
+    }
 }
 
 $STORE = new DataStore();

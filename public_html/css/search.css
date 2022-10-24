@@ -87,6 +87,12 @@ tr:not(:nth-child(1)) td:last-child {
     align-items: center;
 }
 
+.table-filter-bar {
+    display: flex;
+    width: 100%;
+    justify-content: start;
+}
+
 .separator {
     width: 0;
     height: 0;
