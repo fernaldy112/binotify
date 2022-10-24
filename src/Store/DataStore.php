@@ -12,7 +12,7 @@ class DataStore {
 
     function __construct()
     {
-        $this->mysqli = new mysqli("localhost:3306", "user", "password", "db");
+        $this->mysqli = new mysqli("db", "user", "password", "db"); // localhost:3306
     }
 
     function get(): DataStore

@@ -2,6 +2,8 @@ version: '3.3'
 services:
   web:
     image: tubes-1:latest
+    volumes:
+      - "./:/var/www/html"
     ports:
       - "8008:80"
   db:
@@ -13,12 +15,10 @@ services:
       - MYSQL_ROOT_PASSWORD=password
     volumes:
       - "./database:/docker-entrypoint-initdb.d"
-    ports:
-      - "3306:3306"
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
-      - "8001:80"
+      - 8001:80
     environment:
       - PMA_HOST=db
       - PMA_PORT=3306
