@@ -281,7 +281,7 @@ class TableRenderer {
                 <td>${toDurationString(row['duration'])}</td>
         `;
         tableRow.addEventListener('click', () => {
-            location.href = `/listen.php?s=${row['id']}`;
+            location.href = `/listen?s=${row['id']}`;
         })
         return tableRow;
     }
