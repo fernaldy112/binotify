@@ -51,16 +51,16 @@
 
         // TODO: check file and image uploaded
         if ($file['error']===4){
-            $addSongError["fileError"] = "You need to upload the song file.";
+            $addSongError["fileError"] = "You need to upload the new file.";
         } else {
             $arrOfFileName = explode('.', $file["name"]);
             $fileExtension = strtolower(end($arrOfFileName));
             if ($fileExtension !== "mp3"){
                 $addSongError["fileError"] = "File extension should be mp3";
-            } else if ($file['size'] > 8000000) {
+            } else if ($file['size'] > 2000000) {
                 $addSongError["fileError"] = "File size is too big.";
             } else {
-                $filePath = "music/".strval(time())."_".$file["name"];
+                $filePath = __DIR__."/../assets/music/".strval(time())."_".$file["name"];
                 move_uploaded_file($file["tmp_name"], $filePath);
             }
         }
