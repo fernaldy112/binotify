@@ -10,15 +10,41 @@ class TableRenderer {
         this.nextButtons = [];
         this.prevButtons = [];
 
-        this.titleOrder = 'DESCENDING';
-        this.titleCell = null;
-        this.yearOrder = null;
-        this.yearCell = null;
+        this._initOrder();
 
         this._createHead();
         this._createContent();
 
-        this.titleCell.classList.add(this.titleOrder.toLowerCase());
+        if (this.titleOrder) {
+            this.titleCell.classList.add(this.titleOrder.toLowerCase());
+        } else {
+            this.yearCell.classList.add(this.yearOrder.toLowerCase());
+        }
+    }
+
+    _initOrder() {
+        const params = new URLSearchParams(window.location.search);
+
+        this.titleOrder = null;
+        this.titleCell = null;
+        this.yearOrder = null;
+        this.yearCell = null;
+
+        if (!params.has('s')) {
+            this.titleOrder = 'DESCENDING';
+            return;
+        }
+
+        let order = 'ASCENDING';
+        if (params.get('o') === 'desc') {
+            order = 'DESCENDING';
+        }
+
+        if (params.get('s') === 'title') {
+            this.titleOrder = order;
+        } else {
+            this.yearOrder = order;
+        }
     }
 
     _createHead() {
