@@ -2,6 +2,7 @@ version: '3.3'
 services:
   web:
     image: tubes-1:latest
+    # build: .
     volumes:
       - "./:/var/www/html"
     ports:
