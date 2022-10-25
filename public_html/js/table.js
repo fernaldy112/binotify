@@ -225,6 +225,9 @@ class TableRenderer {
             this.change(data, page);
 
             const newUrl = new URL(window.location.origin);
+            if (queryParams.has('d')) {
+                queryParams.delete('d');
+            }
             newUrl.search = queryParams.toString();
             history.pushState(null, '', newUrl);
         }
