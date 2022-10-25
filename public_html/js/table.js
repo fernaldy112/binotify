@@ -138,6 +138,7 @@ class TableRenderer {
     registerGenres(genres) {
         const select = document.createElement('select');
         select.name = 'genre';
+        select.classList.add('genre-dropdown');
 
         const option = document.createElement('option');
         option.value = '';
@@ -148,6 +149,7 @@ class TableRenderer {
             const option = document.createElement('option');
             option.value = genre;
             option.innerText = genre;
+            option.classList.add('genre-option')
             select.appendChild(option);
         }
         this.filterBar.appendChild(select);
