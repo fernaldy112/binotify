@@ -105,9 +105,19 @@ class TableRenderer {
         return button;
     }
 
+    /**
+     *
+     * @param {string[]} genres
+     */
     registerGenres(genres) {
         const select = document.createElement('select');
         select.name = 'genre';
+
+        const option = document.createElement('option');
+        option.value = '';
+        option.innerText = 'Any genre';
+        select.appendChild(option);
+
         for (const genre of genres) {
             const option = document.createElement('option');
             option.value = genre;
@@ -116,6 +126,10 @@ class TableRenderer {
         }
         this.filterBar.appendChild(select);
         this.genreSelector = select;
+
+        this.genreSelector.addEventListener('change', _ => {
+            this._fetch(this.page, this.genreSelector.value);
+        });
     }
 
     change(result, page) {
@@ -180,12 +194,29 @@ class TableRenderer {
         }
     }
 
-    _fetch(page) {
-        const endpoint = new URL('/search.php');
+    _reset() {
+        this.table.innerHTML = "";
+        this.table.appendChild(this._renderHead());
+        const loadingRow = document.createElement('td');
+        loadingRow.innerText = 'Loading...';
+        loadingRow.rowSpan = 7;
+    }
+
+    _fetch(page, sortBy = '', order = '', genre = '') {
+        const endpoint = new URL('/search', window.location.origin);
         const queryParams = new URLSearchParams(window.location.search);
         queryParams.set('p', page);
         queryParams.set('d', '1');
+        if (sortBy) {
+            queryParams.set('s', sortBy);
+            queryParams.set('o', order === 'ASCENDING' ? 'asc' : 'desc');
+        }
+        if (genre) {
+            queryParams.set('g', genre);
+        }
         endpoint.search = queryParams.toString();
+
+        this._reset();
 
         const xhr = new XMLHttpRequest();
         xhr.open('GET', endpoint);
@@ -193,8 +224,12 @@ class TableRenderer {
             const data = JSON.parse(xhr.responseText);
             this.change(data, page);
 
-        //    TODO: push state
+            const newUrl = new URL(window.location.origin);
+            newUrl.search = queryParams.toString();
+            history.pushState(null, '', newUrl);
         }
+
+
 
         xhr.send();
     }
@@ -234,7 +269,7 @@ class TableRenderer {
 
         this.titleCell.classList.add(this.titleOrder.toLowerCase());
 
-    //    TODO: fetch
+        this._fetch(this.page, 'title',  this.titleOrder, this.genreSelector.value);
     }
 
     _sortByYear() {
@@ -250,8 +285,7 @@ class TableRenderer {
 
         this.yearCell.classList.add(this.yearOrder.toLowerCase());
 
-        //    TODO: fetch
-
+        this._fetch(this.page, 'year',  this.yearOrder, this.genreSelector.value);
     }
 
     _resetSort() {
