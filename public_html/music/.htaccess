@@ -1,0 +1,3 @@
+RewriteEngine On
+Header add Accept-Range "bytes"
+
