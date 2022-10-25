@@ -4,7 +4,8 @@ services:
     image: tubes-1:latest
     # build: .
     volumes:
-      - "./:/var/www/html"
+      - "./:/usr/src/binotify"
+      - "./assets/music:/usr/src/binotify/public_html/music"
     ports:
       - "8008:80"
   db:

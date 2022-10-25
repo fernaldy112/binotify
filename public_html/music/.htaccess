@@ -1,3 +1,2 @@
 RewriteEngine On
 Header add Accept-Range "bytes"
-Alias "/music" "/usr/src/binotify/assets/music"
