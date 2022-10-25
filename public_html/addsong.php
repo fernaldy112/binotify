@@ -82,7 +82,7 @@
             if ($imgExtension !== "jpg" && $imgExtension !== "jpeg" && $imgExtension !== "png"){
                 $addSongError["imageError"] = "Image extension should be jpg, jpeg, or png";
                 $addSongError["valid"] = false;
-            } else if ($file['size'] > 2000000) {
+            } else if ($image['size'] > 2000000) {
                 $addSongError["imgError"] = "Image size is too big.";
                 $addSongError["valid"] = false;
             } else {
