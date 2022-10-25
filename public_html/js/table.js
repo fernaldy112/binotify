@@ -156,7 +156,8 @@ class TableRenderer {
         this.genreSelector = select;
 
         this.genreSelector.addEventListener('change', _ => {
-            this._fetch(this.page, this.genreSelector.value);
+            const params = new URLSearchParams(window.location.search);
+            this._fetch(this.page, params.get('s') ?? '', params.get('o') ?? '', this.genreSelector.value);
         });
     }
 
