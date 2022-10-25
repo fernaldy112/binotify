@@ -38,6 +38,20 @@ class DataStore {
         );
     }
 
+    function addAlbum($title, $singer, $date, $genre, $image)
+    {
+        $sql = "INSERT INTO album (judul, penyanyi, image_path, tanggal_terbit, genre) VALUES ('$title', '$singer', '$image', '$date', '$genre');";
+        $result = $this->mysqli->query($sql);
+
+        if ($result)
+        {
+            $msg = "Album addition is successful";
+        }else{
+            $msg = "Data not inserted";
+        }
+
+        return $msg;
+    }
 }
 
 $STORE = new DataStore();
