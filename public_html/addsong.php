@@ -3,9 +3,19 @@
     require_once(__DIR__."/../src/Template/util.php");
     require_once(__DIR__."/../src/Store/DataStore.php");
 
-    function checkMsg($msg){
+    function countSeconds($duration){
+        $duration = explode(':', $duration);
+        $second = 0;
+        foreach($duration as $x){
+            $x = (int)$x;
+            $second += $x;
+        }
+        return $second;
+    }
+    
+    function checkErrorMsg($msg){
         if (strlen($msg) !==0){
-            $msg = "<p class='songAddition'>".$msg."</p>";
+            $msg = "<p class='songAdditionError'>".$msg."</p>";
         }
         return $msg;
     }
@@ -30,7 +40,6 @@
     $successMsg = "";
 
     if (isset($_POST["addSong"])){
-        var_dump($_FILES);
         $title = $_POST["songTitle"];
         $singer = $_POST["songSinger"];
         $date = $_POST["songDate"];
@@ -40,51 +49,47 @@
         $file = $_FILES['songFile'];
         $image = $_FILES['songImage'];
 
-        // TODO
-        // $date = date("Y-m-d");
-
         checkInputLength($title, "titleError", "You need to enter the title.", $addSongError);
         checkInputLength($singer, "singerError", "You need to enter the singer.", $addSongError);
         checkInputLength($date, "dateError", "You need to enter the date.", $addSongError);
         checkInputLength($genre, "genreError", "You need to enter the genre.", $addSongError);
         checkInputLength($albumId, "albumError", "You need to enter the album id.", $addSongError);
 
-        // TODO: check file and image uploaded
         if ($file['error']===4){
             $addSongError["fileError"] = "You need to upload the new file.";
+            $addSongError["valid"] = false;
         } else {
             $arrOfFileName = explode('.', $file["name"]);
             $fileExtension = strtolower(end($arrOfFileName));
             if ($fileExtension !== "mp3"){
                 $addSongError["fileError"] = "File extension should be mp3";
+                $addSongError["valid"] = false;
             } else if ($file['size'] > 2000000) {
                 $addSongError["fileError"] = "File size is too big.";
+                $addSongError["valid"] = false;
             } else {
-                $filePath = __DIR__."/../assets/music/".strval(time())."_".$file["name"];
-                move_uploaded_file($file["tmp_name"], $filePath);
+                $fileName = strval(time())."_".str_replace(' ', '_', $file["name"]);
+                $filePath = __DIR__."/../assets/music/".$fileName;
             }
         }
 
         if ($image['error']===4){
             $addSongError["imageError"] = "You need to upload the image file.";
+            $addSongError["valid"] = false;
         } else {
             $arrOfImgName = explode('.', $image["name"]);
             $imgExtension = strtolower(end($arrOfImgName));
             if ($imgExtension !== "jpg" && $imgExtension !== "jpeg" && $imgExtension !== "png"){
                 $addSongError["imageError"] = "Image extension should be jpg, jpeg, or png";
-            } else if ($file['size'] > 8000000) {
+                $addSongError["valid"] = false;
+            } else if ($file['size'] > 2000000) {
                 $addSongError["imgError"] = "Image size is too big.";
+                $addSongError["valid"] = false;
             } else {
-                $imgPath = "image/".strval(time())."_".$image["name"];
-                move_uploaded_file($image["tmp_name"], $imgPath);
+                $imageName = strval(time())."_".str_replace(' ', '_', $image["name"]);
+                $imgPath = __DIR__."/../assets/music/".$imageName;
             }
         }
-
-        // TODO: count song duration
-        // ffmpeg
-
-        // TODO: change album total duration
-        // $addDuration = $STORE->addAlbumTotalDuration($albumId, $duration);
 
         $album = $STORE->getAlbumById($albumId);
         if (!$album){
@@ -92,19 +97,31 @@
             $addSongError["valid"] = false;
         }
 
-        // TODO: kalau valid upload
-        // if ($addSongError["valid"]){
-        //     $STORE->addSong($title, $singer, $date, $genre, $file, $image, $albumId);
-        //     $successMsg = "Song addition is successful";
-        // }
+        if ($addSongError["valid"]){
+            move_uploaded_file($file["tmp_name"], $filePath);
+            move_uploaded_file($image["tmp_name"], $imgPath);
+            if (strlen($addSongError["fileError"])===0){
+                $duration = shell_exec("cd music ; ffmpeg -i $fileName 2>&1 | grep Duration | awk '{print $2}' | tr -d ,");
+            }
+            $duration = countSeconds($duration);
+            $fileLoc = "music/".$fileName;
+            $imageLoc = "image/".$imageName;
+            $STORE->addSong($title, $singer, $date, $genre, $duration, $fileLoc, $imageLoc, $albumId);
+            $addDuration = $STORE->addAlbumTotalDuration($albumId, $duration);
+            $successMsg = "Song addition is successful";
+        }
     }
 
-    $addSongError["titleError"] = checkMsg($addSongError["titleError"]);
-    $addSongError["singerError"] = checkMsg($addSongError["singerError"]);
-    $addSongError["dateError"] = checkMsg($addSongError["dateError"]);
-    $addSongError["genreError"] = checkMsg($addSongError["genreError"]);
-    $addSongError["albumError"] = checkMsg($addSongError["albumError"]);
-    $successMsg = checkMsg($successMsg);
+    $addSongError["titleError"] = checkErrorMsg($addSongError["titleError"]);
+    $addSongError["singerError"] = checkErrorMsg($addSongError["singerError"]);
+    $addSongError["dateError"] = checkErrorMsg($addSongError["dateError"]);
+    $addSongError["genreError"] = checkErrorMsg($addSongError["genreError"]);
+    $addSongError["albumError"] = checkErrorMsg($addSongError["albumError"]);
+    $addSongError["fileError"] = checkErrorMsg($addSongError["fileError"]);
+    $addSongError["imageError"] = checkErrorMsg($addSongError["imageError"]);
+    if (strlen($successMsg) !==0){
+        $successMsg = "<p class='songAdditionSuccess'>".$successMsg."</p>";
+    }
 
     template("components/addsong.html")->render(
         [
