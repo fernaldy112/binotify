@@ -128,3 +128,23 @@ th.sortable.descending::after {
 th.sortable.ascending::after {
     content: "arrow_drop_up";
 }
+
+.genre-dropdown, .genre-option {
+    box-sizing: border-box;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: transparent;
+    color: #dfdfdf;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-family: 'Inter', sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.genre-dropdown:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.genre-dropdown:focus {
+    outline: none;
+}
