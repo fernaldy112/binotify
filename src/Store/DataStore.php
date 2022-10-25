@@ -40,17 +40,10 @@ class DataStore {
 
     function addAlbum($title, $singer, $date, $genre, $image)
     {
-        $sql = "INSERT INTO album (judul, penyanyi, image_path, tanggal_terbit, genre) VALUES ('$title', '$singer', '$image', '$date', '$genre');";
-        $result = $this->mysqli->query($sql);
+        $sql = ";";
+        $result = mysqli_query($this->mysqli, "INSERT INTO album (judul, penyanyi, image_path, tanggal_terbit, genre) VALUES ('$title', '$singer', '$image', '$date', '$genre')");
+        return $result;
 
-        if ($result)
-        {
-            $msg = "Album addition is successful";
-        }else{
-            $msg = "Data not inserted";
-        }
-
-        return $msg;
     }
 }
 

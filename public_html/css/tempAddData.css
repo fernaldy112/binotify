@@ -37,8 +37,17 @@
     margin-bottom: 0;
 }
 
-.albumAddition {
+.albumAdditionError {
     color: red;
+    font-weight: normal;
+    width: 75%;
+    margin-left: 12%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.albumAdditionError {
+    color: black;
     font-weight: normal;
     width: 75%;
     margin-left: 12%;

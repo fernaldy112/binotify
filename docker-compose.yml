@@ -2,6 +2,10 @@ version: '3.3'
 services:
   web:
     image: tubes-1:latest
+    # build: .
+    volumes:
+      - "./:/usr/src/binotify"
+      - "./assets/music:/usr/src/binotify/public_html/music"
     ports:
       - "8008:80"
   db:
