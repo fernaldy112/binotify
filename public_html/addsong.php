@@ -87,7 +87,7 @@
                 $addSongError["valid"] = false;
             } else {
                 $imageName = strval(time())."_".str_replace(' ', '_', $image["name"]);
-                $imgPath = __DIR__."/../assets/music/".$imageName;
+                $imgPath = __DIR__."/../assets/image/".$imageName;
             }
         }
 
