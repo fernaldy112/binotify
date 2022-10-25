@@ -103,7 +103,7 @@ class DataStore {
     }
 
     function addAlbumTotalDuration($albumId, $extraDuration){
-        $result = mysqli_query($this->mysqli, "UPDATE album SET duration = duration + $extraDuration WHERE album_id = '$albumId'");
+        $result = mysqli_query($this->mysqli, "UPDATE album SET total_duration = total_duration + $extraDuration WHERE album_id = '$albumId'");
         return $result;
     }
 
