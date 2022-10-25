@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} ^[^\.]+$
+RewriteRule (.*) $1.php
