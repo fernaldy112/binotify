@@ -122,9 +122,9 @@ th.sortable::after {
 }
 
 th.sortable.descending::after {
-    content: "arrow_drop_up";
+    content: "arrow_drop_down";
 }
 
 th.sortable.ascending::after {
-    content: "arrow_drop_down";
+    content: "arrow_drop_up";
 }
