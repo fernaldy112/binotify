@@ -8,6 +8,7 @@ $userList = $STORE->getAllUser();
 function make_tabel($userList){
     $tbl_array = [];
     $tbl_array[] = "<table class=\"styled-table\">";
+    $tbl_array[] = "<tr><th>Username</th><th>Email</th></tr>";
     foreach ($userList as $user){
         $tbl_array[] = "<tr>";
         $username = $user->getUsername();
@@ -21,10 +22,15 @@ function make_tabel($userList){
     return implode('', $tbl_array);
 }
 
-template("components/user_list.html")->render(
-    [
-        "title"=> "See All User - Binotify",
-        "user_list" => make_tabel($userList),
-    ]
-    );
+$header = html("components/shared/header.html");
+$main = template("components/user_list/main.html")->bind([
+    "header" => $header,
+    "user_list" => make_tabel($userList)
+]);
+
+template("components/user_list.html")->bind([
+    "title" => "See All User",
+    "navbar" => html("components/shared/navbar.html"),
+    "main" => $main
+])->render();
 

@@ -4,27 +4,25 @@ body {
 
 .styled-table {
     border-collapse: collapse;
-    margin: 25px 0;
+    margin: 25px 25px;
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    color: black;
 }
 
-/* .styled-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
-
-} */
 
 .styled-table th,
 .styled-table td {
     padding: 12px 15px;
+    color: black;
+    margin: 25px;
 }
 
 .styled-table tr {
     border-bottom: 1px solid #dddddd;
+    margin: 25px;
 }
 
 .styled-table tr {
