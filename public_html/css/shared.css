@@ -20,11 +20,11 @@ button {
 header {
     background: rgba(0, 0, 0, 0.5);
     position: sticky;
-    padding: 16px 32px;
+    padding: 8px 32px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: space-between;
 }
 
 #search-bar {
@@ -91,4 +91,41 @@ header {
 
 [hidden] {
     display: none !important;
+}
+
+.header-right {
+    display: flex;
+    gap: 16px;
+    height: 48px;
+}
+
+.auth-btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    padding: 8px 24px;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #dfdfdf;
+    height: 100%;
+    cursor: pointer;
+    will-change: scale;
+    transition: transform 200ms ease-out;
+}
+
+.auth-btn:hover {
+    transform: scale(1.1);
+}
+
+.auth-btn:not(.filled) {
+    opacity: 0.8;
+}
+
+.auth-btn:not(.filled):hover {
+    opacity: 1;
+}
+
+.auth-btn.filled {
+    color: #171717;
+    background-color: #dfdfdf;
+    border-radius: 9999px;
 }

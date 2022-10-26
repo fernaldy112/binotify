@@ -10,7 +10,9 @@ if (!isset($STORE)) {
 
 $musics = $STORE->getRecentSongs();
 
-$header = html("components/shared/header.html");
+$header = template("components/shared/header.html")->bind([
+    "auth_controls" => template("components/shared/no-auth.html")->bind([])
+]);
 $cards = template("components/home/music-card.html")->bindEach($musics);
 
 $main = template("components/home/main.html")->bind([
