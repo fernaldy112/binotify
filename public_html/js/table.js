@@ -242,6 +242,8 @@ class TableRenderer {
         }
         if (genre) {
             queryParams.set('g', genre);
+        } else {
+            queryParams.delete('g');
         }
         endpoint.search = queryParams.toString();
 

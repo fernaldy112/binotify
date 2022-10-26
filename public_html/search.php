@@ -8,6 +8,7 @@ if (!array_key_exists("q", $_GET)) {
 }
 
 $query = $_GET["q"];
+$genre = $_GET["g"] ?? false;
 $page = $_GET["p"] ?? 1;
 $sortBy = $_GET["s"] ?? null;
 if ($sortBy !== null) {
@@ -35,6 +36,16 @@ $res = $sortBy
 $genres = $STORE->getSongGenres();
 
 $hasResult = sizeof($res["data"]) !== 0;
+
+if ($genre) {
+    $newRes = ["data" => [], "hasNext" => $res["hasNext"]];
+    foreach ($res["data"] as $song) {
+        if ($song->getGenre() === $genre) {
+            $newRes["data"][] = $song;
+        }
+    }
+    $res = $newRes;
+}
 
 if ($dataOnly) {
     header('Content-Type: application/json; charset=utf-8');
