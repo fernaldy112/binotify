@@ -24,7 +24,7 @@ function make_table ($songList) {
         $tbl_array[] = "<td>$title • $artist</td>";
         $tbl_array[] = "<td class=\"song_duration\">$duration</td>";
         $tbl_array[] = "</tr>";
-        $num = $num +1;
+        $num++;
     }
     $tbl_array[] = "</table>";
     

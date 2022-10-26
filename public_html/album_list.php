@@ -15,15 +15,12 @@ function make_table ($albumList) {
         $tahun = $album->getPublishDate();
         $tahun= mb_substr($tahun, 0, 4);
         $image_path = $album->getImagePath();
-        $path = "/assets/";
-        $image_path = $path . $image_path;
         $genre = $album->getGenre();
         $tbl_array[]= "<div id=\"albumList_hero\" class=\"albumList_hero\" onclick=\"album_ClickHandler($album_id)\">";
         $tbl_array[]= "<img class=\"cover\" src=\"$image_path\" alt=\"Kosong\">";
         $tbl_array[]= "<div class=\"details\">";
         $tbl_array[]= "<h2 class=\"item\">Album</h2>";
         $tbl_array[]= "<h1 class=\"title\">$title</h1>";
-
         $tbl_array[]= "<span class=\"details-meta\">$artist</span>";
         $tbl_array[]= "<span class=\"details-meta\">$tahun • $genre</span>";
         $tbl_array[]= "</div>";
