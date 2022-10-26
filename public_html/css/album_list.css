@@ -1,0 +1,26 @@
+table,
+tr,
+th,
+td {
+    border: none;
+    padding: 1px;
+
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    height: 10px;
+}
+
+body {
+    flex-grow: 1;
+    background: #171717;
+    color: white;
+}
+
+image {
+    width: 300px;
+}

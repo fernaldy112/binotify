@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: Oct 21, 2022 at 10:41 AM
+-- Generation Time: Oct 25, 2022 at 12:57 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.19
 
@@ -31,11 +31,18 @@ CREATE TABLE `album` (
   `album_id` int NOT NULL,
   `judul` varchar(64) NOT NULL,
   `penyanyi` varchar(128) NOT NULL,
-  `total_duration` int NOT NULL,
+  `total_duration` int NOT NULL DEFAULT 0,
   `image_path` varchar(256) NOT NULL,
   `tanggal_terbit` date NOT NULL,
   `genre` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `album`
+--
+
+INSERT INTO `album` (`album_id`, `judul`, `penyanyi`, `total_duration`, `image_path`, `tanggal_terbit`, `genre`) VALUES
+(1, 'White', 'James', 0, 'NOT_EXISTS', '2022-10-23', 'pop');
 
 -- --------------------------------------------------------
 
@@ -53,7 +60,7 @@ CREATE TABLE `song` (
   `audio_path` varchar(256) NOT NULL,
   `image_path` varchar(256) NOT NULL,
   `album_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -67,7 +74,7 @@ CREATE TABLE `user` (
   `password` varchar(256) NOT NULL,
   `username` varchar(256) NOT NULL,
   `isAdmin` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
@@ -107,7 +114,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `album`
 --
 ALTER TABLE `album`
-  MODIFY `album_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `album_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `song`
