@@ -4,7 +4,8 @@ require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
 if (!array_key_exists("q", $_GET)) {
-    // TODO: redirect
+    header("Location: /");
+    return;
 }
 
 $query = $_GET["q"];
