@@ -3,6 +3,9 @@
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
+// DELETE
+$tempUsername = "admin1";
+
 // TODO: check if user is logged in or has listened to 3 songs
 
 $id = $_GET["s"];
@@ -20,16 +23,25 @@ if ($song === null) {
     return;
 }
 
+$buttonHolder = "";
+$fileUpload = "";
+if ($STORE->getIsAdminByUsername($tempUsername)){
+    $buttonHolder = "<button name='editSong' id='editButton'>Edit<i class='fa fa-external-link'></i></button>";
+    $fileUpload = "<div id='fileUploadContainer'></div>";
+}
+
 $header = html("components/shared/header.html");
 $hero = template("components/listen/hero.html")->bind([
     "image" => $song->getImagePath(),
     "image_alt" => $song->getTitle(),
     "title" => $song->getTitle(),
+    "editButton" => $buttonHolder,
     "artist" => $song->getArtist(),
     "date" => $song->getPublishDateString(),
     "duration" => $song->getDurationString(),
     "genre" => $song->getGenre(),
-    "album_name" => $song->getAlbumTitle()
+    "album_name" => $song->getAlbumTitle(),
+    "fileUpload" => $fileUpload,
 ]);
 $playBar = template("components/listen/play-bar.html")->bind([
     "cover" => $song->getImagePath(),

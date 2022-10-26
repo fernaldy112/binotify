@@ -117,6 +117,16 @@ class DataStore {
         return $result;
         // Jangan lupa kurangi total_duration album.
     }
+
+    function getIsAdminByUsername($username){
+
+        $result = $this->mysqli->query("SELECT * FROM user WHERE username='$username'");
+        $rawData = $result->fetch_all(MYSQLI_ASSOC);
+        $userData = $rawData[0];
+
+        return $userData["isAdmin"];
+    }
+
 }
 
 $STORE = new DataStore();
