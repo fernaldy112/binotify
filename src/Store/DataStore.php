@@ -89,12 +89,16 @@ class DataStore {
 
     }
 
-
     function addAlbum($title, $singer, $date, $genre, $image)
     {
         $result = mysqli_query($this->mysqli, "INSERT INTO album (judul, penyanyi, image_path, tanggal_terbit, genre) VALUES ('$title', '$singer', '$image', '$date', '$genre')");
         return $result;
 
+    }
+
+    function deleteAlbumWithId($id){
+        $result = mysqli_query($this->mysqli, "DELETE FROM album WHERE album_id=$id");
+        return $result;
     }
 }
 
