@@ -9,8 +9,9 @@ $songList = $STORE->getAllSongByAlbumId($id);
 
 function make_table ($songList) {
     $tbl_array = [];
+    $tbl_array[] = "<div class=\"top_div\"><span class=\"span_row_num\">#</span><span class=\"span_title\">Title</span><span class=\"span_duration\">Duration</span></div>";
+    $tbl_array[] = "<div class=\"header_div\"><p></div>";
     $tbl_array[] = "<table>";
-    $tbl_array[] = "<tr><th class=\"row_num\">#</th><th>Title</th><th class=\"song_duration\">Duration</th></tr>";
     
     $tbl_array[] = "<tr><td></td></tr>";
     foreach ($songList as $song){
@@ -19,12 +20,9 @@ function make_table ($songList) {
         $artist = $song->getArtist();
         $duration = $song->getDuration();
         $tbl_array[] = "<tr>";
-        $tbl_array[] = "<td rowspan=\"2\" class=\"row_num\">$num</td>";
-        $tbl_array[] = "<td>$title</td>";
-        $tbl_array[] = "<td rowspan=\"2\" class=\"song_duration\">$duration</td>";
-        $tbl_array[] = "</tr>";
-        $tbl_array[] = "<tr>";
-        $tbl_array[] = "<td class=\"artist_name\">$artist</td>";
+        $tbl_array[] = "<td class=\"row_num\">$num</td>";
+        $tbl_array[] = "<td>$title • $artist</td>";
+        $tbl_array[] = "<td class=\"song_duration\">$duration</td>";
         $tbl_array[] = "</tr>";
         $num = $num +1;
     }

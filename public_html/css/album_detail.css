@@ -16,6 +16,39 @@
     color: white;
 }
 
+.span_row_num {
+    position: absolute;
+    left: 40px;
+
+}
+
+.span_title {
+    position: absolute;
+    left: 85px;
+
+}
+
+.span_duration {
+    position: absolute;
+    right: 15px;
+
+
+}
+
+.header_div {
+    top: 0px;
+
+    padding: 0px 5px 20px 10px;
+    border-width: 2px;
+    border-bottom-width: 2px;
+    border-bottom-color: #B2B2B2;
+    border-bottom-style: solid;
+    width: 100%;
+}
+
+.top_div {
+    margin-bottom: 10px;
+}
 
 audio {
     display: none;

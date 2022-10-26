@@ -1,4 +1,4 @@
-table,
+table.song_list,
 tr,
 th,
 td {
@@ -29,6 +29,10 @@ td.artist_name {
     color: #B2B2B2;
 }
 
+tr:hover {
+    background: grey;
+}
+
 table {
     width: 100%;
 }
@@ -46,6 +50,7 @@ body {
 image {
     width: 300px;
 }
+
 
 #albumList_hero {
     width: 100%;
