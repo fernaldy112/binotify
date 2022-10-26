@@ -40,7 +40,7 @@ class DataStore {
 
     function getAllAlbum(): array{
 
-        $result = $this->mysqli->query("SELECT * FROM album");
+        $result = $this->mysqli->query("SELECT * FROM album ORDER BY judul ASC");
         $data = $result->fetch_all(MYSQLI_ASSOC);
         
         $albums = array();
