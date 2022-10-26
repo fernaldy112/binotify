@@ -3,7 +3,7 @@
     require_once(__DIR__."/../src/Template/util.php");
     require_once(__DIR__."/../src/Store/DataStore.php");
 
-    function countSeconds($duration){
+    function countSeconds($duration){ // TODO
         $duration = explode(':', $duration);
         $second = 0;
         foreach($duration as $x){

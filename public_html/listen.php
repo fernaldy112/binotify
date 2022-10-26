@@ -9,6 +9,7 @@ $tempUsername = "admin1";
 // TODO: check if user is logged in or has listened to 3 songs
 
 $id = $_GET["s"];
+$hiddenInput = "<input type='hidden' name='songId' value=$id />";
 
 if (!isset($STORE)) {
 //    TODO: display 500
@@ -30,6 +31,15 @@ if ($STORE->getIsAdminByUsername($tempUsername)){
     $fileUpload = "<div id='fileUploadContainer'></div>";
 }
 
+$changeMessage = "";
+if (isset($_GET["success"])){
+    if ($_GET["success"] == 1){ // TODO
+        $changeMessage = "<p id='editmsg'>Song is successfully edited.</p>"; // TODO: edit js
+    } else {
+        $changeMessage = "<p id='editmsg'>Audio or image format is wrong. Editing failed.</p>";
+    }
+}
+
 $header = html("components/shared/header.html");
 $hero = template("components/listen/hero.html")->bind([
     "image" => $song->getImagePath(),
@@ -42,7 +52,9 @@ $hero = template("components/listen/hero.html")->bind([
     "genre" => $song->getGenre(),
     "album_name" => $song->getAlbumTitle(),
     "fileUpload" => $fileUpload,
-    "album_url" => "/album_detail?s=".$song->getAlbumId()
+    "hiddenInput" => $hiddenInput,
+    "album_url" => "/album_detail?s=".$song->getAlbumId(),
+    "changeMessage" => $changeMessage,
 ]);
 $playBar = template("components/listen/play-bar.html")->bind([
     "cover" => $song->getImagePath(),

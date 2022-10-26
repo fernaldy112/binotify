@@ -3,7 +3,7 @@ editButton.addEventListener('click', function(event){
     let hero = document.getElementById("hero");
     
     let formElmt = document.createElement("form");
-    formElmt.setAttribute("action", "listen.php");
+    formElmt.setAttribute("action", "editsong.php");
     formElmt.setAttribute("method", "post");
     formElmt.setAttribute("id", "editSongForm");
     formElmt.setAttribute("enctype", "multipart/form-data");
@@ -48,36 +48,38 @@ editButton.addEventListener('click', function(event){
     genre.innerHTML = "";
     genre.appendChild(inputGenre);
 
-    inputFile = document.createElement("input");
+    let inputFile = document.createElement("input");
     inputFile.setAttribute("type", "file");
     inputFile.setAttribute("id", "inputFile");
+    inputFile.setAttribute("name", "inputFile");
     inputFile.setAttribute("class", "editTextInput");
     labelFile = document.createElement("label");
     labelFile.setAttribute("for", "inputFile");
     labelFile.innerHTML = "Upload song: ";
 
-    br1 = document.createElement("br");
-    br2 = document.createElement("br");
+    let br1 = document.createElement("br");
+    let br2 = document.createElement("br");
 
-    inputImage = document.createElement("input");
+    let inputImage = document.createElement("input");
     inputImage.setAttribute("type", "file");
     inputImage.setAttribute("id", "inputImage");
+    inputImage.setAttribute("name", "inputImage");
     inputImage.setAttribute("class", "editTextInput");
-    labelImage = document.createElement("label");
+    let labelImage = document.createElement("label");
     labelImage.setAttribute("for", "inputImage");
     labelImage.innerHTML = "Upload image: ";
 
-    uploadContainer = document.getElementById("fileUploadContainer");
+    let uploadContainer = document.getElementById("fileUploadContainer");
     uploadContainer.appendChild(labelFile);
     uploadContainer.appendChild(inputFile);
     uploadContainer.appendChild(br1);
     uploadContainer.appendChild(labelImage);
     uploadContainer.appendChild(inputImage);
 
-    editButton = document.getElementById("editButton");
+    let editButton = document.getElementById("editButton");
     editButton.innerHTML = "";
 
-    submitButton = document.createElement("button");
+    let submitButton = document.createElement("button");
     submitButton.setAttribute("type", "submit");
     submitButton.setAttribute("id", "submitSongChange");
     submitButton.setAttribute("name", "submitSongChange");
