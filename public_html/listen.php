@@ -3,23 +3,37 @@
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
+session_start();
+
+if (!array_key_exists("username", $_SESSION)) {
+    if (!array_key_exists("last_listen_date", $_SESSION) ||
+        date_diff(date_create(), $_SESSION["last_listen_date"])->d !== 0
+    ) {
+        $_SESSION["last_listen_date"] = date_create();
+        $_SESSION["listened"] = 0;
+    }
+
+    if ($_SESSION["listened"] >= 3) {
+        header("Location: /login");
+        return;
+    }
+
+    $_SESSION["listened"]++;
+}
 // DELETE
 $tempUsername = "admin1";
-
-// TODO: check if user is logged in or has listened to 3 songs
 
 $id = $_GET["s"];
 $hiddenInput = "<input type='hidden' name='songId' value=$id />";
 
 if (!isset($STORE)) {
-//    TODO: display 500
+    http_response_code(500);
     return;
 }
 
 $song = $STORE->getSongById($id);
 
 if ($song === null) {
-//    TODO: display 404
     http_response_code(404);
     return;
 }
