@@ -100,6 +100,16 @@ class DataStore {
         $result = mysqli_query($this->mysqli, "DELETE FROM album WHERE album_id=$id");
         return $result;
     }
+
+    function getIsAdminByUsername($username){
+
+        $result = $this->mysqli->query("SELECT * FROM user WHERE username='$username'");
+        $rawData = $result->fetch_all(MYSQLI_ASSOC);
+        $userData = $rawData[0];
+
+        return $userData["isAdmin"];
+    }
+
 }
 
 $STORE = new DataStore();

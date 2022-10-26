@@ -6,6 +6,7 @@ require_once(__DIR__."/../src/Store/DataStore.php");
 $id = $_GET["s"];
 $album = $STORE->getAlbumById($id);
 $songList = $STORE->getAllSongByAlbumId($id);
+$tempUsername = "admin1";
 
 function make_table ($songList) {
     $tbl_array = [];
@@ -31,15 +32,25 @@ function make_table ($songList) {
     return implode('', $tbl_array);
 }
 
+$buttonHolder = "";
+$fileUpload = "";
+if ($STORE->getIsAdminByUsername($tempUsername)){
+    $buttonHolder = "<button name='editAlbum' id='editButton'>Edit<i class='fa fa-external-link'></i></button>";
+    $fileUpload = "<div id='fileUploadContainer'></div>";
+}
+
+
 $header = html("components/shared/header.html");
 $hero = template("components/album_detail/hero.html")->bind([
     "image" => $album->getImagePath(),
     "image_alt" => $album->getTitle(),
     "title" => $album->getTitle(),
+    "editButton" => $buttonHolder,
     "artist" => $album->getArtist(),
     "date" => $album->getPublishDateString(),
     "duration" => $album->getTotalDurationString(),
     "genre" => $album->getGenre(),
+    "fileUpload" => $fileUpload
 ]);
 
 template("components/album_detail.html")->bind([
