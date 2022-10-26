@@ -17,7 +17,7 @@ if ($sortBy !== null) {
 }
 $order = $_GET["o"] ?? "asc";
 if ($order !== null) {
-    if ($order != "asc" || $order != "desc") {
+    if ($order != "asc" && $order != "desc") {
         $order = "asc";
     }
 }
