@@ -151,3 +151,13 @@ input {
 #submitSongChange:hover {
     background-color: rgb(32, 244, 60);
 }
+
+#deleteButton {
+    color: white;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+#deleteButton:hover {
+    text-decoration: underline;
+}

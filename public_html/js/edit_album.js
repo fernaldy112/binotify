@@ -68,3 +68,14 @@ editButton.addEventListener('click', function (event) {
 
 
 });
+
+
+let deleteButton = document.getElementById("deleteButton");
+deleteButton.addEventListener('click', function (event) {
+    let text = "Are Your Sure to Delete this Album\nEither OK or Cancel.";
+    if (confirm(text) == true) {
+        text = "Album Deleted";
+    } else {
+        text = "You canceled!";
+    }
+});

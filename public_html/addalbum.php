@@ -33,7 +33,6 @@
         checkInputLength($singer, "singerError", "You need to enter the singer.", $addAlbumError);
         checkInputLength($date, "dateError", "You need to enter the date.", $addAlbumError);
         checkInputLength($genre, "genreError", "You need to enter the genre.", $addAlbumError);
-        // TODO: check file and image uploaded
 
         if ($image['error']===4){
             $addAlbumError["imageError"] = "You need to upload the image file.";

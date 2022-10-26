@@ -32,11 +32,15 @@ function make_table ($songList) {
     return implode('', $tbl_array);
 }
 
-$buttonHolder = "";
+$editButtonHolder = "";
 $fileUpload = "";
 if ($STORE->getIsAdminByUsername($tempUsername)){
-    $buttonHolder = "<button name='editAlbum' id='editButton'>Edit<i class='fa fa-external-link'></i></button>";
+    $editButtonHolder = "<button name='editAlbum' id='editButton'>Edit Album<i class='fa fa-external-link'></i></button>";
     $fileUpload = "<div id='fileUploadContainer'></div>";
+}
+$deleteButtonHolder = "";
+if ($STORE->getIsAdminByUsername($tempUsername)){
+    $deleteButtonHolder = "<button name='deleteAlbum' id='deleteButton'>Delete Album<i class='fa fa-external-link'></i></button>";
 }
 
 
@@ -45,7 +49,8 @@ $hero = template("components/album_detail/hero.html")->bind([
     "image" => $album->getImagePath(),
     "image_alt" => $album->getTitle(),
     "title" => $album->getTitle(),
-    "editButton" => $buttonHolder,
+    "editButton" => $editButtonHolder,
+    "deleteButton" => $deleteButtonHolder,
     "artist" => $album->getArtist(),
     "date" => $album->getPublishDateString(),
     "duration" => $album->getTotalDurationString(),
