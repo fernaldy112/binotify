@@ -1,6 +1,6 @@
 #main {
     flex-grow: 1;
-    background-color: #171717;
+    background-color: black;
 }
 
 #Album_Bar {
@@ -9,22 +9,23 @@
     box-sizing: border-box;
     height: 30vh;
     max-height: 500px;
-    min-height: 340px;
+    min-height: 260px;
     padding: 24px 30px;
     /*vertical-align: baseline;*/
     align-items: end;
     color: white;
+    margin-top: 20px;
 }
 
 .span_row_num {
     position: absolute;
-    left: 40px;
+    left: 270px;
 
 }
 
 .span_title {
     position: absolute;
-    left: 85px;
+    left: 320px;
 
 }
 
@@ -89,4 +90,10 @@ audio {
     font-weight: 800;
     padding: 0;
     margin: 0 0 0.2em 0;
+}
+
+body {
+    flex-grow: 1;
+    background: black;
+    color: white;
 }

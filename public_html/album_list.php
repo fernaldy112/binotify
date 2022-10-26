@@ -32,9 +32,17 @@ function make_table ($albumList) {
 
 }
 
-template("components/album_list.html")->render(
-    [
-        "title"=> "Album List - Binotify",
-        "album_list" => make_table($albumList),
-    ]
-    );
+$header = html("components/shared/header.html");
+$main = template("components/album_list/main.html")->bind([
+    "header" => $header,
+    "album_list" => make_table($albumList)
+]);
+
+
+
+template("components/album_list.html")->bind([
+    "title"=> "Album List - Binotify",
+    "navbar" => html("components/shared/navbar.html"),
+    "main" => $main
+])->render();
+    

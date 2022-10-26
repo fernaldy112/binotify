@@ -4,12 +4,10 @@ body {
     padding: 0;
     color: #dfdfdf;
     font-family: 'Inter', sans-serif;
-    background-color: black;
 }
 
 #app {
     width: 100%;
     height: 100vh;
     display: flex;
-    background-color: black;
 }

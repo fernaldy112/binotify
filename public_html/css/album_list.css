@@ -6,7 +6,8 @@ td {
     padding: 5px;
     text-align: left;
     font-weight: normal;
-
+    border: 0px;
+    margin: 20px;
 }
 
 th {
@@ -22,7 +23,7 @@ th.row_num {
 td.song_duration,
 th.song_duration {
     width: 60px;
-    text-align: right;
+    text-align: center;
 }
 
 td.artist_name {
@@ -43,7 +44,7 @@ tr {
 
 body {
     flex-grow: 1;
-    background: #171717;
+    background: black;
     color: white;
 }
 
@@ -65,6 +66,7 @@ image {
     border: 1px solid #1DB954;
     border-radius: 25px;
     margin-bottom: 20px;
+    margin-left: 30px;
 }
 
 div.albumList_hero:hover {

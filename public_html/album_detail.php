@@ -11,15 +11,15 @@ function make_table ($songList) {
     $tbl_array = [];
     $tbl_array[] = "<div class=\"top_div\"><span class=\"span_row_num\">#</span><span class=\"span_title\">Title</span><span class=\"span_duration\">Duration</span></div>";
     $tbl_array[] = "<div class=\"header_div\"><p></div>";
+    $tbl_array[] = "<br>";
     $tbl_array[] = "<table>";
-    
-    $tbl_array[] = "<tr><td></td></tr>";
+    $num = 1;
     foreach ($songList as $song){
-        $num = 1;
+        $song_id = $song->getId();
         $title = $song->getTitle();
         $artist = $song->getArtist();
         $duration = $song->getDuration();
-        $tbl_array[] = "<tr>";
+        $tbl_array[] = "<tr onclick=\"album_detail_ClickHandler($song_id)\">";
         $tbl_array[] = "<td class=\"row_num\">$num</td>";
         $tbl_array[] = "<td>$title • $artist</td>";
         $tbl_array[] = "<td class=\"song_duration\">$duration</td>";
@@ -32,7 +32,7 @@ function make_table ($songList) {
 }
 
 $header = html("components/shared/header.html");
-$Album_Bar = template("components/album_list/Album_Bar.html")->bind([
+$hero = template("components/album_detail/hero.html")->bind([
     "image" => $album->getImagePath(),
     "image_alt" => $album->getTitle(),
     "title" => $album->getTitle(),
@@ -44,9 +44,10 @@ $Album_Bar = template("components/album_list/Album_Bar.html")->bind([
 
 template("components/album_detail.html")->bind([
     "navbar" => html("components/shared/navbar.html"),
-    "main" => template("components/album_list/main.html")->bind([
+    "main" => template("components/album_detail/main.html")->bind([
         "header" => $header,
-        "hero" => $Album_Bar,
+        "hero" => $hero,
+        "song_list" =>make_table($songList)
     ]),
-    "song_list" =>make_table($songList),
+    
 ])->render();
