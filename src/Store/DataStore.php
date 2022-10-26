@@ -34,17 +34,10 @@ class DataStore {
 
         $songData = $rawData[0];
 
-        return new Song(
-            $songData["song_id"],
-            $songData["judul"],
-            $songData["penyanyi"],
-            $songData["tanggal_terbit"],
-            $songData["genre"],
-            $songData["duration"],
-            $songData["audio_path"],
-            $songData["image_path"],
-            $songData["album_id"],
-        );
+        $albumId = $songData["album_id"];
+        $albumData = $this->getAlbumById($albumId);
+
+        return Song::deserialize($songData, $albumData["judul"]);
     }
 
     function getUserByEmail($email): User|null{
@@ -126,11 +119,6 @@ class DataStore {
 
     }
 
-        $albumId = $songData["album_id"];
-        $albumData = $this->getAlbumById($albumId);
-
-        return Song::deserialize($songData, $albumData["judul"]);
-    }
 
     function getSongBySimilarName($query, $page = 1, $ext = " ORDER BY judul ASC"): array
     {
