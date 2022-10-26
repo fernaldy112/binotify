@@ -111,6 +111,10 @@ class DataStore {
         $result = mysqli_query($this->mysqli, "INSERT INTO song (judul, penyanyi, tanggal_terbit, genre, duration, audio_path, image_path, album_id) VALUES ('$title', '$singer', '$releaseDate', '$genre', '$duration', '$audioPath', '$imgPath', '$albumId')");
         return $result;
     }
+
+    function getRecentSongs() {
+        $result = $this->mysqli->query("SELECT * FROM song ORDER BY song_id DESC LIMIT 10;");
+    }
 }
 
 $STORE = new DataStore();
