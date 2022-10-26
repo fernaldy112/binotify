@@ -101,19 +101,19 @@
             $addSongError["valid"] = false;
         }
 
-        // if ($addSongError["valid"]){
-        //     move_uploaded_file($file["tmp_name"], $filePath);
-        //     move_uploaded_file($image["tmp_name"], $imgPath);
-        //     if (strlen($addSongError["fileError"])===0){
-        //         $duration = shell_exec("cd music ; ffmpeg -i $fileName 2>&1 | grep Duration | awk '{print $2}' | tr -d ,");
-        //     }
-        //     $duration = countSeconds($duration);
-        //     $fileLoc = "music/".$fileName;
-        //     $imageLoc = "image/".$imageName;
-        //     $STORE->addSong($title, $singer, $date, $genre, $duration, $fileLoc, $imageLoc, $albumId);
-        //     $addDuration = $STORE->addAlbumTotalDuration($albumId, $duration);
-        //     $successMsg = "Song addition is successful";
-        // }
+        if ($addSongError["valid"]){
+            move_uploaded_file($file["tmp_name"], $filePath);
+            move_uploaded_file($image["tmp_name"], $imgPath);
+            if (strlen($addSongError["fileError"])===0){
+                $duration = shell_exec("cd music ; ffmpeg -i $fileName 2>&1 | grep Duration | awk '{print $2}' | tr -d ,");
+            }
+            $duration = countSeconds($duration);
+            $fileLoc = "music/".$fileName;
+            $imageLoc = "image/".$imageName;
+            $STORE->addSong($title, $singer, $date, $genre, $duration, $fileLoc, $imageLoc, $albumId);
+            $addDuration = $STORE->addAlbumTotalDuration($albumId, $duration);
+            $successMsg = "Song addition is successful";
+        }
     }
 
     $addSongError["titleError"] = checkErrorMsg($addSongError["titleError"]);
