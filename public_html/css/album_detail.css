@@ -137,7 +137,7 @@ input {
     font-weight: bold;
 }
 
-#submitSongChange {
+#submitAlbumChange {
     background-color: rgb(30, 215, 64);
     margin-top: 10px;
     height: 30px;
@@ -148,7 +148,7 @@ input {
     font-size: 16px;
 }
 
-#submitSongChange:hover {
+#submitAlbumChange:hover {
     background-color: rgb(32, 244, 60);
 }
 

@@ -4,6 +4,7 @@ require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
 $id = $_GET["s"];
+$hiddenInput = "<input type='hidden' name='albumId' value=$id />";
 $album = $STORE->getAlbumById($id);
 $songList = $STORE->getAllSongByAlbumId($id);
 $tempUsername = "admin1";
@@ -38,6 +39,16 @@ if ($STORE->getIsAdminByUsername($tempUsername)){
     $editButtonHolder = "<button name='editAlbum' id='editButton'>Edit Album<i class='fa fa-external-link'></i></button>";
     $fileUpload = "<div id='fileUploadContainer'></div>";
 }
+
+$changeMessage = "";
+if (isset($_GET["success"])){
+    if ($_GET["success"] == 1){ // TODO
+        $changeMessage = "<p id='editmsg'>Album is successfully edited.</p>"; // TODO: edit js
+    } else {
+        $changeMessage = "<p id='editmsg'>Image format is wrong. Editing failed.</p>";
+    }
+}
+
 $deleteButtonHolder = "";
 if ($STORE->getIsAdminByUsername($tempUsername)){
     $deleteButtonHolder = "<button name='deleteAlbum' id='deleteButton'>Delete Album<i class='fa fa-external-link'></i></button>";
@@ -55,7 +66,9 @@ $hero = template("components/album_detail/hero.html")->bind([
     "date" => $album->getPublishDateString(),
     "duration" => $album->getTotalDurationString(),
     "genre" => $album->getGenre(),
-    "fileUpload" => $fileUpload
+    "fileUpload" => $fileUpload,
+    "hiddenInput" => $hiddenInput,
+    "changeMessage" => $changeMessage
 ]);
 
 template("components/album_detail.html")->bind([

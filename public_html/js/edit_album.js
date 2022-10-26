@@ -3,7 +3,7 @@ editButton.addEventListener('click', function (event) {
     let hero = document.getElementById("Album_Bar");
 
     let formElmt = document.createElement("form");
-    formElmt.setAttribute("action", "album_detail.php");
+    formElmt.setAttribute("action", "editalbum.php");
     formElmt.setAttribute("method", "post");
     formElmt.setAttribute("id", "editAlbumForm");
     formElmt.setAttribute("enctype", "multipart/form-data");
@@ -37,28 +37,28 @@ editButton.addEventListener('click', function (event) {
     artist.innerHTML = "";
     artist.appendChild(inputArtist);
 
-    br1 = document.createElement("br");
-    br2 = document.createElement("br");
+    let br2 = document.createElement("br");
 
-    inputImage = document.createElement("input");
+    let inputImage = document.createElement("input");
     inputImage.setAttribute("type", "file");
     inputImage.setAttribute("id", "inputImage");
+    inputImage.setAttribute("name", "inputImage");
     inputImage.setAttribute("class", "editTextInput");
-    labelImage = document.createElement("label");
+    let labelImage = document.createElement("label");
     labelImage.setAttribute("for", "inputImage");
     labelImage.innerHTML = "Upload image: ";
 
-    uploadContainer = document.getElementById("fileUploadContainer");
+    let uploadContainer = document.getElementById("fileUploadContainer");
     uploadContainer.appendChild(labelImage);
     uploadContainer.appendChild(inputImage);
 
-    editButton = document.getElementById("editButton");
+    let editButton = document.getElementById("editButton");
     editButton.innerHTML = "";
 
-    submitButton = document.createElement("button");
+    let submitButton = document.createElement("button");
     submitButton.setAttribute("type", "submit");
-    submitButton.setAttribute("id", "submitSongChange");
-    submitButton.setAttribute("name", "submitSongChange");
+    submitButton.setAttribute("id", "submitAlbumChange");
+    submitButton.setAttribute("name", "submitAlbumChange");
     submitButton.innerHTML = "Submit";
 
     uploadContainer.appendChild(br2);
@@ -70,12 +70,12 @@ editButton.addEventListener('click', function (event) {
 });
 
 
-let deleteButton = document.getElementById("deleteButton");
-deleteButton.addEventListener('click', function (event) {
-    let text = "Are Your Sure to Delete this Album\nEither OK or Cancel.";
-    if (confirm(text) == true) {
-        text = "Album Deleted";
-    } else {
-        text = "You canceled!";
-    }
-});
+// let deleteButton = document.getElementById("deleteButton");
+// deleteButton.addEventListener('click', function (event) {
+//     let text = "Are Your Sure to Delete this Album\nEither OK or Cancel.";
+//     if (confirm(text) == true) {
+//         text = "Album Deleted";
+//     } else {
+//         text = "You canceled!";
+//     }
+// });

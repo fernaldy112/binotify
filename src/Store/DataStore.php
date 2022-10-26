@@ -96,6 +96,11 @@ class DataStore {
 
     }
 
+    function updateAlbum($albumId, $title, $artist, $image){
+        $result = mysqli_query($this->mysqli, "UPDATE album SET judul='$title', penyayi='$artist', image_path='$image' WHERE album_id=$albumId");
+        return $result;
+    }
+
     function deleteAlbumWithId($id){
         $result = mysqli_query($this->mysqli, "DELETE FROM album WHERE album_id=$id");
         return $result;
