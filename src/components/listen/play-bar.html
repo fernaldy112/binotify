@@ -1,0 +1,33 @@
+<div class="play-bar">
+  <div class="play-bar-left">
+    <img class="play-cover" src="{{ cover }}" alt="{{ cover_alt }}" >
+    <div class="play-details">
+      <h5>{{ title }}</h5>
+      <h6>{{ artist }}</h6>
+    </div>
+  </div>
+  <div class="play-bar-center">
+    <button class="playback-button">
+      <span class="material-symbols-rounded icon">
+        play_circle
+      </span>
+    </button>
+    <div class="playback-progress-bar">
+      <span>0:00</span>
+      <div class="progress-bar">
+        <div class="progress">
+
+        </div>
+      </div>
+      <span>{{ duration }}</span>
+    </div>
+  </div>
+  <div class="play-bar-right">
+    <button class="volume-button">
+      <span class="material-symbols-rounded icon">
+        volume_up
+      </span>
+    </button>
+    <input class="volume" type="range" min="0" max="100" step="1" value="100">
+  </div>
+</div>

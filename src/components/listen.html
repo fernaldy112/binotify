@@ -2,19 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ query }} | Binotify</title>
+    <title>{{ song }} | Binotify</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/listen.css" />
     <link rel="stylesheet" href="css/shared.css" />
-    <link rel="stylesheet" href="css/search.css" />
-    <link rel="stylesheet" href="css/home.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script src="js/table.js"></script>
-    <script src="js/searchbar.js"></script>
+    <script src="js/util.js" defer></script>
+    <script src="js/player.js" defer></script>
+    <script src="js/listen.js" defer></script>
 </head>
 <body>
     <div id="app">
         {{ navbar }}
         {{ main }}
+        {{ playBar }}
+        <audio controls class="audio-playback" src="{{ source }}" preload="auto"></audio>
     </div>
 </body>
 </html>
