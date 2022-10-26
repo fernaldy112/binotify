@@ -31,7 +31,7 @@ class TableRenderer {
         this.yearCell = null;
 
         if (!params.has('s')) {
-            this.titleOrder = 'DESCENDING';
+            this.titleOrder = 'ASCENDING';
             return;
         }
 
