@@ -29,7 +29,8 @@ $hero = template("components/listen/hero.html")->bind([
     "date" => $song->getPublishDateString(),
     "duration" => $song->getDurationString(),
     "genre" => $song->getGenre(),
-    "album_name" => $song->getAlbumTitle()
+    "album_name" => $song->getAlbumTitle(),
+    "album_url" => "/album_detail?s=".$song->getAlbumId()
 ]);
 $playBar = template("components/listen/play-bar.html")->bind([
     "cover" => $song->getImagePath(),
