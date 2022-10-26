@@ -113,7 +113,7 @@ class DataStore {
     }
 
     function getRecentSongs() {
-        $result = $this->mysqli->query("SELECT * FROM song ORDER BY song_id DESC LIMIT 10;");
+        return $this->mysqli->query("SELECT * FROM song ORDER BY song_id DESC LIMIT 10;");
     }
 }
 
