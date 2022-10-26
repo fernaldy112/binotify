@@ -3,19 +3,15 @@
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
-$musics = $STORE->getRecentSongs();
-
-foreach ($musics as $music) {
-    $music["title"] = $music["judul"];
-    $music["artist"] = $music["penyanyi"];
-
-    // TODO: map model
+if (!isset($STORE)) {
+    http_response_code(500);
+    return;
 }
 
-$header = html("components/shared/header.html");
-$cards = template("components/home/music-card.html")->bindEach([
+$musics = $STORE->getRecentSongs();
 
-]);
+$header = html("components/shared/header.html");
+$cards = template("components/home/music-card.html")->bindEach($musics);
 
 $main = template("components/home/main.html")->bind([
     "header" => $header,

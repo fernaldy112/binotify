@@ -93,7 +93,7 @@ class DataStore {
 
     function getSongGenres(): array
     {
-        $result = $this->mysqli->query('SELECT DISTINCT genre FROM song;');
+        $result = $this->mysqli->query("SELECT DISTINCT genre FROM song;");
         $rawData = $result->fetch_all(MYSQLI_ASSOC);
         return array_map(array("self", "genreMap"), $rawData);
     }
@@ -112,8 +112,14 @@ class DataStore {
         return $result;
     }
 
-    function getRecentSongs() {
-        return $this->mysqli->query("SELECT * FROM song ORDER BY song_id DESC LIMIT 10;");
+    function getRecentSongs(): array
+    {
+        $result = $this->mysqli->query(
+            "SELECT S.song_id AS id, S.judul AS title, S.genre, YEAR(S.tanggal_terbit) AS publish_year,".
+            "A.judul AS album_name, S.penyanyi AS artist, S.image_path AS cover ".
+            "FROM song AS S INNER JOIN album AS A ON S.album_id = A.album_id ".
+            "ORDER BY song_id DESC LIMIT 10;");
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
 
