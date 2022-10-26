@@ -111,6 +111,12 @@ class DataStore {
         $result = mysqli_query($this->mysqli, "INSERT INTO song (judul, penyanyi, tanggal_terbit, genre, duration, audio_path, image_path, album_id) VALUES ('$title', '$singer', '$releaseDate', '$genre', '$duration', '$audioPath', '$imgPath', '$albumId')");
         return $result;
     }
+
+    function deleteSongWithId($id){
+        $result = mysqli_query($this->mysqli, "DELETE from song WHERE song_id = $id");
+        return $result;
+        // Jangan lupa kurangi total_duration album.
+    }
 }
 
 $STORE = new DataStore();

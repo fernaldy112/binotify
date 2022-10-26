@@ -64,9 +64,11 @@
             if ($fileExtension !== "mp3"){
                 $addSongError["fileError"] = "File extension should be mp3";
                 $addSongError["valid"] = false;
-            } else if ($file['size'] > 2000000) {
-                $addSongError["fileError"] = "File size is too big.";
-                $addSongError["valid"] = false;
+            } else if ($file['error']!==UPLOAD_ERR_OK) {
+                if ($file['error']===UPLOAD_ERR_INI_SIZE || $file['error']===UPLOAD_ERR_FORM_SIZE){
+                    $addSongError["fileError"] = "File size is too big. Upload is limited to 2MB";
+                    $addSongError["valid"] = false;
+                }
             } else {
                 $fileName = strval(time())."_".str_replace(' ', '_', $file["name"]);
                 $filePath = __DIR__."/../assets/music/".$fileName;
@@ -82,9 +84,11 @@
             if ($imgExtension !== "jpg" && $imgExtension !== "jpeg" && $imgExtension !== "png"){
                 $addSongError["imageError"] = "Image extension should be jpg, jpeg, or png";
                 $addSongError["valid"] = false;
-            } else if ($image['size'] > 2000000) {
-                $addSongError["imgError"] = "Image size is too big.";
-                $addSongError["valid"] = false;
+            } else if ($image['error']!==UPLOAD_ERR_OK) {
+                if ($image['error']===UPLOAD_ERR_INI_SIZE || $image['error']===UPLOAD_ERR_FORM_SIZE){
+                    $addSongError["imageError"] = "Image size is too big. Upload is limited to 2MB";
+                    $addSongError["valid"] = false;
+                }
             } else {
                 $imageName = strval(time())."_".str_replace(' ', '_', $image["name"]);
                 $imgPath = __DIR__."/../assets/image/".$imageName;

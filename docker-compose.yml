@@ -6,6 +6,8 @@ services:
     volumes:
       - "./:/usr/src/binotify"
       - "./assets/music:/usr/src/binotify/public_html/music"
+      - "./assets/image:/usr/src/binotify/public_html/image"
+      - "./php.ini:/usr/local/etc/php/php.ini-production"
     ports:
       - "8008:80"
   db:
