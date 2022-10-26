@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <title>{{ song }} | Binotify</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/album_list.css" />
+    <link rel="stylesheet" href="css/album_detail.css" />
     <link rel="stylesheet" href="css/shared.css" />
+    <script src="js/util.js" defer></script>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
@@ -14,6 +17,7 @@
     <div id="app">
         {{ navbar }}
         {{ main }}
+        {{ song_list }}
     </div>
 </body>
 

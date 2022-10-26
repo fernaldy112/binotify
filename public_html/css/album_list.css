@@ -3,8 +3,30 @@ tr,
 th,
 td {
     border: none;
-    padding: 1px;
+    padding: 5px;
+    text-align: left;
+    font-weight: normal;
 
+}
+
+th {
+    border-bottom: 1px solid #B2B2B2;
+}
+
+td.row_num,
+th.row_num {
+    width: 60px;
+    text-align: center;
+}
+
+td.song_duration,
+th.song_duration {
+    width: 60px;
+    text-align: right;
+}
+
+td.artist_name {
+    color: #B2B2B2;
 }
 
 table {
@@ -12,7 +34,7 @@ table {
 }
 
 tr {
-    height: 10px;
+    height: 20px;
 }
 
 body {

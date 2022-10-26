@@ -3,7 +3,9 @@
 namespace Binotify\Store;
 
 require_once(__DIR__."/../Model/Album.php");
+require_once(__DIR__."/../Model/Song.php");
 use Binotify\Model\Album;
+use Binotify\Model\Song;
 use mysqli;
 
 class DataStore {
@@ -31,7 +33,7 @@ class DataStore {
             $albumData["album_id"],
             $albumData["judul"],
             $albumData["penyanyi"],
-            $albumData["total duration"],
+            $albumData["total_duration"],
             $albumData["image_path"],
             $albumData["tanggal_terbit"],
             $albumData["genre"],
@@ -58,6 +60,32 @@ class DataStore {
          }
 
         return $albums;
+
+    }
+
+    function getAllSongByAlbumId($albumId): array{
+        $result = $this->mysqli->query("SELECT * FROM song WHERE album_id = $albumId");
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        // $album = $STORE->getAlbumById($albumId);
+        // $album_title = $album->getTitle();
+        $album_title = "None";
+        $songs = array();
+        foreach ($data as $row){
+            $song = new Song(
+                $row["song_id"], 
+                $row["judul"], 
+                $row["penyanyi"], 
+                $row["tanggal_terbit"],
+                $row["genre"],
+                $row["duration"], 
+                $row["audio_path"],
+                $row["image_path"],
+                $row["album_id"],
+                $album_title
+            );
+            array_push($songs, $song);
+        }
+        return $songs;
 
     }
 
