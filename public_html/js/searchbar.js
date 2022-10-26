@@ -22,5 +22,8 @@ document.addEventListener('DOMContentLoaded', _ => {
     }
 
     searchBar.addEventListener('input', onSearchBarChanged);
+    searchBar.addEventListener('invalid', e => {
+        e.preventDefault();
+    })
     searchForm.addEventListener('reset', hide);
 });
