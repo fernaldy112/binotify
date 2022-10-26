@@ -9,6 +9,7 @@ function make_table ($albumList) {
     $tbl_array = [];
     // $tbl_array[] = "<table>";
     foreach ($albumList as $album){
+        $album_id = $album->getId();
         $title = $album->getTitle();
         $artist = $album->getArtist();
         $tahun = $album->getPublishDate();
@@ -17,7 +18,7 @@ function make_table ($albumList) {
         $path = "/assets/";
         $image_path = $path . $image_path;
         $genre = $album->getGenre();
-        $tbl_array[]= "<div id=\"albumList_hero\">";
+        $tbl_array[]= "<div id=\"albumList_hero\" class=\"albumList_hero\" onclick=\"album_ClickHandler($album_id)\">";
         $tbl_array[]= "<img class=\"cover\" src=\"$image_path\" alt=\"Kosong\">";
         $tbl_array[]= "<div class=\"details\">";
         $tbl_array[]= "<h2 class=\"item\">Album</h2>";

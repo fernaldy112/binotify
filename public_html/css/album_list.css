@@ -67,6 +67,10 @@ image {
     margin-bottom: 20px;
 }
 
+div.albumList_hero:hover {
+    background-color: grey;
+}
+
 .cover {
     margin-right: 24px;
     width: 130px;
