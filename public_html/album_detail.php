@@ -2,6 +2,13 @@
 
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
+require_once(__DIR__."/../src/components/header.php");
+require_once(__DIR__."/../src/components/navbar.php");
+
+if (!isset($STORE) || !isset($NAVBAR) || !isset($HEADER)) {
+    http_response_code(500);
+    return;
+}
 
 $id = $_GET["s"];
 
@@ -141,7 +148,6 @@ if ($STORE->getIsAdminByUsername($tempUsername)){
 }
 
 
-$header = html("components/shared/header.html");
 $hero = template("components/album_detail/hero.html")->bind([
     "image" => $album->getImagePath(),
     "image_alt" => $album->getTitle(),
@@ -159,9 +165,9 @@ $hero = template("components/album_detail/hero.html")->bind([
 ]);
 
 template("components/album_detail.html")->bind([
-    "navbar" => html("components/shared/navbar.html"),
+    "navbar" => $NAVBAR,
     "main" => template("components/album_detail/main.html")->bind([
-        "header" => $header,
+        "header" => $HEADER,
         "hero" => $hero,
         "song_list" =>make_table($songList)
     ]),
