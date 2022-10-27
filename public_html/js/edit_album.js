@@ -81,7 +81,7 @@ deleteButton.addEventListener('click', function (event) {
     } else {
         text = "You canceled!";
     }
-    document.cookie = "result=" + result + ";max-age=10";
+    document.cookie = "result=" + result + ";max-age=1";
     console.log(document.cookie);
     location.reload();
 

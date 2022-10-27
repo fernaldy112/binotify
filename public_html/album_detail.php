@@ -66,15 +66,22 @@ if (isset($_GET["success"])){
     }
 }
 
+function showCancel(){
+    echo '<script language="javascript">';
+    echo 'alert("You Canceled")';
+    echo '</script>';
+}
+
 $deleteButtonHolder = "";
 if ($STORE->getIsAdminByUsername($tempUsername)){
     $deleteButtonHolder = "<button name='deleteAlbum' id='deleteButton'>Delete Album<i class='fa fa-trash-o'></i></button>";
-    // $result = json_decode($_POST);
-    // if ($_COOKIE["result"]){
-    //     print_r($_COOKIE["result"]);
-    // }
     if (isset($_COOKIE["result"])) {
-        deleteAlbum($STORE, $id, $album, $songList);
+        if ($_COOKIE["result"]=="true"){
+            deleteAlbum($STORE, $id, $album, $songList);
+        }else{
+            showCancel();
+        }
+        
     }
     
 }
