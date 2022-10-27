@@ -67,10 +67,19 @@ editButton.addEventListener('click', function (event) {
     hero.style.marginTop = "110px";
 
     let deleteAlbum = document.getElementById("deleteButton");
-    deleteAlbum.setAttribute("hidden", "");
+    if (deleteAlbum){
+        deleteAlbum.setAttribute("hidden", "");
+    }
     
     let deleteAlbumSong = document.getElementById("deleteAlbumSongButton");
-    deleteAlbumSong.setAttribute("hidden", "");
+    if (deleteAlbumSong){
+        deleteAlbumSong.setAttribute("hidden", "");
+    }
+
+    let editMsg = document.getElementById("editmsg");
+    if (editMsg){
+        editMsg.setAttribute("hidden", "");
+    }
 
 
 });
