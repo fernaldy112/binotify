@@ -119,7 +119,6 @@ if ($STORE->getIsAdminByUsername($tempUsername)){
                 $song_id = (int) $id;
                 deleteSong($STORE, $song_id);
             }
-            header("Refresh:0");
             }
             
         }else{
