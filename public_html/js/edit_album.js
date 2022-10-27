@@ -66,6 +66,12 @@ editButton.addEventListener('click', function (event) {
 
     hero.style.marginTop = "110px";
 
+    let deleteAlbum = document.getElementById("deleteButton");
+    deleteAlbum.setAttribute("hidden", "");
+    
+    let deleteAlbumSong = document.getElementById("deleteAlbumSongButton");
+    deleteAlbumSong.setAttribute("hidden", "");
+
 
 });
 

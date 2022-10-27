@@ -129,7 +129,7 @@ class DataStore {
     }
 
     function updateAlbum($albumId, $title, $artist, $image){
-        $result = mysqli_query($this->mysqli, "UPDATE album SET judul='$title', penyayi='$artist', image_path='$image' WHERE album_id=$albumId");
+        $result = mysqli_query($this->mysqli, "UPDATE album SET judul='$title', penyanyi='$artist', image_path='$image' WHERE album_id=$albumId");
         return $result;
     }
 

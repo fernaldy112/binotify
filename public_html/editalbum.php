@@ -11,8 +11,10 @@
 
         $newImagePath = "";
 
+        var_dump($newImage);
+
         $albumId = $_POST["albumId"];
-        $album = $STORE->getAlbumById($albumId);
+        $album = $STORE->getAlbumById($albumId); // handle null
         
         // cek input kosong -> tetap -> ambil dari db
         if (strlen(trim($newTitle))===0){
@@ -22,7 +24,7 @@
             $newArtist = $song->getArtist();
         }
 
-        $success = 1; // 1 success; 2 song format error; 3 image format error; 4 song size error; 5 image size error; 6 no new audio file; 7 no new image file
+        $success = 1; // 1 success; 3 image format error; 5 image size error; 7 no new image file
 
         if ($newImage['error']===4){
             $newImagePath = $album->getImagePath();
@@ -44,9 +46,12 @@
             }
         }
 
-        move_uploaded_file($newImage["tmp_name"], $newAssetImgPath);
-        $imageLoc = "image/".$newImageName;
-        $STORE->updateAlbum($albumId, $newTitle, $newArtist, $imageLoc);
+        if (strlen($newImage["tmp_name"]) !== 0 && $success === 1){
+            move_uploaded_file($newImage["tmp_name"], $newAssetImgPath);
+            $newImagePath = "image/".$newImageName;
+        }
+
+        $STORE->updateAlbum($albumId, $newTitle, $newArtist, $newImagePath);
 
         header("Location: /album_detail?s=$albumId&success=$success");
     }

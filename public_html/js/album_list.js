@@ -24,4 +24,12 @@ editSongButton.addEventListener('click', function (event) {
     document.cookie = "values=" + values + ";max-age=3";
     console.log(document.cookie);
     location.reload();
+    // const xhr = new XMLHttpRequest();
+    // xhr.open('POST', location.href);
+    // xhr.onload = _ => {
+    //     location.reload();
+    // };
+    // xhr.send({
+    //     confirm_delete, values
+    // });
 });

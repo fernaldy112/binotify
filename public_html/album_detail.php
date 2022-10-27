@@ -5,9 +5,20 @@ require_once(__DIR__."/../src/Store/DataStore.php");
 
 $id = $_GET["s"];
 
+$hiddenInput = "<input type='hidden' name='albumId' value=$id />";
 $album = $STORE->getAlbumById($id);
 $songList = $STORE->getAllSongByAlbumId($id);
-$tempUsername = "admin1"; // DELETE
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (array_key_exists("username", $_SESSION)) {
+    $tempUsername = $_SESSION["username"];
+    $isAdmin = $STORE->getIsAdminByUsername($tempUsername);
+} else {
+    $isAdmin = false;
+}
 
 function make_table ($songList) {
     $tbl_array = [];
@@ -50,35 +61,37 @@ function deleteAlbum($STORE, $albumId, $album, $songList){
     }
 }
 
-$editButtonHolder = "";
+$editButtonHolder = ""; // edit
 $fileUpload = "";
-if ($STORE->getIsAdminByUsername($tempUsername)){
+if ($isAdmin){
     $editButtonHolder = "<button name='editAlbum' id='editButton'>Edit Album<i class='fa fa-external-link'></i></button>";
     $fileUpload = "<div id='fileUploadContainer'></div>";
 }
 
-$changeMessage = "";
-if (isset($_GET["success"])){
-    if ($_GET["success"] == 1){ // TODO
-        $changeMessage = "<p id='editmsg'>Album is successfully edited.</p>"; // TODO: edit js
-    } else {
-        $changeMessage = "<p id='editmsg'>Image format is wrong. Editing failed.</p>";
+$changeMessage = ""; 
+if (isset($_GET["success"]) && $isAdmin){
+    if ($_GET["success"] == 1 || $_GET["success"] == 7){ 
+        $changeMessage = "<p id='editmsg'><span class='green'>Album is successfully edited.</span></p>";
+    } else if ($_GET["success"] == 3){
+        $changeMessage = "<p id='editmsg'>Image file format should be jpg, jpeg, or png. <span class='red'>Editing failed.</span></p>";
+    } else if ($_GET["success"] == 5){
+        $changeMessage = "<p id='editmsg'>Image file size is too big. Upload size is limited to 8MB. <span class='red'>Editing failed.</span></p>";
     }
 }
 
-function showCancel(){
+function showCancel(){ // alert cancel delete
     echo '<script language="javascript">';
     echo 'alert("You Canceled")';
     echo '</script>';
 }
 
-function showNoSong(){
+function showNoSong(){ // delete song
     echo '<script language="javascript">';
     echo 'alert("No Song In Album")';
     echo '</script>';
 }
 
-$deleteButtonHolder = "";
+$deleteButtonHolder = ""; // delete
 if ($STORE->getIsAdminByUsername($tempUsername)){
     $deleteButtonHolder = "<button name='deleteAlbum' id='deleteButton'>Delete Album<i class='fa fa-trash-o'></i></button>";
     if (isset($_COOKIE["result"])) {
@@ -90,7 +103,7 @@ if ($STORE->getIsAdminByUsername($tempUsername)){
     } 
 }
 
-function deleteSong($STORE, $songId){
+function deleteSong($STORE, $songId){ // delete selected song
     $song = $STORE->getSongById($songId);
     $albumId = $song->getAlbumId();
     $album = $STORE->getAlbumById($albumId);
@@ -101,23 +114,24 @@ function deleteSong($STORE, $songId){
     echo '<script language="javascript">';
     echo 'alert("Song Deleted!")';
     echo '</script>';  
+    // header("Location: /album_detail?s=$albumId");
 }
 
 
-$deleteSongButtonHolder = "";
+$deleteSongButtonHolder = ""; // delete song
 if ($STORE->getIsAdminByUsername($tempUsername)){
     $deleteSongButtonHolder = "<button name='deleteAlbumSong' id='deleteAlbumSongButton'>Delete Song<i class='fa fa-trash-o'></i></button>";
-    if (isset($_COOKIE["confirm_delete"])) {
-        if ($_COOKIE["confirm_delete"]=="true"){
-            if($_COOKIE["values"]==""){
+    if (isset($_POST["confirm_delete"])) {
+        if ($_POST["confirm_delete"]=="true"){
+            if($_POST["values"]==""){
                 showNoSong();
             }else{
-                $values = $_COOKIE["values"];
+                $values = $_POST["values"];
                 $array = explode(',', $values);
-                foreach ($array as $id){
-                $song_id = (int) $id;
-                deleteSong($STORE, $song_id);
-            }
+                foreach ($array as $sid){
+                    $song_id = (int) $sid;
+                    deleteSong($STORE, $song_id);
+                }
             }
             
         }else{
@@ -132,9 +146,9 @@ $hero = template("components/album_detail/hero.html")->bind([
     "image" => $album->getImagePath(),
     "image_alt" => $album->getTitle(),
     "title" => $album->getTitle(),
-    "editButton" => $editButtonHolder,
-    "deleteButton" => $deleteButtonHolder,
-    "deleteSongButton" => $deleteSongButtonHolder,
+    "editButton" => $editButtonHolder,//
+    "deleteButton" => $deleteButtonHolder,//
+    "deleteSongButton" => $deleteSongButtonHolder,//
     "artist" => $album->getArtist(),
     "date" => $album->getPublishDateString(),
     "duration" => $album->getTotalDurationString(),

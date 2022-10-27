@@ -26,10 +26,10 @@ if ($order !== null) {
 
 $dataOnly = array_key_exists("d", $_GET) && $_GET["d"] === "1";
 
-// if (!isset($STORE)) {
-//     http_response_code(500);
-//     return;
-// }
+if (!isset($STORE)) {
+    http_response_code(500);
+    return;
+}
 
 $res = $sortBy
     ? $STORE->getSongBySimilarName($query, $page)
