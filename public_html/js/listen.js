@@ -21,7 +21,7 @@ deleteButton.addEventListener('click', function (event) {
     } else {
         text = "Canceled";
     }
-    document.cookie = "result=" + result + ";max-age=5";
+    document.cookie = "result=" + result + ";max-age=1";
     console.log(document.cookie);
     location.reload();
 

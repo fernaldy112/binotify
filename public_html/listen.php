@@ -69,7 +69,7 @@ $deleteButtonHolder = "";
 if ($STORE->getIsAdminByUsername($tempUsername)){
     $deleteButtonHolder = "<button name='deleteSong' id='deleteButton'>Delete<i class='fa fa-trash-o'></i></button>";
     if (isset($_COOKIE["result"])) {
-        if ($_COOKIE["result"]==true){
+        if ($_COOKIE["result"]=="true"){
             deleteSong($STORE, $id);
         }else{
             showCancel();
