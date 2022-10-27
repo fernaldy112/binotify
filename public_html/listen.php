@@ -2,8 +2,12 @@
 
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
+require_once(__DIR__."/../src/components/header.php");
+require_once(__DIR__."/../src/components/navbar.php");
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (!array_key_exists("username", $_SESSION)) {
     if (!array_key_exists("last_listen_date", $_SESSION) ||
@@ -24,7 +28,7 @@ if (!array_key_exists("username", $_SESSION)) {
 $id = $_GET["s"];
 $hiddenInput = "<input type='hidden' name='songId' value=$id />";
 
-if (!isset($STORE)) {
+if (!isset($STORE) || !isset($NAVBAR) || !isset($HEADER)) {
     http_response_code(500);
     return;
 }
@@ -94,7 +98,6 @@ if (isset($_GET["success"]) && $isAdmin){
     }
 }
 
-$header = html("components/shared/header.html");
 $hero = template("components/listen/hero.html")->bind([
     "image" => $song->getImagePath(),
     "image_alt" => $song->getTitle(),
@@ -121,9 +124,9 @@ $playBar = template("components/listen/play-bar.html")->bind([
 
 template("components/listen.html")->bind([
     "song" => $song->getArtist()." - ".$song->getTitle(),
-    "navbar" => html("components/shared/navbar.html"),
+    "navbar" => $NAVBAR,
     "main" => template("components/listen/main.html")->bind([
-        "header" => $header,
+        "header" => $HEADER,
         "hero" => $hero,
     ]),
     "playBar" => $playBar,
