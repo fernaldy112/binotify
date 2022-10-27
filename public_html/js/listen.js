@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
         xhr.open('POST', location.href);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = _ => {
-            location.href = '/';
+            if (result) {
+                location.href = location.origin;
+            }
         };
         xhr.send(new URLSearchParams({ result }).toString());
     });
