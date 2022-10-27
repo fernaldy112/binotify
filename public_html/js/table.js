@@ -111,7 +111,7 @@ class TableRenderer {
     _createNextButton() {
         const button = this._createButton('navigate_next');
         this.nextButtons.push(button);
-        button.addEventListener('click', this.next);
+        button.addEventListener('click', this.next.bind(this));
         return button;
 
     }
@@ -119,7 +119,7 @@ class TableRenderer {
     _createPrevButton() {
         const button = this._createButton('navigate_before');
         this.prevButtons.push(button);
-        button.addEventListener('click', this.prev);
+        button.addEventListener('click', this.prev.bind(this));
         return button;
     }
 
@@ -174,24 +174,24 @@ class TableRenderer {
         if (this.page === 1) {
             this.hasPrev = false;
             this.prevButtons.forEach(button => {
-                button.setAttribute('hidden', true);
+                button.setAttribute('hidden', '');
             });
         } else {
             this.hasPrev = true;
             this.prevButtons.forEach(button => {
-                button.setAttribute('hidden', false);
+                button.removeAttribute('hidden');
             });
         }
 
         if (!hasNext) {
             this.hasNext = false;
             this.nextButtons.forEach(button => {
-                button.setAttribute('hidden', true);
+                button.setAttribute('hidden', '');
             });
         } else {
             this.hasNext = true;
             this.nextButtons.forEach(button => {
-                button.setAttribute('hidden', false);
+                button.removeAttribute('hidden');
             });
         }
 
