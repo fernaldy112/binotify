@@ -21,8 +21,12 @@ deleteButton.addEventListener('click', function (event) {
     } else {
         text = "Canceled";
     }
-    document.cookie = "result=" + result + ";max-age=1";
-    console.log(document.cookie);
-    location.reload();
 
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', location.href);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = _ => {
+        location.reload();
+    };
+    xhr.send(new URLSearchParams({ result }).toString());
 });
