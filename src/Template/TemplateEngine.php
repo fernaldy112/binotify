@@ -90,10 +90,16 @@ class TemplateEngine
             $replacement = "";
 
             global $JS;
+            global $JS_DEFER;
 
             foreach ($JS as $path) {
                 $replacement = $replacement."\n<script src=\"$path\"></script>";
             }
+
+            foreach ($JS_DEFER as $path) {
+                $replacement = $replacement."\n<script src=\"$path\" defer></script>";
+            }
+
             return $replacement;
         }
 

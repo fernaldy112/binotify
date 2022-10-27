@@ -37,3 +37,10 @@ function js($fileName): void
 
     $JS[] = $fileName;
 }
+
+function js_defer($fileName): void
+{
+    global $JS_DEFER;
+
+    $JS_DEFER[] = $fileName;
+}
