@@ -164,7 +164,7 @@ $hero = template("components/album_detail/hero.html")->bind([
     "changeMessage" => $changeMessage
 ]);
 
-
+css("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 css("css/styles.css");
 css("css/shared.css");
 css("css/album_list.css");

@@ -98,6 +98,7 @@ if (isset($_GET["fileSuccess"]) && isset($_GET["imageSuccess"]) &&$isAdmin){
     }
 }
 
+css("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 css("css/styles.css");
 css("css/listen.css");
 css("css/shared.css");
