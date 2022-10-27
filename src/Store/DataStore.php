@@ -3,7 +3,9 @@
 namespace Binotify\Store;
 
 require_once(__DIR__."/../Model/Song.php");
+require_once(__DIR__."/../Model/Album.php");
 use Binotify\Model\Song;
+use Binotify\Model\Album;
 use mysqli;
 
 class DataStore {
@@ -117,7 +119,7 @@ class DataStore {
         return $result;
     }
 
-    function deleteSongWithId($id){
+    function deleteSong($id){
         $result = mysqli_query($this->mysqli, "DELETE from song WHERE song_id = $id");
         return $result;
         // Jangan lupa kurangi total_duration album.

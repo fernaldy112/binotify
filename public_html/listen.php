@@ -38,11 +38,44 @@ if ($song === null) {
     return;
 }
 
+function deleteSong($STORE, $songId){
+    $song = $STORE->getSongById($songId);
+    $albumId = $song->getAlbumId();
+    $album = $STORE->getAlbumById($albumId);
+    $duration = $song->getDuration();
+    $duration = $duration * -1;
+    $STORE->addAlbumTotalDuration($albumId, $duration);
+    $STORE->deleteSong($songId);
+    echo '<script language="javascript">';
+    echo 'alert("Album Deleted!")';
+    echo '</script>';
+    
+}
+
+function showCancel(){
+    echo '<script language="javascript">';
+    echo 'alert("You Canceled")';
+    echo '</script>';
+}
+
 $buttonHolder = "";
 $fileUpload = "";
 if ($STORE->getIsAdminByUsername($tempUsername)){
     $buttonHolder = "<button name='editSong' id='editButton'>Edit<i class='fa fa-external-link'></i></button>";
     $fileUpload = "<div id='fileUploadContainer'></div>";
+}
+
+$deleteButtonHolder = "";
+if ($STORE->getIsAdminByUsername($tempUsername)){
+    $deleteButtonHolder = "<button name='deleteSong' id='deleteButton'>Delete<i class='fa fa-trash-o'></i></button>";
+    if (isset($_COOKIE["result"])) {
+        if ($_COOKIE["result"]==true){
+            deleteSong($STORE, $id);
+        }else{
+            showCancel();
+        }
+    }
+
 }
 
 $changeMessage = "";
@@ -60,6 +93,7 @@ $hero = template("components/listen/hero.html")->bind([
     "image_alt" => $song->getTitle(),
     "title" => $song->getTitle(),
     "editButton" => $buttonHolder,
+    "deleteButton" => $deleteButtonHolder,
     "artist" => $song->getArtist(),
     "date" => $song->getPublishDateString(),
     "duration" => $song->getDurationString(),
