@@ -55,3 +55,15 @@
     margin-bottom: 0;
 }
 
+.songAdditionError, .songAdditionSuccess{
+    color: red;
+    font-weight: normal;
+    width: 70%;
+    margin-left: 12%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.songAdditionSuccess{
+    color: rgb(30, 202, 30);
+}

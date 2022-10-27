@@ -3,10 +3,10 @@
 require_once(__DIR__."/../Template/util.php");
 require_once(__DIR__."/../Store/DataStore.php");
 
-if (!isset($STORE)) {
-    http_response_code(500);
-    return;
-}
+// if (!isset($STORE)) {
+//     http_response_code(500);
+//     return;
+// }
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

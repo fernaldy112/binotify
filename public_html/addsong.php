@@ -95,7 +95,10 @@
             }
         }
 
-        $album = $STORE->getAlbumById($albumId);
+        $album = NULL;
+        if (strlen(trim($albumId))!==0){
+            $album = $STORE->getAlbumById($albumId);
+        }
         if (!$album){
             $addSongError["albumError"] = "Invalid album id.";
             $addSongError["valid"] = false;

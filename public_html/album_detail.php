@@ -5,10 +5,9 @@ require_once(__DIR__."/../src/Store/DataStore.php");
 
 $id = $_GET["s"];
 
-$hiddenInput = "<input type='hidden' name='albumId' value=$id />";
 $album = $STORE->getAlbumById($id);
 $songList = $STORE->getAllSongByAlbumId($id);
-$tempUsername = "admin1";
+$tempUsername = "admin1"; // DELETE
 
 function make_table ($songList) {
     $tbl_array = [];
@@ -42,7 +41,7 @@ function deleteAlbum($STORE, $albumId, $album, $songList){
         echo '<script language="javascript">';
         echo 'alert("Album Deleted!")';
         echo '</script>';
-        
+        header("Location: /album_list");
     }else{
         echo '<script language="javascript">';
         echo 'alert("Cannot Delete Album!\nAlbum not Empty")';

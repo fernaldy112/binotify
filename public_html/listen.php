@@ -28,10 +28,10 @@ if (!array_key_exists("username", $_SESSION)) {
 $id = $_GET["s"];
 $hiddenInput = "<input type='hidden' name='songId' value=$id />";
 
-if (!isset($STORE) || !isset($NAVBAR) || !isset($HEADER)) {
-    http_response_code(500);
-    return;
-}
+// if (!isset($STORE) || !isset($NAVBAR) || !isset($HEADER)) {
+//     http_response_code(500);
+//     return;
+// }
 
 $song = $STORE->getSongById($id);
 
