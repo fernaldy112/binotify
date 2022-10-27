@@ -1,4 +1,5 @@
 <?php
+
 namespace Binotify\Model;
 
 class Song implements \JsonSerializable

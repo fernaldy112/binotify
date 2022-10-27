@@ -4,11 +4,20 @@
             <button class="search-btn material-symbols-rounded thick" type="submit">
                 search
             </button>
-            <input name="q" type="search" class="search-bar" spellcheck="false"
-                placeholder="What do you want to listen to?">
+            <input
+                    name="q"
+                    type="search"
+                    class="search-bar"
+                    spellcheck="false"
+                    placeholder="What do you want to listen to?"
+                    required
+            >
             <button hidden class="search-cancel-btn material-symbols-rounded thick" type="reset">
                 clear
             </button>
         </form>
+    </div>
+    <div class="header-right">
+        {{ auth_controls }}
     </div>
 </header>
