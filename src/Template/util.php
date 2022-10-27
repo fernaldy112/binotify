@@ -23,3 +23,17 @@ function template($fileName): TemplateEngine
 
     return new TemplateEngine("");
 }
+
+function css($fileName): void
+{
+    global $CSS;
+
+    $CSS[] = $fileName;
+}
+
+function js($fileName): void
+{
+    global $JS;
+
+    $JS[] = $fileName;
+}

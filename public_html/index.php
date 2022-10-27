@@ -33,6 +33,14 @@ $main = template("components/home/main.html")->bind([
     "cards" => $cards
 ]);
 
+css("css/styles.css");
+css("css/shared.css");
+css("css/search.css");
+css("css/home.css");
+js("js/table.js");
+js("js/auth.js");
+js("js/searchbar.js");
+
 template("components/index.html")->bind([
     "navbar" => $NAVBAR,
     "main" => $main

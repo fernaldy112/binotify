@@ -75,6 +75,28 @@ class TemplateEngine
 
         $name = $match[1];
 
+        if ($name === "css") {
+            $replacement = "";
+
+            global $CSS;
+
+            foreach ($CSS as $path) {
+                $replacement = $replacement."\n<link rel=\"stylesheet\" href=\"$path\" />";
+            }
+            return $replacement;
+        }
+
+        if ($name === "js") {
+            $replacement = "";
+
+            global $JS;
+
+            foreach ($JS as $path) {
+                $replacement = $replacement."\n<script src=\"$path\"></script>";
+            }
+            return $replacement;
+        }
+
         if (array_key_exists($name, $this->replacements)) {
             $replacement = $this->replacements[$name];
             if ($replacement instanceof TemplateEngine) {
