@@ -21,9 +21,6 @@ if (!array_key_exists("username", $_SESSION)) {
     $_SESSION["listened"]++;
 }
 
-// DELETE
-$tempUsername = "admin1";
-
 $id = $_GET["s"];
 $hiddenInput = "<input type='hidden' name='songId' value=$id />";
 
@@ -61,14 +58,14 @@ function showCancel(){
 
 $buttonHolder = "";
 $fileUpload = "";
-$isAdmin = $STORE->getIsAdminByUsername($tempUsername);
-if ($isAdmin){
+$isAdmin = $STORE->getIsAdminByUsername($_SESSION["username"]);
+if ($isAdmin) {
     $buttonHolder = "<button name='editSong' id='editButton'>Edit<i class='fa fa-external-link'></i></button>";
     $fileUpload = "<div id='fileUploadContainer'></div>";
 }
 
 $deleteButtonHolder = "";
-if ($STORE->getIsAdminByUsername($tempUsername)){
+if ($STORE->getIsAdminByUsername($_SESSION["username"])){
     $deleteButtonHolder = "<button name='deleteSong' id='deleteButton'>Delete<i class='fa fa-trash-o'></i></button>";
     if (isset($_COOKIE["result"])) {
         if ($_COOKIE["result"]=="true"){
