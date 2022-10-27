@@ -28,11 +28,11 @@
             $newImagePath = $album->getImagePath();
             $success = 7;
         } else {
-            $arrOfImgName = explode('.', $image["name"]);
+            $arrOfImgName = explode('.', $newImage["name"]);
             $imgExtension = strtolower(end($arrOfImgName));
             if ($imgExtension !== "jpg" && $imgExtension !== "jpeg" && $imgExtension !== "png"){
                 $success = 3;
-                $newImagePath = $song->getImagePath();
+                $newImagePath = $album->getImagePath();
             } else if ($newImage['error']!==UPLOAD_ERR_OK) {
                 if ($newImage['error']===UPLOAD_ERR_INI_SIZE || $newImage['error']===UPLOAD_ERR_FORM_SIZE){
                     $success = 5;
@@ -46,7 +46,7 @@
 
         move_uploaded_file($newImage["tmp_name"], $newAssetImgPath);
         $imageLoc = "image/".$newImageName;
-        $STORE->updateAlbum($albumId, $newTitle, $newArtist, $newImage);
+        $STORE->updateAlbum($albumId, $newTitle, $newArtist, $imageLoc);
 
-        header("Location: /album_detail?s=$albumId&success=$success");
+        // header("Location: /album_detail?s=$albumId&success=$success");
     }
