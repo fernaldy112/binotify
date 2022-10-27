@@ -50,21 +50,22 @@
             $newGenre = $song->getGenre();
         }
 
-        $success = 1; // 1 success; 2 song format error; 3 image format error; 4 song size error; 5 image size error; 6 no new audio file; 7 no new image file
+        $fileSuccess = 1; // 1 success; 2 song format error; 4 song size error; 6 no new audio file
+        $imageSuccess = 1; // 1 success; 3 image format error; 5 image size error; 7 no new image file
 
         $newFileName = "";
         if ($newFile['error']===4){
             $newFilePath = $song->getAudioPath();
-            $success = 6;
+            $fileSuccess = 6;
         } else {
             $arrOfFileName = explode('.', $newFile["name"]);
             $fileExtension = strtolower(end($arrOfFileName));
             if ($fileExtension !== "mp3"){
-                $success = 2;
+                $fileSuccess = 2;
                 $newFilePath = $song->getAudioPath();
             } else if ($newFile['error']!==UPLOAD_ERR_OK) {
                 if ($newFile['error']===UPLOAD_ERR_INI_SIZE || $newFile['error']===UPLOAD_ERR_FORM_SIZE){
-                    $success = 4;
+                    $fileSuccess = 4;
                     $newFilePath = $song->getAudioPath();
                 }
             } else {
@@ -75,16 +76,16 @@
 
         if ($newImage['error']===4){
             $newImagePath = $song->getImagePath();
-            $success = 7;
+            $imageSuccess = 7;
         } else {
             $arrOfImgName = explode('.', $newImage["name"]);
             $imgExtension = strtolower(end($arrOfImgName));
             if ($imgExtension !== "jpg" && $imgExtension !== "jpeg" && $imgExtension !== "png"){
-                $success = 3;
+                $imageSuccess = 3;
                 $newImagePath = $song->getImagePath();
             } else if ($newImage['error']!==UPLOAD_ERR_OK) {
                 if ($newImage['error']===UPLOAD_ERR_INI_SIZE || $newImage['error']===UPLOAD_ERR_FORM_SIZE){
-                    $success = 5;
+                    $imageSuccess = 5;
                     $newImagePath = $song->getImagePath();
                 }
             } else {
@@ -94,13 +95,13 @@
         }
 
         $duration = -1;
-        if (strlen($newFile["tmp_name"]) !== 0){
+        if (strlen($newFile["tmp_name"]) !== 0 && $fileSuccess===1){
             move_uploaded_file($newFile["tmp_name"], $newAssetFilePath);
             $duration = shell_exec("cd music ; ffmpeg -i '$newFileName' 2>&1 | grep Duration | awk '{print $2}' | tr -d ,");
             $duration = countSeconds($duration);
             $newFilePath = "music/".$newFileName;
         }
-        if (strlen($newImage["tmp_name"]) !== 0){
+        if (strlen($newImage["tmp_name"]) !== 0 && $imageSuccess===1){
             move_uploaded_file($newImage["tmp_name"], $newAssetImgPath);
             $newImagePath = "image/".$newImageName;
         }
@@ -118,5 +119,6 @@
         $STORE->addAlbumTotalDuration($albumId, -1*$oldDuration);
         $STORE->addAlbumTotalDuration($albumId, $duration);
 
-        header("Location: /listen?s=$songId&success=$success");
+
+        header("Location: /listen?s=$songId&fileSuccess=$fileSuccess&imageSuccess=$imageSuccess");
     }

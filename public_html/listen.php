@@ -82,19 +82,19 @@ if ($STORE->getIsAdminByUsername($_SESSION["username"])){
 }
 
 $changeMessage = "";
-if (isset($_GET["success"]) && $isAdmin){
-    if ($_GET["success"] == 1 || $_GET["success"] == 6 || $_GET["success"] == 7){
-        $changeMessage = "<p id='editmsg'><span class='green'>Song is successfully edited.</span></p>";
-    } else if ($_GET["success"] == 2){
+if (isset($_GET["fileSuccess"]) && isset($_GET["imageSuccess"]) &&$isAdmin){
+    if ($_GET["fileSuccess"] == 2){
         $changeMessage = "<p id='editmsg'>Audio file format should be mp3. <span class='red'>Editing failed.</span></p>";
-    } else if ($_GET["success"] == 3){
+    } else if ($_GET["imageSuccess"] == 3){
         $changeMessage = "<p id='editmsg'>Image file format should be jpg, jpeg, or png. <span class='red'>Editing failed.</span></p>";
-    } else if ($_GET["success"] == 4){
+    } else if ($_GET["fileSuccess"] == 4){
         $changeMessage = "<p id='editmsg'>Audio file size is too big. Upload size is limited to 8MB. <span class='red'>Editing failed.</span></p>";
-    } else if ($_GET["success"] == 5){
+    } else if ($_GET["imageSuccess"] == 5){
         $changeMessage = "<p id='editmsg'>Image file size is too big. Upload size is limited to 8MB. <span class='red'>Editing failed.</span></p>";
-    } else if ($_GET["success"] == 6){
-        $changeMessage = "<p id='editmsg'>Audio file size is too big. Upload size is limited to 8MB. <span class='red'>Editing failed.</span></p>";
+    } else if ($_GET["fileSuccess"] == 1 || $_GET["imageSuccess"] == 1){
+        $changeMessage = "<p id='editmsg'><span class='green'>Song is successfully edited.</span></p>";
+    } else if ($_GET["fileSuccess"] == 6 && $_GET["imageSuccess"] == 7){
+        $changeMessage = "<p id='editmsg'><span class='green'>Song is successfully edited.</span></p>";
     }
 }
 
