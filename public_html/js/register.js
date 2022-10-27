@@ -1,4 +1,15 @@
-function checkUnique(changed){
+const DELAY = 600;
+let timeout = null;
+
+function checkUnique(changed) {
+    if (timeout) {
+        return;
+    }
+
+    timeout = setTimeout(() => {
+        timeout = null;
+    }, DELAY);
+
     let email = document.getElementById("userEmailRegister").value;
     let username = document.getElementById("userNameRegister").value;
     let xhttp = new XMLHttpRequest();
@@ -44,5 +55,3 @@ function checkUnique(changed){
     var param = "changed="+changed+"&email="+email+"&username="+username;
     xhttp.send(param);
 }
-
-// TODO: debounce function
