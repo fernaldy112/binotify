@@ -115,6 +115,11 @@ class DataStore {
         return $userData["isAdmin"];
     }
 
+    function deleteAlbum($id){
+        $result = $this->mysqli->query("DELETE FROM album WHERE album_id=$id");
+        return $result;
+    }
+
 }
 
 $STORE = new DataStore();

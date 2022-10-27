@@ -48,5 +48,5 @@
         $imageLoc = "image/".$newImageName;
         $STORE->updateAlbum($albumId, $newTitle, $newArtist, $imageLoc);
 
-        // header("Location: /album_detail?s=$albumId&success=$success");
+        header("Location: /album_detail?s=$albumId&success=$success");
     }

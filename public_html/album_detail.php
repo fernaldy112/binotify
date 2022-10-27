@@ -34,6 +34,22 @@ function make_table ($songList) {
     return implode('', $tbl_array);
 }
 
+function deleteAlbum($STORE, $albumId, $album, $songList){
+    $countSong = count($songList);
+    if ($countSong == 0){
+        $STORE->deleteAlbum($albumId);
+        echo '<script language="javascript">';
+        echo 'alert("Album Deleted!")';
+        echo '</script>';
+        
+    }else{
+        echo '<script language="javascript">';
+        echo 'alert("Cannot Delete Album!\nAlbum not Empty")';
+        // echo 'Location.href = "/album_list"';
+        echo '</script>';
+    }
+}
+
 $editButtonHolder = "";
 $fileUpload = "";
 if ($STORE->getIsAdminByUsername($tempUsername)){
@@ -58,7 +74,7 @@ if ($STORE->getIsAdminByUsername($tempUsername)){
     //     print_r($_COOKIE["result"]);
     // }
     if (isset($_COOKIE["result"])) {
-        print_r($_COOKIE["result"]);
+        deleteAlbum($STORE, $id, $album, $songList);
     }
     
 }

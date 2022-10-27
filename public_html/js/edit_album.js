@@ -86,3 +86,7 @@ deleteButton.addEventListener('click', function (event) {
     location.reload();
 
 });
+
+function show_alert() {
+    alert("Cannot Delete Album!\nAlbum not Empty")
+}
