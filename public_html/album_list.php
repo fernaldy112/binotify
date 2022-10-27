@@ -50,6 +50,7 @@ $main = template("components/album_list/main.html")->bind([
 ]);
 
 css("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+css("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 css("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 css("http://fonts.cdnfonts.com/css/gotham");
 css("css/styles.css");
