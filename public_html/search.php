@@ -67,6 +67,7 @@ if ($dataOnly) {
     js("js/search.js");
     js("js/util.js");
     js("js/searchbar.js");
+    js("js/auth.js");
 
     template("components/search.html")->bind([
         "query" => $query,

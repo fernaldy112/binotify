@@ -57,6 +57,7 @@ css("css/styles.css");
 css("css/shared.css");
 css("css/album_list.css");
 js_defer("js/album_list.js");
+js("js/auth.js");
 
 template("components/album_list.html")->bind([
     "title"=> "Album List - Binotify",

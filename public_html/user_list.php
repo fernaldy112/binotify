@@ -56,6 +56,7 @@ css("css/styles.css");
 css("css/shared.css");
 css("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 css("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+js("js/auth.js");
 
 template("components/user_list.html")->bind([
     "title" => "See All User",
