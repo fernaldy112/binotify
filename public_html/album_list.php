@@ -54,8 +54,7 @@ css("http://fonts.cdnfonts.com/css/gotham");
 css("css/styles.css");
 css("css/shared.css");
 css("css/album_list.css");
-// defer
-js("js/album_list.js");
+js_defer("js/album_list.js");
 
 template("components/album_list.html")->bind([
     "title"=> "Album List - Binotify",
