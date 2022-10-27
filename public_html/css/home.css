@@ -12,6 +12,7 @@ a {
     box-sizing: border-box;
     display: flex;
     justify-content: space-around;
+    flex-flow: row wrap;
 }
 
 .music-card {
@@ -20,6 +21,7 @@ a {
     align-items: center;
     border-radius: 4px;
     padding: 16px;
+    margin: 16px;
     box-sizing: border-box;
     flex-flow: column;
     cursor: pointer;

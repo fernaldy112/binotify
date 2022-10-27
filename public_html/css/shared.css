@@ -8,11 +8,13 @@ body {
 
 #app {
     width: 100%;
-    display: flex;
+    /*display: flex;*/
+    min-height: 100vh;
 }
 
 #main {
     margin-left: 240px;
+    min-height: 100vh;
 }
 
 /* Button reset */
