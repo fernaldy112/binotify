@@ -260,15 +260,6 @@ class DataStore {
         ];
     }
 
-    function getAlbumById($albumId) {
-        $result = $this->mysqli->query("SELECT * FROM album WHERE album_id = '$albumId'");
-        $rawData = $result->fetch_all(MYSQLI_ASSOC);
-        if (!array_key_exists(0, $rawData)) {
-            return null;
-        }
-        return $rawData[0];
-    }
-
     function getSongBySimilarNameSorted($query, $page, $sortBy, $order): array
     {
         if ($sortBy === "title") {
@@ -295,10 +286,6 @@ class DataStore {
         return $genreRow["genre"];
     }
 
-    function addAlbumTotalDuration($albumId, $extraDuration){
-        $result = mysqli_query($this->mysqli, "UPDATE album SET total_duration = total_duration + $extraDuration WHERE album_id = '$albumId'");
-        return $result;
-    }
 
     function addSong($title, $singer, $releaseDate, $genre, $duration, $audioPath, $imgPath, $albumId){
         $result = mysqli_query($this->mysqli, "INSERT INTO song (judul, penyanyi, tanggal_terbit, genre, duration, audio_path, image_path, album_id) VALUES ('$title', '$singer', '$releaseDate', '$genre', '$duration', '$audioPath', '$imgPath', '$albumId')");
@@ -314,15 +301,6 @@ class DataStore {
         $result = mysqli_query($this->mysqli, "DELETE from song WHERE song_id = $id");
         return $result;
         // Jangan lupa kurangi total_duration album.
-    }
-
-    function getIsAdminByUsername($username){
-
-        $result = $this->mysqli->query("SELECT * FROM user WHERE username='$username'");
-        $rawData = $result->fetch_all(MYSQLI_ASSOC);
-        $userData = $rawData[0];
-
-        return $userData["isAdmin"];
     }
 
     function getRecentSongs(): array
