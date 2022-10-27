@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="http://fonts.cdnfonts.com/css/gotham" rel="stylesheet">
     <link rel="stylesheet" href="css/form.css" />
     <link rel="stylesheet" href="css/adddata.css" />
 </head>
 <body>
     <div class="addSongContainer">
-        <h1 class="logo">Binotify</h1>
+        <h1 class="logo" href="index.php">Binotify</h1>
         <hr>
+        <form action="addsong.php" method="get" id="backFromAddSongForm">
+            <button type="submit" name="back" class="backButton"><i class="fa fa-arrow-left"></i></button>
+        </form>
         <form action="addsong.php" method="post" id="addSongForm" class="dataForm" enctype="multipart/form-data">
             <label for="songTitle">Title</label>
             <input type="text" id="songTitle" name="songTitle" placeholder="Enter song title">

@@ -35,6 +35,10 @@
     ];
     $successMsg = "";
 
+    if (isset($_GET["back"])){
+        header("Location:/");
+    }
+
     if (isset($_POST["addSong"])){
         $title = $_POST["songTitle"];
         $singer = $_POST["songSinger"];

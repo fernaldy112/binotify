@@ -33,7 +33,7 @@ form{
 .dataForm{
     font-weight: 700;
     font-size: 14px;
-    margin-top: 50px;
+    /* margin-top: 50px; */
 }
 
 .dataForm label{
@@ -50,6 +50,22 @@ form{
     height: 35px;
     border-radius: 5px;
     border-width: 2px;
+}
+
+#backFromAddSongForm{
+    width: 31%;
+    margin: 0 auto;
+    display: block;
+}
+
+.backButton{
+    border: none;
+    background-color: white;
+    font-size: 40px;
+}
+
+.backButton:hover{
+    color: grey;
 }
 
 
