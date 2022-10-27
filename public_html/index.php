@@ -15,6 +15,9 @@ if (!isset($STORE) || !isset($NAVBAR)) {
 
 
 $musics = $STORE->getRecentSongs();
+usort($musics, function ($music1, $music2) {
+    return strcasecmp($music1["title"], $music2["title"]);
+});
 
 $authControls = array_key_exists("username", $_SESSION)
     ? template("components/shared/auth.html")->bind($_SESSION)
