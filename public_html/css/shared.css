@@ -46,6 +46,11 @@ nav a {
     gap: 16px;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 nav {
     opacity: 0.6;
     will-change: opacity;

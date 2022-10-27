@@ -27,7 +27,7 @@ if ($order !== null) {
 $dataOnly = array_key_exists("d", $_GET) && $_GET["d"] === "1";
 
 if (!isset($STORE)) {
-//    TODO: display 500
+    http_response_code(500);
     return;
 }
 
@@ -60,6 +60,16 @@ if ($dataOnly) {
         "search_result" => $hasResult ? $result : $noResult,
         "header" => $header
     ]);
+
+    css("css/styles.css");
+    css("css/shared.css");
+    css("css/search.css");
+    css("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+    css("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+    js("js/table.js");
+    js("js/search.js");
+    js("js/util.js");
+    js("js/searchbar.js");
 
     template("components/search.html")->bind([
         "query" => $query,
