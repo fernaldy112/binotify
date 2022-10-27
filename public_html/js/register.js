@@ -1,15 +1,18 @@
-const DELAY = 600;
+const DELAY = 300;
 let timeout = null;
 
 function checkUnique(changed) {
     if (timeout) {
-        return;
+        clearTimeout(timeout);
     }
 
     timeout = setTimeout(() => {
-        timeout = null;
+        _checkUnique(changed);
     }, DELAY);
 
+}
+
+function _checkUnique(changed) {
     let email = document.getElementById("userEmailRegister").value;
     let username = document.getElementById("userNameRegister").value;
     let xhttp = new XMLHttpRequest();
