@@ -49,7 +49,12 @@ $main = template("components/album_list/main.html")->bind([
     "album_list" => make_table($albumList)
 ]);
 
-
+css("http://fonts.cdnfonts.com/css/gotham");
+css("css/styles.css");
+css("css/shared.css");
+css("css/album_list.css");
+// defer
+js("js/album_list.js");
 
 template("components/album_list.html")->bind([
     "title"=> "Album List - Binotify",

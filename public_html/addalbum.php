@@ -1,102 +1,107 @@
 <?php
-    require_once(__DIR__."/../src/Template/util.php");
-    require_once(__DIR__."/../src/Store/DataStore.php");
+require_once(__DIR__."/../src/Template/util.php");
+require_once(__DIR__."/../src/Store/DataStore.php");
 
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (array_key_exists("username", $_SESSION)) {
+    $tempUsername = $_SESSION["username"];
+    $isAdmin = $STORE->getIsAdminByUsername($tempUsername);
+} else {
+    $isAdmin = false;
+}
+
+if (!$isAdmin){
+    header("Location: /");
+    return;
+}
+
+function checkMsg($msg){
+    if (strlen($msg) !==0){
+        $msg = "<p class='albumAdditionError'>".$msg."</p>";
     }
+    return $msg;
+}
+function checkInputLength($var, $errorkey, $msg, &$addAlbumError){
+    if (strlen(trim($var))===0){
+        $addAlbumError[$errorkey] = $msg;
+        $addAlbumError["valid"] = false;
+    }
+}
+$addAlbumError = [
+    "titleError" => "",
+    "singerError" => "",
+    "imageError" => "",
+    "dateError" => "",
+    "genreError" => "",
+    "valid" => true
+];
+$successMsg = "";
+if (isset($_POST["addAlbum"])){
+    $title = $_POST["albumTitle"];
+    $singer = $_POST["albumSinger"];
+    $date = $_POST["albumDate"];
+    $genre = $_POST["albumGenre"];
+    $image = $_FILES['albumImage'];
 
-    if (array_key_exists("username", $_SESSION)) {
-        $tempUsername = $_SESSION["username"];
-        $isAdmin = $STORE->getIsAdminByUsername($tempUsername);
+    checkInputLength($title, "titleError", "You need to enter the title.", $addAlbumError);
+    checkInputLength($singer, "singerError", "You need to enter the singer.", $addAlbumError);
+    checkInputLength($date, "dateError", "You need to enter the date.", $addAlbumError);
+    checkInputLength($genre, "genreError", "You need to enter the genre.", $addAlbumError);
+
+    if ($image['error']===4){
+        $addAlbumError["imageError"] = "You need to upload the image file.";
     } else {
-        $isAdmin = false;
-    }
-
-    if (!$isAdmin){
-        header("Location: /");
-        return;
-    }
-
-    function checkMsg($msg){
-        if (strlen($msg) !==0){
-            $msg = "<p class='albumAdditionError'>".$msg."</p>";
-        }
-        return $msg;
-    }
-    function checkInputLength($var, $errorkey, $msg, &$addAlbumError){
-        if (strlen(trim($var))===0){
-            $addAlbumError[$errorkey] = $msg;
+        $arrOfImgName = explode('.', $image["name"]);
+        $imgExtension = strtolower(end($arrOfImgName));
+        if ($imgExtension !== "jpg" && $imgExtension !== "jpeg" && $imgExtension !== "png"){
+            $addAlbumError["imageError"] = "Image extension should be jpg, jpeg, or png";
             $addAlbumError["valid"] = false;
-        }
-    }
-    $addAlbumError = [
-        "titleError" => "",
-        "singerError" => "",
-        "imageError" => "",
-        "dateError" => "",
-        "genreError" => "",
-        "valid" => true
-    ];
-    $successMsg = "";
-    if (isset($_POST["addAlbum"])){
-        $title = $_POST["albumTitle"];
-        $singer = $_POST["albumSinger"];
-        $date = $_POST["albumDate"];
-        $genre = $_POST["albumGenre"];
-        $image = $_FILES['albumImage'];
-
-        checkInputLength($title, "titleError", "You need to enter the title.", $addAlbumError);
-        checkInputLength($singer, "singerError", "You need to enter the singer.", $addAlbumError);
-        checkInputLength($date, "dateError", "You need to enter the date.", $addAlbumError);
-        checkInputLength($genre, "genreError", "You need to enter the genre.", $addAlbumError);
-
-        if ($image['error']===4){
-            $addAlbumError["imageError"] = "You need to upload the image file.";
+        } else if ($image['size'] > 2000000) {
+            $addAlbumError["imgError"] = "Image size is too big.";
+            $addAlbumError["valid"] = false;
         } else {
-            $arrOfImgName = explode('.', $image["name"]);
-            $imgExtension = strtolower(end($arrOfImgName));
-            if ($imgExtension !== "jpg" && $imgExtension !== "jpeg" && $imgExtension !== "png"){
-                $addAlbumError["imageError"] = "Image extension should be jpg, jpeg, or png";
-                $addAlbumError["valid"] = false;
-            } else if ($image['size'] > 2000000) {
-                $addAlbumError["imgError"] = "Image size is too big.";
-                $addAlbumError["valid"] = false;
-            } else {
-                $imageName = strval(time())."_".str_replace(' ', '_', $image["name"]);
-                $imgPath = __DIR__."/../assets/image/".$imageName;
-
-            }
-
-            if ($addAlbumError["valid"]){
-                move_uploaded_file($image["tmp_name"], $imgPath);
-                $imageLoc = "image/".$imageName;
-                $STORE->addAlbum($title, $singer, $date, $genre, $imageLoc);
-                $successMsg = "Album addition is successful";
-            }
-    
-        }
+            $imageName = strval(time())."_".str_replace(' ', '_', $image["name"]);
+            $imgPath = __DIR__."/../assets/image/".$imageName;
 
         }
 
-    
-    $addAlbumError["titleError"] = checkMsg($addAlbumError["titleError"]);
-    $addAlbumError["singerError"] = checkMsg($addAlbumError["singerError"]);
-    $addAlbumError["dateError"] = checkMsg($addAlbumError["dateError"]);
-    $addAlbumError["genreError"] = checkMsg($addAlbumError["genreError"]);
-    $addAlbumError["imageError"] = checkMsg($addAlbumError["imageError"]);
-    if (strlen($successMsg) !==0){
-        $successMsg = "<p class='albumAdditionSuccess'>".$successMsg."</p>";
+        if ($addAlbumError["valid"]){
+            move_uploaded_file($image["tmp_name"], $imgPath);
+            $imageLoc = "image/".$imageName;
+            $STORE->addAlbum($title, $singer, $date, $genre, $imageLoc);
+            $successMsg = "Album addition is successful";
+        }
+
     }
 
-    template("components/addAlbum.html")->render(
-        [
-            "title" => "Add Album - Binotify",
-            "titleError" => $addAlbumError["titleError"],
-            "singerError" => $addAlbumError["singerError"],
-            "dateError" => $addAlbumError["dateError"],
-            "genreError" => $addAlbumError["genreError"],
-            "imageError" => $addAlbumError["imageError"],
-            "success" => $successMsg,
-        ]
-    );
+    }
+
+
+$addAlbumError["titleError"] = checkMsg($addAlbumError["titleError"]);
+$addAlbumError["singerError"] = checkMsg($addAlbumError["singerError"]);
+$addAlbumError["dateError"] = checkMsg($addAlbumError["dateError"]);
+$addAlbumError["genreError"] = checkMsg($addAlbumError["genreError"]);
+$addAlbumError["imageError"] = checkMsg($addAlbumError["imageError"]);
+if (strlen($successMsg) !==0){
+    $successMsg = "<p class='albumAdditionSuccess'>".$successMsg."</p>";
+}
+
+css("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+css("http://fonts.cdnfonts.com/css/gotham");
+css("css/form.css");
+css("css/adddata.css");
+
+template("components/addAlbum.html")->render(
+    [
+        "title" => "Add Album - Binotify",
+        "titleError" => $addAlbumError["titleError"],
+        "singerError" => $addAlbumError["singerError"],
+        "dateError" => $addAlbumError["dateError"],
+        "genreError" => $addAlbumError["genreError"],
+        "imageError" => $addAlbumError["imageError"],
+        "success" => $successMsg,
+    ]
+);
