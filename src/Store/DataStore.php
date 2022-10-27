@@ -2,8 +2,11 @@
 
 namespace Binotify\Store;
 
+require_once(__DIR__."/../Model/User.php");
 require_once(__DIR__."/../Model/Song.php");
 require_once(__DIR__."/../Model/Album.php");
+
+use Binotify\Model\User;
 use Binotify\Model\Song;
 use Binotify\Model\Album;
 use mysqli;
@@ -39,6 +42,86 @@ class DataStore {
 
         return Song::deserialize($songData, $albumData["judul"]);
     }
+
+    function getUserByEmail($email): User|null{
+
+        $result = $this->mysqli->query("SELECT * FROM user WHERE email='$email'");
+
+        if($result){
+            $rawData = $result->fetch_all(MYSQLI_ASSOC);
+            if (!array_key_exists(0, $rawData)) {
+                return null;
+            }    
+        } else {
+            return null;
+        }
+
+        $userData = $rawData[0];
+
+        return new User(
+            $userData["user_id"], 
+            $userData["email"], 
+            $userData["password"], 
+            $userData["username"], 
+            $userData["isAdmin"]
+        );
+
+    }
+
+    function getUserByUsername($username): User|null{
+
+        $result = $this->mysqli->query("SELECT * FROM user WHERE username='$username'");
+
+        if($result){
+            $rawData = $result->fetch_all(MYSQLI_ASSOC);
+            if (!array_key_exists(0, $rawData)) {
+                return null;
+            }    
+        } else {
+            return null;
+        }
+
+        $userData = $rawData[0];
+
+        return new User(
+            $userData["user_id"], 
+            $userData["email"], 
+            $userData["password"], 
+            $userData["username"], 
+            $userData["isAdmin"]
+        );
+
+    }
+
+    function getAllUser(): array{
+
+        $result = $this->mysqli->query("SELECT * FROM user");
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        
+        $users = array();
+        foreach($data as $row) {
+            $user = new User(
+                $row["user_id"], 
+                $row["email"], 
+                $row["password"], 
+                $row["username"], 
+                $row["isAdmin"]
+            );
+            array_push($users, $user);
+         }
+
+        return $users;
+
+    }
+
+    function insertUser($email, $username, $password){
+        
+        $isAdmin = 0;
+        $result = mysqli_query($this->mysqli, "INSERT INTO user (email, password, username, isAdmin) VALUES ('$email', '$password', '$username', $isAdmin)");
+        return $this->getUserByEmail($email);
+
+    }
+
 
     function getSongBySimilarName($query, $page = 1, $ext = " ORDER BY judul ASC"): array
     {
@@ -95,7 +178,7 @@ class DataStore {
 
     function getSongGenres(): array
     {
-        $result = $this->mysqli->query('SELECT DISTINCT genre FROM song;');
+        $result = $this->mysqli->query("SELECT DISTINCT genre FROM song;");
         $rawData = $result->fetch_all(MYSQLI_ASSOC);
         return array_map(array("self", "genreMap"), $rawData);
     }
@@ -134,6 +217,15 @@ class DataStore {
         return $userData["isAdmin"];
     }
 
+    function getRecentSongs(): array
+    {
+        $result = $this->mysqli->query(
+            "SELECT S.song_id AS id, S.judul AS title, S.genre, YEAR(S.tanggal_terbit) AS publish_year,".
+            "A.judul AS album_name, S.penyanyi AS artist, S.image_path AS cover ".
+            "FROM song AS S INNER JOIN album AS A ON S.album_id = A.album_id ".
+            "ORDER BY song_id DESC LIMIT 10;");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 $STORE = new DataStore();

@@ -22,4 +22,3 @@ RUN chown -R root assets/music assets/image
 RUN chmod -R 777 assets/music && chmod -R 777 assets/image
 
 EXPOSE 80
-
