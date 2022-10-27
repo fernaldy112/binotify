@@ -30,6 +30,8 @@ css("css/styles.css");
 css("css/shared.css");
 css("css/search.css");
 css("css/home.css");
+css("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+css("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 js("js/table.js");
 js("js/auth.js");
 js("js/searchbar.js");
