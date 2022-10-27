@@ -53,3 +53,15 @@
     margin-top: 0;
     margin-bottom: 0;
 }
+
+#registerEmailContainer, #registerUsernameContainer{
+    margin: 0;
+    width: 100%;
+}
+
+.notUniqueMsg{
+    margin: 5px auto;
+    color: red;
+    width: 75%;
+    font-weight: normal;
+}

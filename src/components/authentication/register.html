@@ -3,12 +3,16 @@
     <hr>
     <p>Sign up for free to start listening.</p>
     <form action="register.php" method="post" id="registerForm" class="dataForm">
-        <label for="userEmailRegister">What's your email?</label>
-        <input type="email" id="userEmailRegister" name="userEmailRegister" placeholder="Enter your email" oninput="checkUnique('email')">
-        {{ emailError }}
-        <label for="userNameRegister">What should we call you?</label>
-        <input type="text" id="userNameRegister" name="userNameRegister" placeholder="Enter a username" oninput="checkUnique('username')">
-        {{ usernameError }}
+        <div id="registerEmailContainer">
+            <label for="userEmailRegister">What's your email?</label>
+            <input type="email" id="userEmailRegister" name="userEmailRegister" placeholder="Enter your email" oninput="checkUnique('email')">
+            {{ emailError }}
+        </div>
+        <div id="registerUsernameContainer">
+            <label for="userNameRegister">What should we call you?</label>
+            <input type="text" id="userNameRegister" name="userNameRegister" placeholder="Enter a username" oninput="checkUnique('username')">
+            {{ usernameError }}
+        </div>
         <label for="userPasswordRegister">Create a password</label>
         <input type="password" id="userPasswordRegister" name="userPasswordRegister" placeholder="Create a password">
         {{ passwordError }}
