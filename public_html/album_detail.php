@@ -73,11 +73,16 @@ function showCancel(){
     echo '</script>';
 }
 
+function showNoSong(){
+    echo '<script language="javascript">';
+    echo 'alert("No Song In Album")';
+    echo '</script>';
+}
+
 $deleteButtonHolder = "";
 if ($STORE->getIsAdminByUsername($tempUsername)){
     $deleteButtonHolder = "<button name='deleteAlbum' id='deleteButton'>Delete Album<i class='fa fa-trash-o'></i></button>";
     if (isset($_COOKIE["result"])) {
-        print_r($_COOKIE);
         if ($_COOKIE["result"]=="true"){
             deleteAlbum($STORE, $id, $album, $songList);
         }else{
@@ -105,12 +110,18 @@ if ($STORE->getIsAdminByUsername($tempUsername)){
     $deleteSongButtonHolder = "<button name='deleteAlbumSong' id='deleteAlbumSongButton'>Delete Song<i class='fa fa-trash-o'></i></button>";
     if (isset($_COOKIE["confirm_delete"])) {
         if ($_COOKIE["confirm_delete"]=="true"){
-            $values = $_COOKIE["values"];
-            $array = explode(',', $values);
-            foreach ($array as $id){
+            if($_COOKIE["values"]==""){
+                showNoSong();
+            }else{
+                $values = $_COOKIE["values"];
+                $array = explode(',', $values);
+                foreach ($array as $id){
                 $song_id = (int) $id;
                 deleteSong($STORE, $song_id);
             }
+            header("Refresh:0");
+            }
+            
         }else{
             showCancel();
         }

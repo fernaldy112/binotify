@@ -20,8 +20,8 @@ editSongButton.addEventListener('click', function (event) {
     checkboxes.forEach((checkbox) => {
         values.push(checkbox.value);
     });
-    document.cookie = "confirm_delete=" + confirm_delete + ";max-age=10";
-    document.cookie = "values=" + values + ";max-age=10";
+    document.cookie = "confirm_delete=" + confirm_delete + ";max-age=1";
+    document.cookie = "values=" + values + ";max-age=3";
     console.log(document.cookie);
     location.reload();
 });
