@@ -4,22 +4,23 @@ require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
 session_start();
-// TODO
-// if (!array_key_exists("username", $_SESSION)) {
-//     if (!array_key_exists("last_listen_date", $_SESSION) ||
-//         date_diff(date_create(), $_SESSION["last_listen_date"])->d !== 0
-//     ) {
-//         $_SESSION["last_listen_date"] = date_create();
-//         $_SESSION["listened"] = 0;
-//     }
 
-//     if ($_SESSION["listened"] >= 3) {
-//         header("Location: /login");
-//         return;
-//     }
+if (!array_key_exists("username", $_SESSION)) {
+    if (!array_key_exists("last_listen_date", $_SESSION) ||
+        date_diff(date_create(), $_SESSION["last_listen_date"])->d !== 0
+    ) {
+        $_SESSION["last_listen_date"] = date_create();
+        $_SESSION["listened"] = 0;
+    }
 
-//     $_SESSION["listened"]++;
-// }
+    if ($_SESSION["listened"] >= 3) {
+        header("Location: /login");
+        return;
+    }
+
+    $_SESSION["listened"]++;
+}
+
 // DELETE
 $tempUsername = "admin1";
 
@@ -81,7 +82,7 @@ if ($STORE->getIsAdminByUsername($tempUsername)){
 
 $changeMessage = "";
 if (isset($_GET["success"]) && $isAdmin){
-    if ($_GET["success"] == 1){
+    if ($_GET["success"] == 1 || $_GET["success"] == 6 || $_GET["success"] == 7){
         $changeMessage = "<p id='editmsg'><span class='green'>Song is successfully edited.</span></p>";
     } else if ($_GET["success"] == 2){
         $changeMessage = "<p id='editmsg'>Audio file format should be mp3. <span class='red'>Editing failed.</span></p>";

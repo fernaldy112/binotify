@@ -90,4 +90,12 @@ editButton.addEventListener('click', function(event){
 
     hero.style.marginTop = "110px";
 
+    let editMsg = document.getElementById("editmsg");
+    let mainDiv = document.getElementById("main");
+    mainDiv.removeChild(editMsg);
+
+    let deleteButton = document.getElementById("deleteButton");
+    let detailsDiv = deleteButton.parentNode;
+    detailsDiv.removeChild(deleteButton);
+
 });

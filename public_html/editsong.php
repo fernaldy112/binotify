@@ -6,7 +6,7 @@
 
     function countSeconds($duration){
         $duration = explode(':', $duration);
-        $second = $duration[0]*3600 + $duration[1]*60 + $duration[2];
+        $second = (int)$duration[0]*3600 + (int)$duration[1]*60 + (int)$duration[2];
         return $second;
     }
 
@@ -36,6 +36,7 @@
 
         $success = 1; // 1 success; 2 song format error; 3 image format error; 4 song size error; 5 image size error; 6 no new audio file; 7 no new image file
 
+        $newFileName = "";
         if ($newFile['error']===4){
             $newFilePath = $song->getAudioPath();
             $success = 6;
@@ -76,21 +77,27 @@
             }
         }
 
-        move_uploaded_file($newFile["tmp_name"], $newAssetFilePath);
-        move_uploaded_file($newImage["tmp_name"], $newAssetImgPath);
-        if ($success!==2 && $success!==4 && $success!==6){
+        $duration = -1;
+        if (strlen($newFile["tmp_name"]) !== 0){
+            move_uploaded_file($newFile["tmp_name"], $newAssetFilePath);
             $duration = shell_exec("cd music ; ffmpeg -i '$newFileName' 2>&1 | grep Duration | awk '{print $2}' | tr -d ,");
+            $duration = countSeconds($duration);
+            $newFilePath = "music/".$newFileName;
         }
-        $duration = countSeconds($duration);
-        $fileLoc = "music/".$newFileName;
-        $imageLoc = "image/".$newImageName;
-
+        if (strlen($newImage["tmp_name"]) !== 0){
+            move_uploaded_file($newImage["tmp_name"], $newAssetImgPath);
+            $newImagePath = "image/".$newImageName;
+        }
+        
         $singer = $song->getArtist();
         $albumId = $song->getAlbumId();
 
         $oldDuration = $song->getDuration();
+        if ($duration == -1){
+            $duration = $oldDuration;
+        }
 
-        $STORE->updateSong($songId, $newTitle, $singer, $newDate, $newGenre, $duration, $fileLoc, $imageLoc, $albumId);
+        $STORE->updateSong($songId, $newTitle, $singer, $newDate, $newGenre, $duration, $newFilePath, $newImagePath, $albumId);
 
         $STORE->addAlbumTotalDuration($albumId, -1*$oldDuration);
         $STORE->addAlbumTotalDuration($albumId, $duration);
