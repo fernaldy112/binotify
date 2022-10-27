@@ -1,0 +1,158 @@
+/* Button reset */
+button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+    background: transparent;
+}
+
+.navbar {
+    height: 100%;
+    width: 240px;
+    background-color: black;
+    box-sizing: border-box;
+    padding: 48px 32px;
+    display: flex;
+    gap: 24px;
+    flex-flow: column;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+nav {
+    opacity: 0.6;
+    will-change: opacity;
+    transition: opacity 300ms ease-out;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+nav:hover {
+    opacity: 1;
+}
+
+header {
+    background: rgba(0, 0, 0, 0.5);
+    position: sticky;
+    padding: 8px 32px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#search-bar {
+    height: 40px;
+    width: 364px;
+}
+
+#search-bar form {
+    display: flex;
+    align-items: center;
+    flex-flow: row nowrap;
+    position: relative;
+    color: #171717;
+    height: 100%;
+}
+
+.search-bar {
+    width: 100%;
+    height: 100%;
+    padding: 6px 48px;
+    box-sizing: border-box;
+    border-radius: 9999px;
+    background-color: whitesmoke;
+    font-family: 'Inter', sans-serif;
+}
+
+.search-bar:focus {
+    outline: none;
+}
+
+.search-btn, .search-cancel-btn {
+    font-size: 24px;
+    font-weight: 600;
+    position: absolute;
+}
+
+.search-btn {
+    left: 16px;
+}
+
+.search-cancel-btn {
+    right: 16px;
+}
+
+.search-bar::-webkit-search-cancel-button {
+    appearance: none;
+}
+
+.material-symbols-rounded {
+    font-variation-settings:
+            'FILL' 1,
+            'wght' 400,
+            'GRAD' 200,
+            'opsz' 48
+}
+
+.material-symbols-rounded.thick {
+    font-variation-settings:
+            'FILL' 1,
+            'wght' 600,
+            'GRAD' 200,
+            'opsz' 48
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.header-right {
+    display: flex;
+    gap: 16px;
+    height: 48px;
+    align-items: center;
+}
+
+.auth-btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    padding: 8px 24px;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #dfdfdf;
+    height: 100%;
+    cursor: pointer;
+    will-change: scale;
+    transition: transform 200ms ease-out;
+}
+
+.auth-btn:hover {
+    transform: scale(1.1);
+}
+
+.auth-btn:not(.filled) {
+    opacity: 0.8;
+}
+
+.auth-btn:not(.filled):hover {
+    opacity: 1;
+}
+
+.auth-btn.filled {
+    color: #171717;
+    background-color: #dfdfdf;
+    border-radius: 9999px;
+}
+
+.user {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    margin-right: 32px;
+}

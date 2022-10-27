@@ -1,0 +1,26 @@
+<div class="authContainer">
+    <h1 class="logo">Binotify</h1>
+    <hr>
+    <p>Sign up for free to start listening.</p>
+    <form action="register.php" method="post" id="registerForm" class="dataForm">
+        <label for="userEmailRegister">What's your email?</label>
+        <input type="email" id="userEmailRegister" name="userEmailRegister" placeholder="Enter your email" oninput="checkUnique('email')">
+        {{ emailError }}
+        <label for="userNameRegister">What should we call you?</label>
+        <input type="text" id="userNameRegister" name="userNameRegister" placeholder="Enter a username" oninput="checkUnique('username')">
+        {{ usernameError }}
+        <label for="userPasswordRegister">Create a password</label>
+        <input type="password" id="userPasswordRegister" name="userPasswordRegister" placeholder="Create a password">
+        {{ passwordError }}
+        <label for="userPassword2Register">Enter your password again</label>
+        <input type="password" id="userPassword2Register" name="userPassword2Register" placeholder="Enter your password again">
+        {{ password2Error }}
+        <div id="signUpButtonContainer" class="submitContainer">
+            <button type="submit" name="register">Sign up</button>
+        </div>
+    </form>
+    <form action="register.php" method="post" id="redirectLoginForm">
+        <label for="logInButton">Have an account?</label>
+        <button type="submit" id="logInButton" name="redirectLogIn">Log In</button>
+    </form>
+</div>

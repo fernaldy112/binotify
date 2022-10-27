@@ -1,0 +1,73 @@
+#logInButtonContainer{
+    width: 75%;
+    margin: 0 auto;
+    text-align: right;
+}
+
+#loginForm{
+    width: 40%;
+}
+
+#loginForm button{
+    background-color: rgb(30, 215, 64);
+    margin-top: 3px;
+    margin-bottom: 2px;
+    height: 35px;
+    width: 100px;
+    border-radius: 18px;
+    font-weight: bold;
+    border-width: 0;
+}
+
+#loginForm button:hover{
+    background-color: rgb(32, 244, 60);
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 105px;
+    height: 40px
+}
+
+#loginForm hr{
+    margin-top: 15px;
+    width: 77.5%;
+}
+
+#redirectSignUpForm{
+    text-align: center;
+}
+
+#redirectSignUpForm label{
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 15px auto;
+}
+
+#redirectSignUpForm button{
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(106, 106, 106);
+    border-color: rgb(158, 158, 158);
+    margin: 15px auto;
+    height: 50px;
+    width: 30%;
+    border-radius: 18px;
+    background-color: white;
+    border-width: 0.5px;
+}
+
+#redirectSignUpForm button:hover{
+    border-color: black;
+}
+
+.loginError{
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 0;
+    background-color: red;
+    color: white;
+    line-height: 50px;
+}
