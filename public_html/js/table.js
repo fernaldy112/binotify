@@ -136,29 +136,83 @@ class TableRenderer {
      * @param {string[]} genres
      */
     registerGenres(genres) {
-        const select = document.createElement('select');
+        const param = new URLSearchParams(location.search);
+        const genre = param.get('g');
+
+        const select = document.createElement('div');
         select.name = 'genre';
         select.classList.add('genre-dropdown');
+        select.innerText = genre ?? 'Any genre';
+        this.filterBar.appendChild(select);
 
-        const option = document.createElement('option');
+        this.genreBoxes = [];
+
+        let order = 0;
+
+        const option = document.createElement('div');
         option.value = '';
         option.innerText = 'Any genre';
-        select.appendChild(option);
+        option.classList.add('genre-option');
+        option.setAttribute('value', 'Any genre');
+        option.setAttribute('hidden', '');
+        option.style.setProperty('--delay', `${order++ * 100}ms`);
+        option.style.top = `${100 * order}%`;
+
+        this.filterBar.appendChild(option);
+        this.genreBoxes.push(option);
 
         for (const genre of genres) {
-            const option = document.createElement('option');
+            const option = document.createElement('div');
             option.value = genre;
             option.innerText = genre;
-            option.classList.add('genre-option')
-            select.appendChild(option);
+            option.classList.add('genre-option');
+            option.setAttribute('value', genre);
+            option.setAttribute('hidden', '');
+            option.style.setProperty('--delay', `${order++ * 100}ms`);
+            option.style.top = `${100 * order}%`;
+            this.filterBar.appendChild(option);
+            this.genreBoxes.push(option);
         }
-        this.filterBar.appendChild(select);
         this.genreSelector = select;
 
-        this.genreSelector.addEventListener('change', _ => {
-            const params = new URLSearchParams(window.location.search);
-            this._fetch(this.page, params.get('s') ?? '', params.get('o') ?? '', this.genreSelector.value);
+        let timeout = null;
+
+        const onEnter = _ => {
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+
+            this.genreBoxes.forEach(box => {
+                box.classList.add('active');
+            })
+        };
+
+        const onLeave = _ => {
+            timeout = setTimeout(() => {
+                this.genreBoxes.forEach(box => {
+                    box.classList.remove('active');
+                });
+                timeout = null;
+            }, 150)
+        }
+
+        this.genreSelector.addEventListener('mouseenter', onEnter);
+        this.genreSelector.addEventListener('mouseleave', onLeave);
+        this.genreBoxes.forEach(box => {
+            box.addEventListener('mouseenter', onEnter);
+            box.addEventListener('mouseleave', onLeave);
+
+            box.style.setProperty('--delay-reverse', `${--order * 100}ms`);
+            box.removeAttribute('hidden');
+
+            box.addEventListener('click', _ => {
+                const params = new URLSearchParams(window.location.search);
+                this._fetch(this.page, params.get('s') ?? '', params.get('o') ?? '', box.value);
+                this.genreSelector.setAttribute('value', box.value);
+                this.genreSelector.textContent = box.textContent;
+            });
         });
+
     }
 
     change(result, page) {
