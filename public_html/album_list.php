@@ -2,6 +2,13 @@
 
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
+require_once(__DIR__."/../src/components/header.php");
+require_once(__DIR__."/../src/components/navbar.php");
+
+if (!isset($STORE) || !isset($NAVBAR) || !isset($HEADER)) {
+    http_response_code(500);
+    return;
+}
 
 $albumList = $STORE->getAllAlbum();
 
@@ -37,9 +44,8 @@ function make_table ($albumList) {
 
 }
 
-$header = html("components/shared/header.html");
 $main = template("components/album_list/main.html")->bind([
-    "header" => $header,
+    "header" => $HEADER,
     "album_list" => make_table($albumList)
 ]);
 
@@ -47,7 +53,7 @@ $main = template("components/album_list/main.html")->bind([
 
 template("components/album_list.html")->bind([
     "title"=> "Album List - Binotify",
-    "navbar" => html("components/shared/navbar.html"),
+    "navbar" => $NAVBAR,
     "main" => $main
 ])->render();
     

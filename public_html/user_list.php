@@ -2,6 +2,13 @@
 
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
+require_once(__DIR__."/../src/components/header.php");
+require_once(__DIR__."/../src/components/navbar.php");
+
+if (!isset($STORE) || !isset($NAVBAR) || !isset($HEADER)) {
+    http_response_code(500);
+    return;
+}
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -40,13 +47,13 @@ function make_tabel($userList){
 
 $header = html("components/shared/header.html");
 $main = template("components/user_list/main.html")->bind([
-    "header" => $header,
+    "header" => $HEADER,
     "user_list" => make_tabel($userList)
 ]);
 
 template("components/user_list.html")->bind([
     "title" => "See All User",
-    "navbar" => html("components/shared/navbar.html"),
+    "navbar" => $NAVBAR,
     "main" => $main
 ])->render();
 

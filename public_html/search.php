@@ -2,7 +2,13 @@
 
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
+require_once(__DIR__."/../src/components/header.php");
+require_once(__DIR__."/../src/components/navbar.php");
 
+if (!isset($STORE) || !isset($NAVBAR) || !isset($HEADER)) {
+    http_response_code(500);
+    return;
+}
 $query = $_GET["q"];
 $genre = $_GET["g"] ?? false;
 $page = $_GET["p"] ?? 1;
@@ -20,11 +26,6 @@ if ($order !== null) {
 }
 
 $dataOnly = array_key_exists("d", $_GET) && $_GET["d"] === "1";
-
-if (!isset($STORE)) {
-    http_response_code(500);
-    return;
-}
 
 $res = $sortBy
     ? $STORE->getSongBySimilarName($query, $page)
@@ -53,7 +54,7 @@ if ($dataOnly) {
     $noResult = template("components/search/no-result.html")->bind(["query" => $query]);
     $main = template("components/search/main.html")->bind([
         "search_result" => $hasResult ? $result : $noResult,
-        "header" => $header
+        "header" => $HEADER
     ]);
 
     css("css/styles.css");
@@ -68,7 +69,7 @@ if ($dataOnly) {
 
     template("components/search.html")->bind([
         "query" => $query,
-        "navbar" => html("components/shared/navbar.html"),
+        "navbar" => $NAVBAR,
         "main" => $main,
         "json_result" => json_encode($res),
         "genres" => json_encode($genres),
