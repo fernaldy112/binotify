@@ -251,7 +251,7 @@ class DataStore {
 
         foreach ($rawData as $songData) {
             $albumData = $this->getAlbumById($songData["album_id"]);
-            $res[] = Song::deserialize($songData, $albumData["judul"]);
+            $res[] = Song::deserialize($songData, $albumData->getTitle());
         }
 
         return [
