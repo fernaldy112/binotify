@@ -12,9 +12,29 @@ button {
     height: 100%;
     width: 240px;
     background-color: black;
+    box-sizing: border-box;
+    padding: 48px 32px;
+    display: flex;
+    gap: 24px;
+    flex-flow: column;
+}
 
-    /* Placeholder width */
-    min-width: 240px;
+nav a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+nav {
+    opacity: 0.6;
+    will-change: opacity;
+    transition: opacity 300ms ease-out;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+nav:hover {
+    opacity: 1;
 }
 
 header {

@@ -2,12 +2,17 @@
 
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
+require_once(__DIR__."/../src/components/navbar.php");
 
-session_start();
-if (!isset($STORE)) {
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($STORE) || !isset($NAVBAR)) {
     http_response_code(500);
     return;
 }
+
 
 $musics = $STORE->getRecentSongs();
 
@@ -26,6 +31,6 @@ $main = template("components/home/main.html")->bind([
 ]);
 
 template("components/index.html")->bind([
-    "navbar" => html("components/shared/navbar.html"),
+    "navbar" => $NAVBAR,
     "main" => $main
 ])->render();
