@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link href="http://fonts.cdnfonts.com/css/gotham" rel="stylesheet">
+    <link rel="stylesheet" href="css/tempauthentication.css" />
+    <link rel="stylesheet" href="css/tempAddData.css" />
+</head>
+
+<body>
+    <div class="addAlbumContainer">
+        <h1 class="logo">Binotify</h1>
+        <hr>
+        <form action="addalbum.php" method="post" id="addAlbumForm" class="dataForm" enctype="multipart/form-data">
+            <label for="albumTitle">Title</label>
+            <input type="text" id="albumTitle" name="albumTitle" placeholder="Enter album title">
+            {{ titleError }}
+            <label for="albumSinger">Singer</label>
+            <input type="text" id="albumSinger" name="albumSinger" placeholder="Enter album singer">
+            {{ singerError }}
+            <label for="albumDate">Release date</label>
+            <input type="date" id="albumDate" name="albumDate">
+            {{ dateError }}
+            <label for="albumGenre">Genre</label>
+            <input type="text" id="albumGenre" name="albumGenre" placeholder="Enter album genre">
+            {{ genreError }}
+            <label for="albumImage">Upload image</label>
+            <input type="file" id="albumImage" name="albumImage">
+            {{ imageError }}
+            <div id="submitalbumContainer" class="submitContainer">
+                {{ success }}
+                <button type="submit" name="addAlbum">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

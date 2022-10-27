@@ -1,0 +1,56 @@
+.submitContainer {
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.dataForm {
+    width: 40%;
+}
+
+.dataForm button {
+    background-color: rgb(30, 215, 64);
+    margin-top: 13px;
+    margin-bottom: 2px;
+    height: 50px;
+    width: 140px;
+    border-radius: 22px;
+    font-weight: bold;
+    border-width: 0;
+    font-size: 16px;
+}
+
+.dataForm button:hover {
+    background-color: rgb(32, 244, 60);
+    margin-top: 10px;
+    margin-bottom: 0px;
+    height: 55px;
+    width: 145px;
+}
+
+.songAddition {
+    color: red;
+    font-weight: normal;
+    width: 75%;
+    margin-left: 12%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.albumAdditionError {
+    color: red;
+    font-weight: normal;
+    width: 75%;
+    margin-left: 12%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.albumAdditionError {
+    color: black;
+    font-weight: normal;
+    width: 75%;
+    margin-left: 12%;
+    margin-top: 0;
+    margin-bottom: 0;
+}

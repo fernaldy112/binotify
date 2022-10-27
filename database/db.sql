@@ -71,13 +71,6 @@ CREATE TABLE `song` (
   `album_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `song`
---
-
-INSERT INTO `song` (`song_id`, `judul`, `penyanyi`, `tanggal_terbit`, `genre`, `duration`, `audio_path`, `image_path`, `album_id`) VALUES
-(1, 'Whistle', 'Blackpink', '2022-10-26', 'K-Pop', 0, 'music/1666756319_02-BLACKPINK-WHISTLE-(HiphopKit.com).mp3', 'image/1666756319_Black_Pink_Black_In_Your_Area_Digital_Cover.jpg', 1);
-
 -- --------------------------------------------------------
 
 --

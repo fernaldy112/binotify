@@ -1,0 +1,12 @@
+<div id="Album_Bar">
+    <img class="cover" src="{{ image }}" alt="{{ image_alt }}">
+    <div class="details">
+        <h2 class="item">Album {{ editButton }} {{ deleteButton }} {{ deleteSongButton }}</h2>
+        <h1 class="title"><span id="span-title">{{ title }}</span></h1>
+        <span class="details-meta"><span id="span-artist">{{ artist }}</span></span>
+        <span class="details-meta"> {{ duration }}</span>
+        {{ fileUpload }}
+        {{ hiddenInput }}
+    </div>
+    {{ changeMessage }}
+</div>

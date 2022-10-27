@@ -1,0 +1,129 @@
+table.song_list,
+tr,
+th,
+td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    font-weight: normal;
+    border: 0px;
+    margin: 20px;
+    margin-left: 20px;
+}
+
+tr:hover {
+    background: grey;
+}
+
+th {
+    border-bottom: 1px solid #B2B2B2;
+}
+
+/* .song-check {
+    visibility: hidden;
+} */
+
+td.row_num,
+th.row_num {
+    width: 60px;
+    text-align: center;
+}
+
+td.song-checkbox {
+    width: 20px;
+    text-align: center;
+}
+
+td.song-checkbox:hover {
+    background: black;
+}
+
+
+
+td.song_duration,
+th.song_duration {
+    width: 60px;
+    text-align: center;
+}
+
+td.artist_name {
+    color: #B2B2B2;
+}
+
+
+
+table {
+    width: 100%;
+}
+
+tr {
+    height: 20px;
+}
+
+body {
+    flex-grow: 1;
+    background: black;
+    color: white;
+}
+
+image {
+    width: 300px;
+}
+
+
+#albumList_hero {
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    height: 20vh;
+    max-height: 500px;
+    min-height: 170px;
+    padding: 15px 30px;
+    /*vertical-align: baseline;*/
+    align-items: end;
+    border: 1px solid #1DB954;
+    border-radius: 25px;
+    margin-bottom: 20px;
+    margin-left: 30px;
+}
+
+div.albumList_hero:hover {
+    background-color: grey;
+}
+
+.cover {
+    margin-right: 24px;
+    width: 130px;
+    height: 130px;
+    box-shadow: 0 8px 16px 4px rgba(0, 0, 0, 0.6);
+}
+
+.details {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.bar {
+    padding: 24px 32px;
+}
+
+.details-meta {
+    font-size: 0.8em;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.item {
+    font-size: 0.75em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.title {
+    font-size: 2em;
+    font-weight: 600;
+    padding: 0;
+    margin: 0 0 0.2em 0;
+}

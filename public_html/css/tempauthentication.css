@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     color: black;
@@ -11,39 +12,40 @@ html, body {
     display: flex;
 }
 
-.logo{
+.logo {
     font-family: 'Gotham', sans-serif;
     font-size: 40px;
     text-align: center;
     margin-bottom: 10px;
 }
 
-.authContainer>p{
+.authContainer>p {
     font-size: 14px;
     font-weight: bold;
     margin-top: 40px;
     text-align: center;
 }
 
-form{
+form {
     display: block;
     margin: 10px auto;
 }
 
-.dataForm{
+.dataForm {
     font-weight: 700;
     font-size: 14px;
     margin-top: 50px;
 }
 
-.dataForm label{
+.dataForm label {
     display: block;
     width: 75%;
     margin: 5px auto;
-    margin-top: 20px;;
+    margin-top: 20px;
+    ;
 }
 
-.dataForm input{
+.dataForm input {
     display: block;
     width: 75%;
     margin: 8px auto;
@@ -51,5 +53,3 @@ form{
     border-radius: 5px;
     border-width: 1px;
 }
-
-
