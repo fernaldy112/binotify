@@ -1,6 +1,19 @@
 <?php
     require_once(__DIR__."/../src/Template/util.php");
     require_once(__DIR__."/../src/Store/DataStore.php");
+
+    if (array_key_exists("username", $_SESSION)) {
+        $tempUsername = $_SESSION["username"];
+        $isAdmin = $STORE->getIsAdminByUsername($tempUsername);
+    } else {
+        $isAdmin = false;
+    }
+
+    if (!$isAdmin){
+        header("Location: /");
+        return;
+    }
+
     function checkMsg($msg){
         if (strlen($msg) !==0){
             $msg = "<p class='albumAdditionError'>".$msg."</p>";

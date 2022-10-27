@@ -3,6 +3,18 @@
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
+if (array_key_exists("username", $_SESSION)) {
+    $tempUsername = $_SESSION["username"];
+    $isAdmin = $STORE->getIsAdminByUsername($tempUsername);
+} else {
+    $isAdmin = false;
+}
+
+if (!$isAdmin){
+    header("Location: /");
+    return;
+}
+
 $userList = $STORE->getAllUser();
 
 function make_tabel($userList){

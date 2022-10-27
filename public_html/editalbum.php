@@ -4,6 +4,18 @@
     require_once(__DIR__."/../src/Store/DataStore.php");
     require_once(__DIR__."/../src/Model/Album.php");
 
+    if (array_key_exists("username", $_SESSION)) {
+        $tempUsername = $_SESSION["username"];
+        $isAdmin = $STORE->getIsAdminByUsername($tempUsername);
+    } else {
+        $isAdmin = false;
+    }
+
+    if (!$isAdmin){
+        header("Location: /");
+        return;
+    }
+
     if (isset($_POST["submitAlbumChange"])){
         $newTitle = $_POST["inputTitle"];
         $newArtist = $_POST["inputArtist"];

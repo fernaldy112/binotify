@@ -111,10 +111,10 @@ function deleteSong($STORE, $songId){ // delete selected song
     $duration = $duration * -1;
     $STORE->addAlbumTotalDuration($albumId, $duration);
     $STORE->deleteSong($songId);
-    echo '<script language="javascript">';
-    echo 'alert("Song Deleted!")';
-    echo '</script>';  
-    // header("Location: /album_detail?s=$albumId");
+    // echo '<script language="javascript">';
+    // echo 'alert("Song Deleted!")';
+    // echo '</script>';  
+    header("Location: /album_list?re=$albumId");
 }
 
 

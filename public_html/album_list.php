@@ -5,6 +5,11 @@ require_once(__DIR__."/../src/Store/DataStore.php");
 
 $albumList = $STORE->getAllAlbum();
 
+if (isset($_GET["re"])){
+    $x = $_GET["re"];
+    header("Location: album_detail?s=$x");
+}
+
 function make_table ($albumList) {
     $tbl_array = [];
     // $tbl_array[] = "<table>";

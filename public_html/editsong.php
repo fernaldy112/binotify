@@ -4,6 +4,18 @@
     require_once(__DIR__."/../src/Store/DataStore.php");
     require_once(__DIR__."/../src/Model/Song.php");
 
+    if (array_key_exists("username", $_SESSION)) {
+        $tempUsername = $_SESSION["username"];
+        $isAdmin = $STORE->getIsAdminByUsername($tempUsername);
+    } else {
+        $isAdmin = false;
+    }
+
+    if (!$isAdmin){
+        header("Location: /");
+        return;
+    }
+
     function countSeconds($duration){
         $duration = explode(':', $duration);
         $second = (int)$duration[0]*3600 + (int)$duration[1]*60 + (int)$duration[2];

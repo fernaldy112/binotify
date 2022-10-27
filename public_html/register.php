@@ -3,6 +3,11 @@
     require_once(__DIR__."/../src/Template/util.php");
     require_once(__DIR__."/../src/Store/DataStore.php");
 
+    if (array_key_exists("username", $_SESSION)) {
+        header("Location: /");
+        return;
+    } 
+
     function checkMsg($msg){
         if (strlen($msg) !==0){
             $msg = "<p class='regError'>".$msg."</p>";
