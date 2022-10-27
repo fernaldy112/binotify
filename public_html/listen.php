@@ -109,7 +109,7 @@ js("js/util.js");
 js("js/player.js");
 js("js/searchbar.js");
 js("js/listen.js");
-js("js/editsong.js");
+js_defer("js/editsong.js");
 
 $hero = template("components/listen/hero.html")->bind([
     "image" => $song->getImagePath(),
