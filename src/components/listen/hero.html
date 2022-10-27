@@ -2,10 +2,12 @@
     <img class="cover" src="{{ image }}" alt="{{ image_alt }}">
     <div class="details">
         <h2 class="item">Song</h2>
-        <h1 class="title"><span id="span-title">{{ title }}</span>{{ editButton }}</h1>
+        <h1 class="title"><span id="span-title">{{ title }}</span>{{ editButton }} {{ deleteButton }}</h1>
         <span class="details-meta">
-            <a class="album-url" href="{{ album_url }}"><span id="span-album">{{ album_name }}</span></a> • <span id="span-genre">{{ genre }}</span></span>
-        <span class="details-meta"><span id="span-artist">{{ artist }}</span> • <span id="span-date">{{ date }}</span> • <span id="span-duration">{{ duration }}</span></span>
+            <a class="album-url" href="{{ album_url }}"><span id="span-album">{{ album_name }}</span></a> • <span
+                id="span-genre">{{ genre }}</span></span>
+        <span class="details-meta"><span id="span-artist">{{ artist }}</span> • <span id="span-date">{{ date }}</span> •
+            <span id="span-duration">{{ duration }}</span></span>
         {{ fileUpload }}
         {{ hiddenInput }}
     </div>
