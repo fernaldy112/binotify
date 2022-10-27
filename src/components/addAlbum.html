@@ -12,6 +12,9 @@
     <div class="addAlbumContainer">
         <h1 class="logo">Binotify</h1>
         <hr>
+        <form action="addsong.php" method="get" id="backFromAddSongForm">
+            <button type="submit" name="back" class="backButton"><i class="fa fa-arrow-left"></i></button>
+        </form>
         <form action="addalbum.php" method="post" id="addAlbumForm" class="dataForm" enctype="multipart/form-data">
             <label for="albumTitle">Title</label>
             <input type="text" id="albumTitle" name="albumTitle" placeholder="Enter album title">

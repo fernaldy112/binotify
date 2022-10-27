@@ -95,15 +95,19 @@
         }
 
         $duration = -1;
-        if (strlen($newFile["tmp_name"]) !== 0 && $fileSuccess===1){
+        if (strlen($newFile["tmp_name"]) !== 0 && $fileSuccess===1 && ($imageSuccess===1 || $imageSuccess===7)){
             move_uploaded_file($newFile["tmp_name"], $newAssetFilePath);
             $duration = shell_exec("cd music ; ffmpeg -i '$newFileName' 2>&1 | grep Duration | awk '{print $2}' | tr -d ,");
             $duration = countSeconds($duration);
             $newFilePath = "music/".$newFileName;
+        } else {
+            $newFilePath = $song->getAudioPath();
         }
-        if (strlen($newImage["tmp_name"]) !== 0 && $imageSuccess===1){
+        if (strlen($newImage["tmp_name"]) !== 0 && $imageSuccess===1 && ($fileSuccess===1 || $fileSuccess===6)){
             move_uploaded_file($newImage["tmp_name"], $newAssetImgPath);
             $newImagePath = "image/".$newImageName;
+        } else {
+            $newImagePath = $song->getImagePath();
         }
         
         $singer = $song->getArtist();

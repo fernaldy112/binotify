@@ -38,6 +38,11 @@ $addAlbumError = [
     "genreError" => "",
     "valid" => true
 ];
+
+if (isset($_GET["back"])){
+    header("Location:/");
+}
+
 $successMsg = "";
 if (isset($_POST["addAlbum"])){
     $title = $_POST["albumTitle"];
