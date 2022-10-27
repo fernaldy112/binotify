@@ -3,11 +3,6 @@
 require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
-if (!array_key_exists("q", $_GET)) {
-    header("Location: /");
-    return;
-}
-
 $query = $_GET["q"];
 $genre = $_GET["g"] ?? false;
 $page = $_GET["p"] ?? 1;

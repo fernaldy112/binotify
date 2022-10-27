@@ -4,6 +4,10 @@
     require_once(__DIR__."/../src/Store/DataStore.php");
     require_once(__DIR__."/../src/Model/Song.php");
 
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
     if (array_key_exists("username", $_SESSION)) {
         $tempUsername = $_SESSION["username"];
         $isAdmin = $STORE->getIsAdminByUsername($tempUsername);
