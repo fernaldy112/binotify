@@ -84,7 +84,6 @@ deleteButton.addEventListener('click', function (event) {
     document.cookie = "result=" + result + ";max-age=1";
     console.log(document.cookie);
     location.reload();
-
 });
 
 function show_alert() {

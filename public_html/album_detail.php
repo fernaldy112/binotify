@@ -12,7 +12,7 @@ $tempUsername = "admin1";
 
 function make_table ($songList) {
     $tbl_array = [];
-    $tbl_array[] = "<div class=\"top_div\"><span class=\"span_row_num\">#</span><span class=\"span_title\">Title</span><span class=\"span_duration\">Duration</span></div>";
+    $tbl_array[] = "<div class=\"top_div\"><span></span><span class=\"span_row_num\">#</span><span class=\"span_title\">Title</span><span class=\"span_duration\">Duration</span></div>";
     $tbl_array[] = "<div class=\"header_div\"><p></div>";
     $tbl_array[] = "<br>";
     $tbl_array[] = "<table>";
@@ -22,10 +22,11 @@ function make_table ($songList) {
         $title = $song->getTitle();
         $artist = $song->getArtist();
         $duration = $song->getDuration();
-        $tbl_array[] = "<tr onclick=\"album_detail_ClickHandler($song_id)\">";
-        $tbl_array[] = "<td class=\"row_num\">$num</td>";
-        $tbl_array[] = "<td>$title • $artist</td>";
-        $tbl_array[] = "<td class=\"song_duration\">$duration</td>";
+        $tbl_array[] = "<tr>";
+        $tbl_array[] = "<td class=\"song-checkbox\"><input type=\"checkbox\" name=\"color\" class=\"song-check\" value=\"$song_id\" id=\"c1\"></td>";
+        $tbl_array[] = "<td class=\"row_num\" onclick=\"album_detail_ClickHandler($song_id)\">$num</td>";
+        $tbl_array[] = "<td onclick=\"album_detail_ClickHandler($song_id)\">$title • $artist</td>";
+        $tbl_array[] = "<td class=\"song_duration\" onclick=\"album_detail_ClickHandler($song_id)\">$duration</td>";
         $tbl_array[] = "</tr>";
         $num++;
     }
@@ -76,14 +77,44 @@ $deleteButtonHolder = "";
 if ($STORE->getIsAdminByUsername($tempUsername)){
     $deleteButtonHolder = "<button name='deleteAlbum' id='deleteButton'>Delete Album<i class='fa fa-trash-o'></i></button>";
     if (isset($_COOKIE["result"])) {
+        print_r($_COOKIE);
         if ($_COOKIE["result"]=="true"){
             deleteAlbum($STORE, $id, $album, $songList);
         }else{
             showCancel();
         }
-        
-    }
-    
+    } 
+}
+
+function deleteSong($STORE, $songId){
+    $song = $STORE->getSongById($songId);
+    $albumId = $song->getAlbumId();
+    $album = $STORE->getAlbumById($albumId);
+    $duration = $song->getDuration();
+    $duration = $duration * -1;
+    $STORE->addAlbumTotalDuration($albumId, $duration);
+    $STORE->deleteSong($songId);
+    echo '<script language="javascript">';
+    echo 'alert("Song Deleted!")';
+    echo '</script>';  
+}
+
+
+$deleteSongButtonHolder = "";
+if ($STORE->getIsAdminByUsername($tempUsername)){
+    $deleteSongButtonHolder = "<button name='deleteAlbumSong' id='deleteAlbumSongButton'>Delete Song<i class='fa fa-trash-o'></i></button>";
+    if (isset($_COOKIE["confirm_delete"])) {
+        if ($_COOKIE["confirm_delete"]=="true"){
+            $values = $_COOKIE["values"];
+            $array = explode(',', $values);
+            foreach ($array as $id){
+                $song_id = (int) $id;
+                deleteSong($STORE, $song_id);
+            }
+        }else{
+            showCancel();
+        }
+    } 
 }
 
 
@@ -94,6 +125,7 @@ $hero = template("components/album_detail/hero.html")->bind([
     "title" => $album->getTitle(),
     "editButton" => $editButtonHolder,
     "deleteButton" => $deleteButtonHolder,
+    "deleteSongButton" => $deleteSongButtonHolder,
     "artist" => $album->getArtist(),
     "date" => $album->getPublishDateString(),
     "duration" => $album->getTotalDurationString(),

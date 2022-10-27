@@ -40,6 +40,31 @@ class DataStore {
         );
     }
 
+    function getSongById($id): Song|null
+    {
+
+        $result = $this->mysqli->query("SELECT * FROM song WHERE song_id = $id");
+        $rawData = $result->fetch_all(MYSQLI_ASSOC);
+
+        if (!array_key_exists(0, $rawData)) {
+            return null;
+        }
+
+        $songData = $rawData[0];
+
+        $albumId = $songData["album_id"];
+        $albumData = $this->getAlbumById($albumId);
+
+        return Song::deserialize($songData, $albumData->getTitle());
+    }
+
+    function addAlbumTotalDuration($albumId, $extraDuration){
+        $result = mysqli_query($this->mysqli, "UPDATE album SET total_duration = total_duration + $extraDuration WHERE album_id = '$albumId'");
+        return $result;
+    }
+
+
+
     function getAllAlbum(): array{
 
         $result = $this->mysqli->query("SELECT * FROM album ORDER BY judul ASC");
@@ -119,6 +144,13 @@ class DataStore {
         $result = $this->mysqli->query("DELETE FROM album WHERE album_id=$id");
         return $result;
     }
+
+    function deleteSong($id){
+        $result = mysqli_query($this->mysqli, "DELETE from song WHERE song_id = $id");
+        return $result;
+        // Jangan lupa kurangi total_duration album.
+    }
+
 
 }
 

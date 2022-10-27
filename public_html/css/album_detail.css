@@ -19,13 +19,13 @@
 
 .span_row_num {
     position: absolute;
-    left: 270px;
+    left: 305px;
 
 }
 
 .span_title {
     position: absolute;
-    left: 320px;
+    left: 350px;
 
 }
 
@@ -108,7 +108,8 @@ body {
     text-decoration: underline;
 }
 
-.fa.fa-external-link {
+.fa.fa-external-link,
+.fa.fa-trash-o {
     font-size: 16px;
     margin-left: 10px;
 }
@@ -159,5 +160,15 @@ input {
 }
 
 #deleteButton:hover {
+    text-decoration: underline;
+}
+
+#deleteAlbumSongButton {
+    color: white;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+#deleteAlbumSongButton:hover {
     text-decoration: underline;
 }
