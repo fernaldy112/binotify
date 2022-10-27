@@ -1,14 +1,14 @@
-.submitContainer{
+.submitContainer {
     width: 75%;
     margin: 0 auto;
     text-align: center;
 }
 
-.dataForm{
+.dataForm {
     width: 40%;
 }
 
-.dataForm button{
+.dataForm button {
     background-color: rgb(30, 215, 64);
     margin-top: 13px;
     margin-bottom: 2px;
@@ -20,7 +20,7 @@
     font-size: 16px;
 }
 
-.dataForm button:hover{
+.dataForm button:hover {
     background-color: rgb(32, 244, 60);
     margin-top: 10px;
     margin-bottom: 0px;
@@ -28,15 +28,29 @@
     width: 145px;
 }
 
-.songAdditionError, .songAdditionSuccess{
+.songAddition {
     color: red;
     font-weight: normal;
-    width: 70%;
+    width: 75%;
     margin-left: 12%;
     margin-top: 0;
     margin-bottom: 0;
 }
 
-.songAdditionSuccess{
-    color: rgb(30, 202, 30);
+.albumAdditionError {
+    color: red;
+    font-weight: normal;
+    width: 75%;
+    margin-left: 12%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.albumAdditionError {
+    color: black;
+    font-weight: normal;
+    width: 75%;
+    margin-left: 12%;
+    margin-top: 0;
+    margin-bottom: 0;
 }
