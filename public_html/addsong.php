@@ -62,7 +62,7 @@
                 $addSongError["valid"] = false;
             } else if ($file['error']!==UPLOAD_ERR_OK) {
                 if ($file['error']===UPLOAD_ERR_INI_SIZE || $file['error']===UPLOAD_ERR_FORM_SIZE){
-                    $addSongError["fileError"] = "File size is too big. Upload is limited to 2MB";
+                    $addSongError["fileError"] = "File size is too big. Upload is limited to 8MB";
                     $addSongError["valid"] = false;
                 }
             } else {
@@ -82,7 +82,7 @@
                 $addSongError["valid"] = false;
             } else if ($image['error']!==UPLOAD_ERR_OK) {
                 if ($image['error']===UPLOAD_ERR_INI_SIZE || $image['error']===UPLOAD_ERR_FORM_SIZE){
-                    $addSongError["imageError"] = "Image size is too big. Upload is limited to 2MB";
+                    $addSongError["imageError"] = "Image size is too big. Upload is limited to 8MB";
                     $addSongError["valid"] = false;
                 }
             } else {

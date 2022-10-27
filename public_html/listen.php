@@ -40,17 +40,26 @@ if ($song === null) {
 
 $buttonHolder = "";
 $fileUpload = "";
-if ($STORE->getIsAdminByUsername($tempUsername)){
+$isAdmin = $STORE->getIsAdminByUsername($tempUsername);
+if ($isAdmin){
     $buttonHolder = "<button name='editSong' id='editButton'>Edit<i class='fa fa-external-link'></i></button>";
     $fileUpload = "<div id='fileUploadContainer'></div>";
 }
 
 $changeMessage = "";
-if (isset($_GET["success"])){
-    if ($_GET["success"] == 1){ // TODO
-        $changeMessage = "<p id='editmsg'>Song is successfully edited.</p>"; // TODO: edit js
-    } else {
-        $changeMessage = "<p id='editmsg'>Audio or image format is wrong. Editing failed.</p>";
+if (isset($_GET["success"]) && $isAdmin){
+    if ($_GET["success"] == 1){
+        $changeMessage = "<p id='editmsg'><span class='green'>Song is successfully edited.</span></p>";
+    } else if ($_GET["success"] == 2){
+        $changeMessage = "<p id='editmsg'>Audio file format should be mp3. <span class='red'>Editing failed.</span></p>";
+    } else if ($_GET["success"] == 3){
+        $changeMessage = "<p id='editmsg'>Image file format should be jpg, jpeg, or png. <span class='red'>Editing failed.</span></p>";
+    } else if ($_GET["success"] == 4){
+        $changeMessage = "<p id='editmsg'>Audio file size is too big. Upload size is limited to 8MB. <span class='red'>Editing failed.</span></p>";
+    } else if ($_GET["success"] == 5){
+        $changeMessage = "<p id='editmsg'>Image file size is too big. Upload size is limited to 8MB. <span class='red'>Editing failed.</span></p>";
+    } else if ($_GET["success"] == 6){
+        $changeMessage = "<p id='editmsg'>Audio file size is too big. Upload size is limited to 8MB. <span class='red'>Editing failed.</span></p>";
     }
 }
 

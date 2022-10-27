@@ -95,5 +95,5 @@
         $STORE->addAlbumTotalDuration($albumId, -1*$oldDuration);
         $STORE->addAlbumTotalDuration($albumId, $duration);
 
-        // header("Location: /listen?s=$songId&success=$success");
+        header("Location: /listen?s=$songId&success=$success");
     }
