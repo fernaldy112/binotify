@@ -4,6 +4,7 @@ require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
 $id = $_GET["s"];
+
 $hiddenInput = "<input type='hidden' name='albumId' value=$id />";
 $album = $STORE->getAlbumById($id);
 $songList = $STORE->getAllSongByAlbumId($id);
@@ -51,7 +52,15 @@ if (isset($_GET["success"])){
 
 $deleteButtonHolder = "";
 if ($STORE->getIsAdminByUsername($tempUsername)){
-    $deleteButtonHolder = "<button name='deleteAlbum' id='deleteButton'>Delete Album<i class='fa fa-external-link'></i></button>";
+    $deleteButtonHolder = "<button name='deleteAlbum' id='deleteButton'>Delete Album<i class='fa fa-trash-o'></i></button>";
+    // $result = json_decode($_POST);
+    // if ($_COOKIE["result"]){
+    //     print_r($_COOKIE["result"]);
+    // }
+    if (isset($_COOKIE["result"])) {
+        print_r($_COOKIE["result"]);
+    }
+    
 }
 
 

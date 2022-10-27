@@ -16,13 +16,10 @@
         
         // cek input kosong -> tetap -> ambil dari db
         if (strlen(trim($newTitle))===0){
-            $newTitle = $song->getTitle();
+            $newTitle = $album->getTitle();
         }
-        if (strlen(trim($newDate))===0){
-            $newDate = $song->getPublishDate();
-        }
-        if (strlen(trim($newGenre))===0){
-            $newGenre = $song->getGenre();
+        if (strlen(trim($newArtist))===0){
+            $newArtist = $song->getArtist();
         }
 
         $success = 1; // 1 success; 2 song format error; 3 image format error; 4 song size error; 5 image size error; 6 no new audio file; 7 no new image file
@@ -49,7 +46,7 @@
 
         move_uploaded_file($newImage["tmp_name"], $newAssetImgPath);
         $imageLoc = "image/".$newImageName;
-        $STORE->updateAlbum($albumId, $title, $artist, $imageLoc);
+        $STORE->updateAlbum($albumId, $newTitle, $newArtist, $newImage);
 
         header("Location: /album_detail?s=$albumId&success=$success");
     }

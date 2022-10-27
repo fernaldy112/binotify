@@ -69,13 +69,20 @@ editButton.addEventListener('click', function (event) {
 
 });
 
+let deleteButton = document.getElementById("deleteButton");
 
-// let deleteButton = document.getElementById("deleteButton");
-// deleteButton.addEventListener('click', function (event) {
-//     let text = "Are Your Sure to Delete this Album\nEither OK or Cancel.";
-//     if (confirm(text) == true) {
-//         text = "Album Deleted";
-//     } else {
-//         text = "You canceled!";
-//     }
-// });
+deleteButton.addEventListener('click', function (event) {
+    let text = "Are Your Sure to Delete this Album\nEither OK or Cancel.";
+    var result = confirm(text);
+    var arr = {};
+    arr.result = result;
+    if (result) {
+        text = "Album Deleted";
+    } else {
+        text = "You canceled!";
+    }
+    document.cookie = "result=" + result + ";max-age=10";
+    console.log(document.cookie);
+    location.reload();
+
+});
