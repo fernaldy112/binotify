@@ -12,15 +12,21 @@ document.addEventListener('DOMContentLoaded', _ => {
      */
     const logoutButton = document.querySelector('.logout-btn');
 
-    signupButton.onclick = _ => {
-        window.location = '/register';
-    };
+    if (signupButton) {
+        signupButton.onclick = _ => {
+            window.location = '/register';
+        };
+    }
 
-    loginButton.onclick = _ => {
-        window.location = '/login';
-    };
+    if (loginButton) {
+        loginButton.onclick = _ => {
+            window.location = '/login';
+        };
+    }
 
-    logoutButton.onclick = _ => {
-    //    TODO: handle logout
-    };
+    if (logoutButton) {
+        logoutButton.onclick = _ => {
+            window.location = '/logout';
+        };
+    }
 });

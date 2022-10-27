@@ -16,6 +16,7 @@
         } else if (!$user || md5($password) !== $user->getPassword()){
             $invalidLogin = "Incorrect credential.";
         } else {
+            session_start();
             $_SESSION["username"] = $user->getUsername();
             header("Location: index.php");
         }
