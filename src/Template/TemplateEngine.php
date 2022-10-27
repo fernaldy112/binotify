@@ -28,7 +28,7 @@ class TemplateEngine
         if (!$this->bound) {
             $this->vars = $vars;
         }
-        echo $this->_renderAsStringSingle();
+        echo $this->_renderAsString();
     }
 
     function _renderAsString(): array|string|null

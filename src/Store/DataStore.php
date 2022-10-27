@@ -4,8 +4,11 @@ namespace Binotify\Store;
 
 require_once(__DIR__."/../Model/User.php");
 require_once(__DIR__."/../Model/Song.php");
+require_once(__DIR__."/../Model/Album.php");
+
 use Binotify\Model\User;
 use Binotify\Model\Song;
+use Binotify\Model\Album;
 use mysqli;
 
 class DataStore {
@@ -192,6 +195,26 @@ class DataStore {
     function addSong($title, $singer, $releaseDate, $genre, $duration, $audioPath, $imgPath, $albumId){
         $result = mysqli_query($this->mysqli, "INSERT INTO song (judul, penyanyi, tanggal_terbit, genre, duration, audio_path, image_path, album_id) VALUES ('$title', '$singer', '$releaseDate', '$genre', '$duration', '$audioPath', '$imgPath', '$albumId')");
         return $result;
+    }
+    
+    function updateSong($songId, $title, $singer, $releaseDate, $genre, $duration, $audioPath, $imgPath, $albumId){
+        $result = mysqli_query($this->mysqli, "UPDATE song SET judul='$title', penyanyi='$singer', tanggal_terbit='$releaseDate', genre='$genre', duration=$duration, audio_path='$audioPath', image_path='$imgPath', album_id=$albumId WHERE song_id = $songId");
+        return $result;
+    }
+
+    function deleteSong($id){
+        $result = mysqli_query($this->mysqli, "DELETE from song WHERE song_id = $id");
+        return $result;
+        // Jangan lupa kurangi total_duration album.
+    }
+
+    function getIsAdminByUsername($username){
+
+        $result = $this->mysqli->query("SELECT * FROM user WHERE username='$username'");
+        $rawData = $result->fetch_all(MYSQLI_ASSOC);
+        $userData = $rawData[0];
+
+        return $userData["isAdmin"];
     }
 
     function getRecentSongs(): array

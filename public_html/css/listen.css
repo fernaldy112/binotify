@@ -135,7 +135,8 @@ audio {
     gap: 8px;
 }
 
-.playback-button, .volume-button {
+.playback-button,
+.volume-button {
     box-sizing: border-box;
     line-height: 1px;
     cursor: pointer;
@@ -195,7 +196,7 @@ audio {
 .volume::-webkit-slider-thumb {
     appearance: none;
     position: relative;
-    pointer-events:none;
+    pointer-events: none;
     width: 8px;
     height: 8px;
     border-radius: 9999px;
@@ -224,4 +225,82 @@ a {
 
 .album-url:hover {
     text-decoration: underline;
+}
+
+#editButton {
+    color: white;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+#editButton:hover {
+    text-decoration: underline;
+}
+
+.fa.fa-external-link,
+.fa.fa-trash-o {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+#deleteButton {
+    color: white;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+#deleteButton:hover {
+    text-decoration: underline;
+}
+
+form {
+    width: 100%;
+    display: flex;
+}
+
+.editTextInput {
+    color: rgb(223, 223, 223);
+    background-color: #171717;
+    border: 0.5px solid rgb(223, 223, 223);
+}
+
+input {
+    color-scheme: dark;
+}
+
+#inputImage {
+    margin-top: 5px;
+}
+
+#inputTitle {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#submitSongChange {
+    background-color: rgb(30, 215, 64);
+    margin-top: 10px;
+    height: 30px;
+    width: 100px;
+    border-radius: 22px;
+    font-weight: bold;
+    border-width: 0;
+    font-size: 16px;
+}
+
+#submitSongChange:hover {
+    background-color: rgb(32, 244, 60);
+}
+
+#editmsg{
+    margin-top: 10px;
+    margin-left: 2.5%;
+}
+
+.green{
+    color: rgb(30, 215, 64);
+}
+
+.red{
+    color: red;
 }

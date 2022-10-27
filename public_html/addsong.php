@@ -5,11 +5,7 @@
 
     function countSeconds($duration){
         $duration = explode(':', $duration);
-        $second = 0;
-        foreach($duration as $x){
-            $x = (int)$x;
-            $second += $x;
-        }
+        $second = $duration[0]*3600 + $duration[1]*60 + $duration[2];
         return $second;
     }
     
@@ -66,7 +62,7 @@
                 $addSongError["valid"] = false;
             } else if ($file['error']!==UPLOAD_ERR_OK) {
                 if ($file['error']===UPLOAD_ERR_INI_SIZE || $file['error']===UPLOAD_ERR_FORM_SIZE){
-                    $addSongError["fileError"] = "File size is too big. Upload is limited to 2MB";
+                    $addSongError["fileError"] = "File size is too big. Upload is limited to 8MB";
                     $addSongError["valid"] = false;
                 }
             } else {
@@ -86,7 +82,7 @@
                 $addSongError["valid"] = false;
             } else if ($image['error']!==UPLOAD_ERR_OK) {
                 if ($image['error']===UPLOAD_ERR_INI_SIZE || $image['error']===UPLOAD_ERR_FORM_SIZE){
-                    $addSongError["imageError"] = "Image size is too big. Upload is limited to 2MB";
+                    $addSongError["imageError"] = "Image size is too big. Upload is limited to 8MB";
                     $addSongError["valid"] = false;
                 }
             } else {
@@ -101,19 +97,19 @@
             $addSongError["valid"] = false;
         }
 
-        // if ($addSongError["valid"]){
-        //     move_uploaded_file($file["tmp_name"], $filePath);
-        //     move_uploaded_file($image["tmp_name"], $imgPath);
-        //     if (strlen($addSongError["fileError"])===0){
-        //         $duration = shell_exec("cd music ; ffmpeg -i $fileName 2>&1 | grep Duration | awk '{print $2}' | tr -d ,");
-        //     }
-        //     $duration = countSeconds($duration);
-        //     $fileLoc = "music/".$fileName;
-        //     $imageLoc = "image/".$imageName;
-        //     $STORE->addSong($title, $singer, $date, $genre, $duration, $fileLoc, $imageLoc, $albumId);
-        //     $addDuration = $STORE->addAlbumTotalDuration($albumId, $duration);
-        //     $successMsg = "Song addition is successful";
-        // }
+        if ($addSongError["valid"]){
+            move_uploaded_file($file["tmp_name"], $filePath);
+            move_uploaded_file($image["tmp_name"], $imgPath);
+            if (strlen($addSongError["fileError"])===0){
+                $duration = shell_exec("cd music ; ffmpeg -i '$fileName' 2>&1 | grep Duration | awk '{print $2}' | tr -d ,");
+            }
+            $duration = countSeconds($duration);
+            $fileLoc = "music/".$fileName;
+            $imageLoc = "image/".$imageName;
+            $STORE->addSong($title, $singer, $date, $genre, $duration, $fileLoc, $imageLoc, $albumId);
+            $addDuration = $STORE->addAlbumTotalDuration($albumId, $duration);
+            $successMsg = "Song addition is successful";
+        }
     }
 
     $addSongError["titleError"] = checkErrorMsg($addSongError["titleError"]);

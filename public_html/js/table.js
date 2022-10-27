@@ -31,7 +31,7 @@ class TableRenderer {
         this.yearCell = null;
 
         if (!params.has('s')) {
-            this.titleOrder = 'DESCENDING';
+            this.titleOrder = 'ASCENDING';
             return;
         }
 
@@ -242,6 +242,8 @@ class TableRenderer {
         }
         if (genre) {
             queryParams.set('g', genre);
+        } else {
+            queryParams.delete('g');
         }
         endpoint.search = queryParams.toString();
 

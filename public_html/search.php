@@ -4,10 +4,12 @@ require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
 if (!array_key_exists("q", $_GET)) {
-    // TODO: redirect
+    header("Location: /");
+    return;
 }
 
 $query = $_GET["q"];
+$genre = $_GET["g"] ?? false;
 $page = $_GET["p"] ?? 1;
 $sortBy = $_GET["s"] ?? null;
 if ($sortBy !== null) {
@@ -17,7 +19,7 @@ if ($sortBy !== null) {
 }
 $order = $_GET["o"] ?? "asc";
 if ($order !== null) {
-    if ($order != "asc" || $order != "desc") {
+    if ($order != "asc" && $order != "desc") {
         $order = "asc";
     }
 }
@@ -35,6 +37,16 @@ $res = $sortBy
 $genres = $STORE->getSongGenres();
 
 $hasResult = sizeof($res["data"]) !== 0;
+
+if ($genre) {
+    $newRes = ["data" => [], "hasNext" => $res["hasNext"]];
+    foreach ($res["data"] as $song) {
+        if ($song->getGenre() === $genre) {
+            $newRes["data"][] = $song;
+        }
+    }
+    $res = $newRes;
+}
 
 if ($dataOnly) {
     header('Content-Type: application/json; charset=utf-8');
