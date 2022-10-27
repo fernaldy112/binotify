@@ -3,13 +3,9 @@
     require_once(__DIR__."/../src/Template/util.php");
     require_once(__DIR__."/../src/Store/DataStore.php");
 
-    function countSeconds($duration){ // TODO
+    function countSeconds($duration){
         $duration = explode(':', $duration);
-        $second = 0;
-        foreach($duration as $x){
-            $x = (int)$x;
-            $second += $x;
-        }
+        $second = $duration[0]*3600 + $duration[1]*60 + $duration[2];
         return $second;
     }
     
@@ -105,7 +101,7 @@
             move_uploaded_file($file["tmp_name"], $filePath);
             move_uploaded_file($image["tmp_name"], $imgPath);
             if (strlen($addSongError["fileError"])===0){
-                $duration = shell_exec("cd music ; ffmpeg -i $fileName 2>&1 | grep Duration | awk '{print $2}' | tr -d ,");
+                $duration = shell_exec("cd music ; ffmpeg -i '$fileName' 2>&1 | grep Duration | awk '{print $2}' | tr -d ,");
             }
             $duration = countSeconds($duration);
             $fileLoc = "music/".$fileName;

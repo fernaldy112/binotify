@@ -4,13 +4,9 @@
     require_once(__DIR__."/../src/Store/DataStore.php");
     require_once(__DIR__."/../src/Model/Song.php");
 
-    function countSeconds($duration){ // TODO
+    function countSeconds($duration){
         $duration = explode(':', $duration);
-        $second = 0;
-        foreach($duration as $x){
-            $x = (int)$x;
-            $second += $x;
-        }
+        $second = $duration[0]*3600 + $duration[1]*60 + $duration[2];
         return $second;
     }
 
@@ -64,7 +60,7 @@
             $newImagePath = $song->getImagePath();
             $success = 7;
         } else {
-            $arrOfImgName = explode('.', $image["name"]);
+            $arrOfImgName = explode('.', $newImage["name"]);
             $imgExtension = strtolower(end($arrOfImgName));
             if ($imgExtension !== "jpg" && $imgExtension !== "jpeg" && $imgExtension !== "png"){
                 $success = 3;
@@ -83,13 +79,21 @@
         move_uploaded_file($newFile["tmp_name"], $newAssetFilePath);
         move_uploaded_file($newImage["tmp_name"], $newAssetImgPath);
         if ($success!==2 && $success!==4 && $success!==6){
-            $duration = shell_exec("cd music ; ffmpeg -i $newFileName 2>&1 | grep Duration | awk '{print $2}' | tr -d ,");
+            $duration = shell_exec("cd music ; ffmpeg -i '$newFileName' 2>&1 | grep Duration | awk '{print $2}' | tr -d ,");
         }
         $duration = countSeconds($duration);
         $fileLoc = "music/".$newFileName;
         $imageLoc = "image/".$newImageName;
-        // $STORE->addSong($title, $singer, $date, $genre, $duration, $fileLoc, $imageLoc, $albumId); // TODO: UPDATE song 
-        // $addDuration = $STORE->addAlbumTotalDuration($albumId, $duration); // TODO: UPDATE album
+
+        $singer = $song->getArtist();
+        $albumId = $song->getAlbumId();
+
+        $oldDuration = $song->getDuration();
+
+        $STORE->updateSong($songId, $newTitle, $singer, $newDate, $newGenre, $duration, $fileLoc, $imageLoc, $albumId);
+
+        $STORE->addAlbumTotalDuration($albumId, -1*$oldDuration);
+        $STORE->addAlbumTotalDuration($albumId, $duration);
 
         // header("Location: /listen?s=$songId&success=$success");
     }

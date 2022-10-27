@@ -4,22 +4,22 @@ require_once(__DIR__."/../src/Template/util.php");
 require_once(__DIR__."/../src/Store/DataStore.php");
 
 session_start();
+// TODO
+// if (!array_key_exists("username", $_SESSION)) {
+//     if (!array_key_exists("last_listen_date", $_SESSION) ||
+//         date_diff(date_create(), $_SESSION["last_listen_date"])->d !== 0
+//     ) {
+//         $_SESSION["last_listen_date"] = date_create();
+//         $_SESSION["listened"] = 0;
+//     }
 
-if (!array_key_exists("username", $_SESSION)) {
-    if (!array_key_exists("last_listen_date", $_SESSION) ||
-        date_diff(date_create(), $_SESSION["last_listen_date"])->d !== 0
-    ) {
-        $_SESSION["last_listen_date"] = date_create();
-        $_SESSION["listened"] = 0;
-    }
+//     if ($_SESSION["listened"] >= 3) {
+//         header("Location: /login");
+//         return;
+//     }
 
-    if ($_SESSION["listened"] >= 3) {
-        header("Location: /login");
-        return;
-    }
-
-    $_SESSION["listened"]++;
-}
+//     $_SESSION["listened"]++;
+// }
 // DELETE
 $tempUsername = "admin1";
 
