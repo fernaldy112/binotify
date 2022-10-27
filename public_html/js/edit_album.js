@@ -67,17 +67,17 @@ editButton.addEventListener('click', function (event) {
     hero.style.marginTop = "110px";
 
     let deleteAlbum = document.getElementById("deleteButton");
-    if (deleteAlbum){
+    if (deleteAlbum) {
         deleteAlbum.setAttribute("hidden", "");
     }
-    
+
     let deleteAlbumSong = document.getElementById("deleteAlbumSongButton");
-    if (deleteAlbumSong){
+    if (deleteAlbumSong) {
         deleteAlbumSong.setAttribute("hidden", "");
     }
 
     let editMsg = document.getElementById("editmsg");
-    if (editMsg){
+    if (editMsg) {
         editMsg.setAttribute("hidden", "");
     }
 
@@ -99,8 +99,13 @@ deleteButton.addEventListener('click', function (event) {
     document.cookie = "result=" + result + ";max-age=1";
     console.log(document.cookie);
     location.reload();
+    let deleteMsg = document.getElementById("deletemsg");
+    if (deleteMsg) {
+        deleteMsg.setAttribute("hidden", "");
+    }
 });
 
 function show_alert() {
     alert("Cannot Delete Album!\nAlbum not Empty")
 }
+

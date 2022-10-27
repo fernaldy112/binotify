@@ -28,4 +28,8 @@ editSongButton.addEventListener('click', function (event) {
         location.reload();
     };
     xhr.send(new URLSearchParams({ confirm_delete, values }).toString());
+    let deleteMsg = document.getElementById("deletemsg");
+    if (deleteMsg) {
+        deleteMsg.setAttribute("hidden", "");
+    }
 });

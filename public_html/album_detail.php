@@ -15,7 +15,7 @@ $id = $_GET["s"];
 $hiddenInput = "<input type='hidden' name='albumId' value=$id />";
 $album = $STORE->getAlbumById($id);
 $songList = $STORE->getAllSongByAlbumId($id);
-
+$changeMessage = ""; 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -61,10 +61,8 @@ function deleteAlbum($STORE, $albumId, $album, $songList){
         echo '</script>';
         header("Location: /album_list");
     }else{
-        echo '<script language="javascript">';
-        echo 'alert("Cannot Delete Album!\nAlbum not Empty")';
-        // echo 'Location.href = "/album_list"';
-        echo '</script>';
+        $changeMessage= "<p id='deletemsg'>Cannot Delete Album <span class='red'>Album Not Empty!</span></p>";
+        return $changeMessage;
     }
 }
 
@@ -75,7 +73,7 @@ if ($isAdmin){
     $fileUpload = "<div id='fileUploadContainer'></div>";
 }
 
-$changeMessage = ""; 
+
 if (isset($_GET["success"]) && $isAdmin){
     if ($_GET["success"] == 1 || $_GET["success"] == 7){ 
         $changeMessage = "<p id='editmsg'><span class='green'>Album is successfully edited.</span></p>";
@@ -103,7 +101,7 @@ if ($STORE->getIsAdminByUsername($tempUsername)){
     $deleteButtonHolder = "<button name='deleteAlbum' id='deleteButton'>Delete Album<i class='fa fa-trash-o'></i></button>";
     if (isset($_COOKIE["result"])) {
         if ($_COOKIE["result"]=="true"){
-            deleteAlbum($STORE, $id, $album, $songList);
+            $changeMessage= deleteAlbum($STORE, $id, $album, $songList);
         }else{
             showCancel();
         }
@@ -118,10 +116,10 @@ function deleteSong($STORE, $songId){ // delete selected song
     $duration = $duration * -1;
     $STORE->addAlbumTotalDuration($albumId, $duration);
     $STORE->deleteSong($songId);
-    // echo '<script language="javascript">';
-    // echo 'alert("Song Deleted!")';
-    // echo '</script>';  
-    header("Location: /album_list?re=$albumId");
+    $changeMessage= "<p id='deletemsg'><span class='green'>Song Deleted</span></p>";
+    print_r($changeMessage);
+    return $changeMessage;
+    //header("Location: /album_list?re=$albumId");
 }
 
 
@@ -137,16 +135,16 @@ if ($STORE->getIsAdminByUsername($tempUsername)){
                 $array = explode(',', $values);
                 foreach ($array as $sid){
                     $song_id = (int) $sid;
-                    deleteSong($STORE, $song_id);
+                    $changeMessage = deleteSong($STORE, $song_id);
                 }
             }
             
         }else{
+            $changeMessage= "<p id='deletemsg'>Cannot Delete Song <span class='red'>No Song Selected!</span></p>";
             showCancel();
         }
     } 
 }
-
 
 $hero = template("components/album_detail/hero.html")->bind([
     "image" => $album->getImagePath(),
