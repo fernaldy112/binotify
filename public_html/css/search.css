@@ -75,6 +75,7 @@ tr:not(:nth-child(1)) td:last-child {
     cursor: pointer;
     will-change: transform;
     transition: transform 200ms ease-out;
+    z-index: 20;
 }
 
 .table-button:hover {
@@ -101,6 +102,7 @@ tr:not(:nth-child(1)) td:last-child {
     flex-flow: column;
     align-items: stretch;
     position: relative;
+    margin-left: 64px;
 }
 
 .separator {
