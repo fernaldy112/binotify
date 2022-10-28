@@ -25,6 +25,7 @@
     transition: all 100ms ease-out;
 
     background: rgba(64, 64, 64, 0.1);
+    min-height: 380px;
 }
 
 .music-card:hover {
@@ -53,7 +54,7 @@
 }
 
 .cover {
-    width: 232px;
-    height: 232px;
+    width: 160px;
+    height: 200px;
     object-fit: cover;
 }
