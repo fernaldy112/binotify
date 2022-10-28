@@ -1,8 +1,10 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     color: black;
     font-family: 'Inter', sans-serif;
+    background: black;
 }
 
 #app {
@@ -11,39 +13,46 @@ html, body {
     display: flex;
 }
 
-.logo{
+.logo {
     font-family: 'Gotham', sans-serif;
     font-size: 40px;
     text-align: center;
     margin-bottom: 10px;
+    color: #1DB954;
 }
 
-.authContainer>p{
+hr {
+    background-color: #1DB954;
+}
+
+.authContainer>p {
     font-size: 14px;
     font-weight: bold;
     margin-top: 40px;
     text-align: center;
 }
 
-form{
+form {
     display: block;
     margin: 10px auto;
+    background-color: black;
 }
 
-.dataForm{
+.dataForm {
     font-weight: 700;
     font-size: 14px;
     /* margin-top: 50px; */
 }
 
-.dataForm label{
+.dataForm label {
     display: block;
     width: 75%;
     margin: 5px auto;
-    margin-top: 20px;;
+    margin-top: 20px;
+    ;
 }
 
-.dataForm input{
+.dataForm input {
     display: block;
     width: 75%;
     margin: 8px auto;
@@ -52,20 +61,31 @@ form{
     border-width: 2px;
 }
 
-#backFromAddSongForm{
+#backFromAddSongForm {
     width: 31%;
     margin: 0 auto;
     display: block;
 }
 
-.backButton{
+.backButton {
     border: none;
-    background-color: white;
+    background-color: black;
     font-size: 40px;
+    color: #4CAF50;
 }
 
-.backButton:hover{
+.backButton:hover {
     color: grey;
 }
 
+.addAlbumContainer {
+    background: black;
+}
 
+label.albumImage {
+    color: white;
+}
+
+input#albumImage {
+    color: white;
+}
