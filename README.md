@@ -44,9 +44,21 @@ in the terminal or run the shell script `./scripts/build-image.sh`.
 sh ./scripts/build-image.sh
 ```
 
+### Pre-populating the backend
+
+You will need to compose the image with `mysql` image to run Binotify properly.
+With the default setup, the composed `mysql` image will be pre-populated with
+usable musics and albums data. In accordance with the data, you will need to
+populate the container with music and cover image files.
+
+This step can be done manually by moving these
+[files](https://drive.google.com/drive/folders/1jnCas8bkn277-HpWwX5v5lKysBz6oiUq)
+to your local copy inside the `assets` directory.
+
 ### Composing
 
-After creating the image compose the image with `mysql` image using
+After creating the image and populating the backend, compose the image with
+`mysql` image using
 
 ```shell
 docker compose up
@@ -68,6 +80,13 @@ recent song added. From the homepage, as an unauthenticated user, you may
 go to album list page or search for a song you want to listen to. You can also
 sign up or log in by clicking one of the buttons on the right of the header.
 The rest of the site is pretty much self-explanatory.
+
+For testing purposes, you may use the credentials
+```
+username: admin1
+password: 123456
+```
+to log in as an admin.
 
 ## Demo
 
