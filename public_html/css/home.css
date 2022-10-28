@@ -51,3 +51,9 @@
     font-size: 0.8em;
     opacity: 0.5;
 }
+
+.cover {
+    width: 232px;
+    height: 232px;
+    object-fit: cover;
+}
