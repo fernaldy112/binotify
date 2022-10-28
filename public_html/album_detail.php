@@ -27,7 +27,7 @@ if (array_key_exists("username", $_SESSION)) {
     $isAdmin = false;
 }
 
-function make_table ($songList) {
+function make_table ($songList, $isAdmin) {
     $tbl_array = [];
     $tbl_array[] = "<div class=\"top_div\"><span></span><span class=\"span_row_num\">#</span><span class=\"span_title\">Title</span><span class=\"span_duration\">Duration</span></div>";
     $tbl_array[] = "<div class=\"header_div\"><p></div>";
@@ -40,7 +40,11 @@ function make_table ($songList) {
         $artist = $song->getArtist();
         $duration = $song->getDuration();
         $tbl_array[] = "<tr>";
-        $tbl_array[] = "<td class=\"song-checkbox\"><input type=\"checkbox\" name=\"color\" class=\"song-check\" value=\"$song_id\" id=\"c1\"></td>";
+        if ($isAdmin){
+            $tbl_array[] = "<td class=\"song-checkbox\"><input type=\"checkbox\" name=\"color\" class=\"song-check\" value=\"$song_id\" id=\"c1\"></td>";
+        }else{
+            $tbl_array[] = "<td class=\"song-checkbox\"></td>";
+        }
         $tbl_array[] = "<td class=\"row_num\" onclick=\"album_detail_ClickHandler($song_id)\">$num</td>";
         $tbl_array[] = "<td onclick=\"album_detail_ClickHandler($song_id)\">$title • $artist</td>";
         $tbl_array[] = "<td class=\"song_duration\" onclick=\"album_detail_ClickHandler($song_id)\">$duration</td>";
@@ -180,7 +184,7 @@ template("components/album_detail.html")->bind([
     "main" => template("components/album_detail/main.html")->bind([
         "header" => $HEADER,
         "hero" => $hero,
-        "song_list" =>make_table($songList)
+        "song_list" =>make_table($songList, $isAdmin)
     ]),
     
 ])->render();
