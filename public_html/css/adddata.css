@@ -2,12 +2,10 @@
     width: 75%;
     margin: 0 auto;
     text-align: center;
-    color: white;
 }
 
 .dataForm {
     width: 40%;
-    background: black;
 }
 
 .dataForm button {
@@ -48,12 +46,11 @@
     margin-bottom: 0;
 }
 
-.albumAdditionSuccess {
-    color: rgb(30, 215, 64);
+.albumAdditionSuccess{
+    color:rgb(30, 215, 64);
 }
 
-.songAdditionError,
-.songAdditionSuccess {
+.songAdditionError, .songAdditionSuccess{
     color: red;
     font-weight: normal;
     width: 70%;
@@ -62,10 +59,6 @@
     margin-bottom: 0;
 }
 
-.songAdditionSuccess {
+.songAdditionSuccess{
     color: rgb(30, 202, 30);
-}
-
-body {
-    background: #171717;
 }
