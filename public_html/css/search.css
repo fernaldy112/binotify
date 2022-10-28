@@ -94,6 +94,12 @@ tr:not(:nth-child(1)) td:last-child {
     position: relative;
 }
 
+.genre-dropdown-container {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+}
+
 .separator {
     width: 0;
     height: 0;
@@ -134,12 +140,14 @@ th.sortable.ascending::after {
     box-sizing: border-box;
     padding: 8px 32px 8px 16px;
     border-radius: 4px;
-    background: transparent;
+    background: #171717;
     color: #dfdfdf;
     border: 1px solid rgba(255, 255, 255, 0.2);
     font-family: 'Inter', sans-serif;
     font-size: 1em;
     cursor: pointer;
+    z-index: 10;
+    width: 100%;
 }
 
 .genre-dropdown::after {
@@ -195,7 +203,7 @@ th.sortable.ascending::after {
 }
 
 .genre-dropdown:hover, .genre-option:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: #242424;
 }
 
 .genre-dropdown:focus {

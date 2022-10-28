@@ -139,15 +139,19 @@ class TableRenderer {
         const param = new URLSearchParams(location.search);
         const genre = param.get('g');
 
+        this.genreBoxes = [];
+
+        let order = 0;
+
+        const genreDropdownContainer = document.createElement('div');
+        genreDropdownContainer.classList.add('genre-dropdown-container');
+        this.filterBar.appendChild(genreDropdownContainer);
+
         const select = document.createElement('div');
         select.name = 'genre';
         select.classList.add('genre-dropdown');
         select.innerText = genre ?? 'Any genre';
-        this.filterBar.appendChild(select);
-
-        this.genreBoxes = [];
-
-        let order = 0;
+        genreDropdownContainer.appendChild(select);
 
         const option = document.createElement('div');
         option.value = '';
@@ -158,7 +162,7 @@ class TableRenderer {
         option.style.setProperty('--delay', `${order++ * 100}ms`);
         option.style.top = `${100 * order}%`;
 
-        this.filterBar.appendChild(option);
+        genreDropdownContainer.appendChild(option);
         this.genreBoxes.push(option);
 
         for (const genre of genres) {
@@ -170,7 +174,7 @@ class TableRenderer {
             option.setAttribute('hidden', '');
             option.style.setProperty('--delay', `${order++ * 100}ms`);
             option.style.top = `${100 * order}%`;
-            this.filterBar.appendChild(option);
+            genreDropdownContainer.appendChild(option);
             this.genreBoxes.push(option);
         }
         this.genreSelector = select;
