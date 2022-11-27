@@ -313,6 +313,12 @@ class DataStore {
             "ORDER BY song_id DESC LIMIT 10;");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    function updateSubscription($creatorId, $subscriberId, $status) {
+        $stmt = $this->mysqli->prepare("UPDATE subscription SET status = ? WHERE creator_id = ? AND subscriber_id = ?");
+        $stmt->bind_param("sii", $status, $creatorId, $subscriberId);
+        $stmt->execute();
+    }
 }
 
 $STORE = new DataStore();
