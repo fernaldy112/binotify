@@ -17,7 +17,7 @@ class DataStore {
 
     function __construct()
     {
-        $this->mysqli = new mysqli("db", "user", "password", "db");
+        $this->mysqli = new mysqli("appdb", "user", "password", "appdb");
     }
 
     function getAlbumById($id): Album|null
@@ -318,6 +318,11 @@ class DataStore {
         $stmt = $this->mysqli->prepare("UPDATE subscription SET status = ? WHERE creator_id = ? AND subscriber_id = ?");
         $stmt->bind_param("sii", $status, $creatorId, $subscriberId);
         $stmt->execute();
+    }
+
+    function getPendingSubscriptions() {
+        $result = $this->mysqli->query("SELECT * FROM subscription WHERE status = 'PENDING'");
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
 

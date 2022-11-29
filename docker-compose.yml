@@ -12,11 +12,11 @@ services:
       - "8080:80"
     networks:
       - binotify
-  db:
+  appdb:
     image: mysql:latest
     hostname: appdb
     environment:
-      - MYSQL_DATABASE=db
+      - MYSQL_DATABASE=appdb
       - MYSQL_USER=user
       - MYSQL_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=password
@@ -29,7 +29,7 @@ services:
     ports:
       - 9000:80
     environment:
-      - PMA_HOST=db
+      - PMA_HOST=appdb
       - PMA_PORT=3306
     networks:
       - binotify
