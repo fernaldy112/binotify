@@ -1,0 +1,2 @@
+* * * * * root cd /usr/src/binotify && /usr/local/bin/php cron-revalidate.php > /proc/$(cat /var/run/crond.pid)/fd/1 2>&1
+* * * * * cd /usr/src/binotify && /usr/local/bin/php cron-revalidate.php > /proc/$(cat /var/run/crond.pid)/fd/1 2>&1

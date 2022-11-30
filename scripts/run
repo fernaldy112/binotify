@@ -1,0 +1,5 @@
+#!/bin/sh
+chmod +x /usr/src/binotify/cron-revalidate.php
+crontab -u root /etc/crontab
+cron
+/usr/local/bin/apache2-foreground

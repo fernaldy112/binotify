@@ -8,6 +8,8 @@ services:
       - "./assets/music:/usr/src/binotify/public_html/music"
       - "./assets/image:/usr/src/binotify/public_html/image"
       - "./php.ini:/usr/local/etc/php/php.ini-production"
+      - "./scripts/crontab:/etc/crontab"
+      - "./scripts/run:/usr/bin/run"
     ports:
       - "8080:80"
     networks:

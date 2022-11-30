@@ -11,7 +11,7 @@ $client = new SoapClient("http://soap/subscription?wsdl");
 $header = new SoapHeader("http://binotify.com", "ApiKey", "8FX5S4ZSB6AJLN1JW0OZ");
 $client->__setSoapHeaders($header);
 
-while (true) {
+// while (true) {
 	echo "Revalidating ...\n";
 
   $pendingSubs = $STORE->getPendingSubscriptions();
@@ -42,5 +42,5 @@ while (true) {
     $STORE->updateSubscription($sub["creator_id"], $sub["subscriber_id"], $sub["status"]);
   }
 
-  sleep(3);
-}
+  // sleep(3);
+// }

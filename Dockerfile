@@ -8,6 +8,7 @@ RUN docker-php-ext-install soap
 RUN docker-php-ext-enable mysqli
 RUN docker-php-ext-enable soap
 RUN apt-get install -y ffmpeg
+RUN apt-get install -y cron
 RUN a2enmod rewrite
 RUN a2enmod headers
 RUN apachectl restart
@@ -24,3 +25,5 @@ RUN chown -R root assets/music assets/image
 RUN chmod -R 777 assets/music && chmod -R 777 assets/image
 
 EXPOSE 80
+
+CMD ["run"]
