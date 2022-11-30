@@ -324,6 +324,22 @@ class DataStore {
         $result = $this->mysqli->query("SELECT * FROM subscription WHERE status = 'PENDING'");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    function getSubscriptionById($userId){
+        $result = $this->mysqli->query("SELECT * FROM subscription WHERE subscriber_id=$userId");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    function getAllSubscribedCreator($userId){
+        $creator_list = $this->mysqli->query("SELECT creator_id FROM subscription WHERE subscriber_id=$userId AND status = 'ACCEPTED'");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    function addSubscription($creatorId, $subscriberId) {
+        $stmt = $this->mysqli->prepare("INSERT INTO subscription VALUES (?, ?, 'PENDING')");
+        $stmt->bind_param("ii", $creatorId, $subscriberId);
+        $stmt->execute();
+    }
 }
 
 $STORE = new DataStore();

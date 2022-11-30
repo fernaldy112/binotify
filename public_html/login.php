@@ -27,6 +27,7 @@ if (isset($_POST["login"])){
     } else {
         session_start();
         $_SESSION["username"] = $user->getUsername();
+        $_SESSION["user_id"] = $user->getUserId();
         header("Location: index.php");
     }
 }
