@@ -48,7 +48,7 @@ function make_tabel($artistPremiumSongList){
         $tbl_array[] = "</span>";
         $tbl_array[] = "</button>";
         $tbl_array[] = "</div>";
-        $tbl_array[] = "<audio controls class=\"audio-playback\" src=\"$audioPath\" preload=\"auto\"></audio>";
+        $tbl_array[] = "<audio hidden controls class=\"audio-playback\" src=\"$audioPath\" preload=\"auto\"></audio>";
         $tbl_array[] = "<td>";
         $tbl_array[] = "</tr>";
     }
@@ -69,6 +69,7 @@ $playBar = template("components/premium_song/play-bar.html")->bind([
 
 css("css/user_list.css");
 css("css/styles.css");
+css("css/listen.css");
 css("css/shared.css");
 css("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 css("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
