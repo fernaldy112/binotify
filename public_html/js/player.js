@@ -1,192 +1,195 @@
 class Player {
-
+  /**
+   *
+   * @param {HTMLElement} playBar Play bar for this player to attach to.
+   * @param {HTMLAudioElement} parent Audio element for this player to attach to.
+   */
+  constructor(playBar, parent) {
+    this.progressBar = playBar.children[1].children[1].children[1];
+    this.playbackTime = playBar.children[1].children[1].children[0];
     /**
-     *
-     * @param {HTMLElement} playBar Play bar for this player to attach to.
-     * @param {HTMLAudioElement} parent Audio element for this player to attach to.
+     * @type {HTMLButtonElement}
      */
-    constructor(playBar, parent) {
-        this.progressBar = playBar.children[1].children[1].children[1];
-        this.playbackTime = playBar.children[1].children[1].children[0];
-        /**
-         * @type {HTMLButtonElement}
-         */
-        this.playButton = playBar.children[1].children[0];
-        /**
-         * @type {HTMLButtonElement}
-         */
-        this.volumeButton = playBar.children[2].children[0];
-        /**
-         * @type {HTMLInputElement}
-         */
-        this.volumeSlider = playBar.children[2].children[1];
+    this.playButton = playBar.children[1].children[0];
+    /**
+     * @type {HTMLButtonElement}
+     */
+    this.volumeButton = playBar.children[2].children[0];
+    /**
+     * @type {HTMLInputElement}
+     */
+    this.volumeSlider = playBar.children[2].children[1];
 
-        this.parent = parent;
+    this.parent = parent;
 
-        this.volumeOn = true;
-        this.volume = 100;
-        this.paused = false;
-        this.time = 0;
-        this.ended = false;
+    this.volumeOn = true;
+    this.volume = 100;
+    this.paused = false;
+    this.time = 0;
+    this.ended = false;
 
-        this.updateTimeout = null;
-        this.durationTimeout = null;
+    this.updateTimeout = null;
+    this.durationTimeout = null;
 
-        this.initListeners();
+    this.initListeners();
 
-        setInterval(this._sync.bind(this), 10000)
+    this.syncInterval = setInterval(this._sync.bind(this), 10000);
+  }
+
+  initListeners() {
+    this.volumeButton.addEventListener("click", (e) => {
+      if (this.volumeOn) {
+        this._mute();
+      } else {
+        this._unmute();
+      }
+    });
+
+    this.volumeSlider.addEventListener("input", (_) => {
+      if (this.updateTimeout) {
+        return;
+      }
+
+      this._updateVolume();
+    });
+
+    this.volumeSlider.addEventListener("change", (e) => {
+      this._forceUpdateVolume();
+    });
+
+    this.playButton.addEventListener("click", (_) => {
+      if (this.paused || this.ended) {
+        this.play();
+      } else {
+        this.pause();
+      }
+    });
+
+    this.parent.addEventListener("timeupdate", (_) => {
+      this._updateTime();
+    });
+
+    this.parent.addEventListener("ended", (_) => {
+      this._stopDurationTimeout();
+      this.ended = true;
+      this._stop();
+    });
+
+    this.progressBar.addEventListener("click", (e) => {
+      /**
+       * @type {PointerEvent}
+       */
+      let event = e;
+      const offset = this.progressBar.getBoundingClientRect().left;
+      const diff = event.clientX - offset;
+      const progress = diff / this.progressBar.clientWidth;
+      this.seek(progress * this.parent.duration);
+    });
+  }
+
+  destruct() {
+    clearTimeout(this.syncInterval);
+    this.parent.pause();
+    this.parent.currentTime = 0;
+  }
+
+  play() {
+    if (this.ended) {
+      this.ended = false;
+      this.time = 0;
+      this._updateProgress();
     }
 
-    initListeners() {
-        this.volumeButton.addEventListener('click', e => {
-            if (this.volumeOn) {
-                this._mute();
-            } else {
-                this._unmute();
-            }
-        });
+    this.parent.play().then(() => {
+      this._startDurationTimeout();
+      this.paused = false;
+      this.playButton.children[0].textContent = "pause_circle";
+    });
+  }
 
-        this.volumeSlider.addEventListener('input', _ => {
-            if (this.updateTimeout) {
-                return;
-            }
+  pause() {
+    this.parent.pause();
+    this.paused = true;
+    this._stop();
+  }
 
-            this._updateVolume();
-        });
+  _stop() {
+    this.playButton.children[0].textContent = "play_circle";
+    this._stopDurationTimeout();
+  }
 
-        this.volumeSlider.addEventListener('change', e => {
-            this._forceUpdateVolume();
-        })
+  seek(time) {
+    this.time = Math.round(time);
+    this.parent.currentTime = time;
+    this._updateTime();
+  }
 
-        this.playButton.addEventListener('click', _ => {
-            if (this.paused || this.ended) {
-                this.play();
-            } else {
-                this.pause();
-            }
-        });
+  _updateVolume() {
+    this.updateTimeout = setTimeout(() => {
+      clearTimeout(this.updateTimeout);
+      this.updateTimeout = null;
+    }, 100);
 
-        this.parent.addEventListener('timeupdate', _ => {
-                this._updateTime();
-            }
-        );
+    const newVolume = parseInt(this.volumeSlider.value);
 
-        this.parent.addEventListener('ended', _ => {
-            this._stopDurationTimeout();
-            this.ended = true;
-            this._stop();
-        });
-
-        this.progressBar.addEventListener('click', e => {
-            /**
-             * @type {PointerEvent}
-             */
-            let event = e;
-            const offset = this.progressBar.getBoundingClientRect().left;
-            const diff = event.clientX - offset;
-            const progress = diff / this.progressBar.clientWidth;
-            this.seek(progress * this.parent.duration);
-        })
+    if (newVolume === 0) {
+      this._mute();
+      return;
     }
 
-    play() {
-        if (this.ended) {
-            this.ended = false;
-            this.time = 0;
-            this._updateProgress();
-        }
-
-        this.parent.play().then(() => {
-            this._startDurationTimeout();
-            this.paused = false;
-            this.playButton.children[0].textContent = 'pause_circle';
-        });
+    if (!this.volumeOn) {
+      this._unmute();
     }
 
-    pause() {
-        this.parent.pause();
-        this.paused = true;
-        this._stop()
-    }
+    this.volume = newVolume;
+    this.parent.volume = this.volume / 100;
+  }
 
-    _stop() {
-        this.playButton.children[0].textContent = 'play_circle';
-        this._stopDurationTimeout();
-    }
+  _mute() {
+    this.parent.muted = true;
+    this.volumeOn = false;
+    this.volumeButton.children[0].textContent = "volume_off";
+  }
 
-    seek(time) {
-        this.time = Math.round(time);
-        this.parent.currentTime = time;
-        this._updateTime();
-    }
+  _unmute() {
+    this.parent.muted = false;
+    this.volumeOn = true;
+    this.volumeButton.children[0].textContent = "volume_up";
+  }
 
-    _updateVolume() {
-        this.updateTimeout = setTimeout(() => {
-            clearTimeout(this.updateTimeout)
-            this.updateTimeout = null;
-        }, 100);
+  _forceUpdateVolume() {
+    clearTimeout(this.updateTimeout);
+    this._updateVolume();
+  }
 
-        const newVolume = parseInt(this.volumeSlider.value);
+  _startDurationTimeout() {
+    this.durationTimeout = setTimeout(() => {
+      this.time += 1;
+      this._updateTime();
+      this._startDurationTimeout();
+    }, 1000);
+  }
 
-        if (newVolume === 0) {
-            this._mute();
-            return;
-        }
+  _stopDurationTimeout() {
+    clearTimeout(this.durationTimeout);
+  }
 
-        if (!this.volumeOn) {
-            this._unmute();
-        }
+  _updateTime() {
+    this.playbackTime.textContent = this._formatTime();
+    this._updateProgress();
+  }
 
-        this.volume = newVolume;
-        this.parent.volume = this.volume / 100;
-    }
+  _updateProgress() {
+    const progress = (this.time / this.parent.duration) * 100;
+    this.progressBar.children[0].style.left = `${progress - 100}%`;
+  }
 
-    _mute() {
-        this.parent.muted = true;
-        this.volumeOn = false;
-        this.volumeButton.children[0].textContent = 'volume_off';
-    }
+  _sync() {
+    this.time = Math.round(this.parent.currentTime);
+    console.log(this.time);
+  }
 
-    _unmute() {
-        this.parent.muted = false;
-        this.volumeOn = true;
-        this.volumeButton.children[0].textContent = 'volume_up';
-    }
-
-    _forceUpdateVolume() {
-        clearTimeout(this.updateTimeout);
-        this._updateVolume();
-    }
-
-    _startDurationTimeout() {
-        this.durationTimeout = setTimeout(() => {
-            this.time += 1;
-            this._updateTime();
-            this._startDurationTimeout();
-        }, 1000);
-    }
-
-    _stopDurationTimeout() {
-        clearTimeout(this.durationTimeout);
-    }
-
-    _updateTime() {
-        this.playbackTime.textContent = this._formatTime();
-        this._updateProgress();
-    }
-
-    _updateProgress() {
-        const progress = this.time / this.parent.duration * 100;
-        this.progressBar.children[0].style.left = `${progress - 100}%`;
-    }
-
-    _sync() {
-        this.time = Math.round(this.parent.currentTime);
-        console.log(this.time)
-    }
-
-    _formatTime() {
-        return toDurationString(this.time);
-    }
+  _formatTime() {
+    return toDurationString(this.time);
+  }
 }
-
