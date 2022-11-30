@@ -45,6 +45,7 @@ function make_tabel($artistPremiumSongList){
         $tbl_array[] = "</span>";
         $tbl_array[] = "</button>";
         $tbl_array[] = "</div>";
+        $tbl_array[] = "<audio controls class=\"audio-playback\" src=\"$song->audio_path\" preload=\"auto\"></audio>";
         $tbl_array[] = "<td>";
         $tbl_array[] = "</tr>";
     }
@@ -59,12 +60,8 @@ $main = template("components/user_list/main.html")->bind([
     "user_list" => make_tabel($artistPremiumSongList)
 ]);
 
-$playBar = template("components/listen/play-bar.html")->bind([
-    "cover" => $song->getImagePath(),
-    "cover_alt" => $song->getTitle(),
-    "title" => $song->getTitle(),
-    "artist" => $song->getArtist(),
-    "duration" => $song->getDurationString()
+$playBar = template("components/premium_song/play-bar.html")->bind([
+    "title" => $song->judul,
 ]);
 
 css("css/user_list.css");
