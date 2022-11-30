@@ -1,0 +1,3 @@
+<?php
+
+putenv("API_KEY=DHY16EWGM1C8ADNWNBUK");
