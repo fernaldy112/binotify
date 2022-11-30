@@ -8,7 +8,7 @@ set_time_limit(0);
 // sleep(300);
 
 $client = new SoapClient("http://soap/subscription?wsdl");
-$header = new SoapHeader("http://binotify.com", "ApiKey", "8FX5S4ZSB6AJLN1JW0OZ");
+$header = new SoapHeader("http://binotify.com", "ApiKey", "3MWZ4TYO4B7YHM11UPZT");
 $client->__setSoapHeaders($header);
 
 // while (true) {

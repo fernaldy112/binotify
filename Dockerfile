@@ -26,4 +26,4 @@ RUN chmod -R 777 assets/music && chmod -R 777 assets/image
 
 EXPOSE 80
 
-# CMD ["/bin/sh /usr/bin/run"]
+CMD ["run"]

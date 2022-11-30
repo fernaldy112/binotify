@@ -23,17 +23,20 @@ if (array_key_exists("username", $_SESSION)) {
 
 $singer_id = $_GET["artist"];
 $user_id = $_SESSION["user_id"];
-$data = file_get_contents("http://rest/song/$user_id/$singer_id");
-// $data = '[{"song_id":1,"judul":"exampleName", "penyanyi_id":1, "audio_path":"ada la tuh"}]';
+$data = file_get_contents("http://rest/songList/$user_id/$singer_id");
+$restServiceIp = "localhost:8081";
+
 $artistPremiumSongList = json_decode($data);
 
-
-
 function make_tabel($artistPremiumSongList){
+    global $restServiceIp;
+
     $tbl_array = [];
     $tbl_array[] = "<table class=\"styled-table\">";
     $tbl_array[] = "<tr><th>Judul</th><th>Action</th></tr>";
     foreach ($artistPremiumSongList as $song){
+        $audioPath = "http://$restServiceIp/assets/".$song->audio_path;
+
         $tbl_array[] = "<tr>";
         $judul = $song->judul;
         $tbl_array[] = "<td>$judul</td>";
@@ -45,7 +48,7 @@ function make_tabel($artistPremiumSongList){
         $tbl_array[] = "</span>";
         $tbl_array[] = "</button>";
         $tbl_array[] = "</div>";
-        $tbl_array[] = "<audio controls class=\"audio-playback\" src=\"$song->audio_path\" preload=\"auto\"></audio>";
+        $tbl_array[] = "<audio controls class=\"audio-playback\" src=\"$audioPath\" preload=\"auto\"></audio>";
         $tbl_array[] = "<td>";
         $tbl_array[] = "</tr>";
     }

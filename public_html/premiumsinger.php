@@ -5,6 +5,10 @@ require_once(__DIR__."/../src/Store/DataStore.php");
 require_once(__DIR__."/../src/components/header.php");
 require_once(__DIR__."/../src/components/navbar.php");
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 $data = file_get_contents("http://rest/artistList");
 $artistList = json_decode($data);
 
@@ -12,8 +16,6 @@ if (!isset($STORE) || !isset($NAVBAR) || !isset($HEADER)) {
     http_response_code(500);
     return;
 }
-
-// TODO: check login
 
 $subscription = $STORE->getSubscriptionById($_SESSION["user_id"]);
 
