@@ -331,7 +331,7 @@ class DataStore {
     }
 
     function getAllSubscribedCreator($userId){
-        $creator_list = $this->mysqli->query("SELECT creator_id FROM subscription WHERE subscriber_id=$userId AND status = 'ACCEPTED'");
+        $result = $this->mysqli->query("SELECT creator_id FROM subscription WHERE subscriber_id=$userId AND status = 'ACCEPTED'");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 

@@ -22,15 +22,16 @@ if (array_key_exists("username", $_SESSION)) {
 }
 
 $user_id = $_SESSION["user_id"];
-
 $creator_list = $STORE->getAllSubscribedCreator($user_id);
-$data = [];
+$subscribedSongList = [];
 foreach ($creator_list as $creator){
-    $singer_id = $creator->creator_id;
-    $data += file_get_contents("http://rest/song/$user_id/$singer_id");
+    $singer_id = $creator["creator_id"];
+    $songs = json_decode(file_get_contents("http://rest/songList/$user_id/$singer_id"));
+
+    foreach ($songs as $song) {
+        $subscribedSongList[] = $song;
+    }
 }
-// $data = '[{"song_id":1,"judul":"exampleName", "penyanyi_id":1, "audio_path":"ada la tuh"}]';
-$subscribedSongList = json_decode($data);
 
 function make_tabel($subscribedSongList){
     $tbl_array = [];
