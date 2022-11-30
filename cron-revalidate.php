@@ -2,11 +2,13 @@
 
 require_once(__DIR__."/src/Store/DataStore.php");
 
+// TODO: set proper time interval
+
 set_time_limit(0);
 // sleep(300);
 
 $client = new SoapClient("http://soap/subscription?wsdl");
-$header = new SoapHeader("http://binotify.com", "ApiKey", "14Y3FE0J1MEXYMAI8XXB");
+$header = new SoapHeader("http://binotify.com", "ApiKey", "8FX5S4ZSB6AJLN1JW0OZ");
 $client->__setSoapHeaders($header);
 
 while (true) {
@@ -14,8 +16,7 @@ while (true) {
 
   $pendingSubs = $STORE->getPendingSubscriptions();
 
-  $accepteds = [];
-  $rejecteds = [];
+  $updatedSubs = [];
 
   if (count($pendingSubs) > 0) {
     foreach ($pendingSubs as $pendingSub) {
@@ -24,17 +25,22 @@ while (true) {
         "arg0" => $pendingSub["creator_id"],
         "arg1" => $pendingSub["subscriber_id"]
       ]]);
-      if (strcmp($result->return, "ACCEPTED") == 0) {
-        $accepteds[] = $pendingSub;
-      }
-      if (strcmp($result->return, "REJECTED") == 0) {
-        $rejecteds[] = $pendingSub;
+      if (isset($result->return)) {
+        if (strcmp($result->return, "ACCEPTED") == 0) {
+          $pendingSub["status"] = "ACCEPTED";
+          $updatedSubs[] = $pendingSub;
+        }
+        if (strcmp($result->return, "REJECTED") == 0) {
+          $pendingSub["status"] = "REJECTED";
+          $updatedSubs[] = $pendingSub;
+        }
       }
     }
   }
 
-  // TODO: reflect changes to database
+  foreach ($updatedSubs as $sub) {
+    $STORE->updateSubscription($sub["creator_id"], $sub["subscriber_id"], $sub["status"]);
+  }
 
-
-  sleep(20);
+  sleep(3);
 }
