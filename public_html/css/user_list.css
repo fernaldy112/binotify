@@ -9,28 +9,29 @@ body {
     font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    color: black;
+    color: green;
 }
 
 
 .styled-table th,
 .styled-table td {
     padding: 12px 15px;
-    color: black;
+    color: white;
+    margin: 25px;
+    background-color: #171717;
+}
+
+.styled-table tr {
+    border-bottom: 1px solid black;
     margin: 25px;
 }
 
 .styled-table tr {
-    border-bottom: 1px solid #dddddd;
-    margin: 25px;
-}
-
-.styled-table tr {
-    background-color: #f3f3f3;
+    background-color: black;
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
+    border-bottom: 2px solid black;
 }
 
 .styled-table tbody tr.active-row {
