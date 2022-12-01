@@ -14,11 +14,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if (array_key_exists("username", $_SESSION)) {
-    $tempUsername = $_SESSION["username"];
-    $isAdmin = $STORE->getIsAdminByUsername($tempUsername);
-} else {
-    $isAdmin = false;
+if (!array_key_exists("username", $_SESSION)) {
+    header("Location: /");
+    return;
 }
 
 $singer_id = $_GET["artist"];

@@ -1,4 +1,4 @@
-.subscribeButton{
+.subscribeButton, .music-btn {
     color: white;
     border: 1px solid white;
     background-color: black;
@@ -6,7 +6,7 @@
     padding: 2px;
 }
 
-.subscribeButton:hover{
+.subscribeButton:hover, .music-btn:hover {
     color: black;
     background-color: white;
 }

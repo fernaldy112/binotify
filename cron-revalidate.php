@@ -1,46 +1,42 @@
 <?php
 
 require_once(__DIR__."/src/Store/DataStore.php");
+require_once(__DIR__."/src/env.php");
 
-// TODO: set proper time interval
 
 set_time_limit(0);
-// sleep(300);
 
 $client = new SoapClient("http://soap/subscription?wsdl");
-$header = new SoapHeader("http://binotify.com", "ApiKey", "3MWZ4TYO4B7YHM11UPZT");
+$header = new SoapHeader("http://binotify.com", "ApiKey", getenv("API_KEY"));
 $client->__setSoapHeaders($header);
 
-// while (true) {
-	echo "Revalidating ...\n";
+echo "Revalidating ...\n";
 
-  $pendingSubs = $STORE->getPendingSubscriptions();
+$pendingSubs = $STORE->getPendingSubscriptions();
 
-  $updatedSubs = [];
+$updatedSubs = [];
 
-  if (count($pendingSubs) > 0) {
-    foreach ($pendingSubs as $pendingSub) {
-      $result = $client->__soapCall("getStatus", [
-        "parameters" => [
-        "arg0" => $pendingSub["creator_id"],
-        "arg1" => $pendingSub["subscriber_id"]
-      ]]);
-      if (isset($result->return)) {
-        if (strcmp($result->return, "ACCEPTED") == 0) {
-          $pendingSub["status"] = "ACCEPTED";
-          $updatedSubs[] = $pendingSub;
-        }
-        if (strcmp($result->return, "REJECTED") == 0) {
-          $pendingSub["status"] = "REJECTED";
-          $updatedSubs[] = $pendingSub;
-        }
+if (count($pendingSubs) > 0) {
+  foreach ($pendingSubs as $pendingSub) {
+    $result = $client->__soapCall("getStatus", [
+      "parameters" => [
+      "arg0" => $pendingSub["creator_id"],
+      "arg1" => $pendingSub["subscriber_id"]
+    ]]);
+    if (isset($result->return)) {
+      if (strcmp($result->return, "ACCEPTED") == 0) {
+        $pendingSub["status"] = "ACCEPTED";
+        $updatedSubs[] = $pendingSub;
+      }
+      if (strcmp($result->return, "REJECTED") == 0) {
+        $pendingSub["status"] = "REJECTED";
+        $updatedSubs[] = $pendingSub;
       }
     }
   }
+}
 
-  foreach ($updatedSubs as $sub) {
-    $STORE->updateSubscription($sub["creator_id"], $sub["subscriber_id"], $sub["status"]);
-  }
+foreach ($updatedSubs as $sub) {
+  $STORE->updateSubscription($sub["creator_id"], $sub["subscriber_id"], $sub["status"]);
+}
 
-  // sleep(3);
-// }

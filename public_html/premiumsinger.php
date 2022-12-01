@@ -9,6 +9,11 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+if (!array_key_exists("username", $_SESSION)) {
+    header("Location: /");
+    return;
+}
+
 $data = file_get_contents("http://rest/artistList");
 $artistList = json_decode($data);
 
@@ -30,7 +35,7 @@ function makeTable($artistList){
         $sub = array_filter($subscription, function ($subscription) use($artist) {
             return $subscription["creator_id"] == $artist->user_id;
         });
-        $status = $sub ? array_values($sub)[0]["status"] : "REJECTED";
+        $status = $sub ? array_values($sub)[0]["status"] : "NEW";
 
         $tbl_array[] = "<tr>";
         $tbl_array[] = "<td>$artist->user_id</td>";
@@ -39,18 +44,22 @@ function makeTable($artistList){
         switch ($status) {
             // Can subscribe
             case "REJECTED":
-                $tbl_array[] = "<td><button class='subscribeButton' artistID=$artist->user_id>Subscribe</button></td>";
+                $tbl_array[] = "<td style=\"color: red;\">Rejected</td>";
                 break;
 
             // Requested
             case "PENDING":
-                $tbl_array[] = "<td>Requested</td>";
+                $tbl_array[] = "<td style=\"color: yellow;\">Requested</td>";
                 break;
             
             // Subscribed
             case "ACCEPTED":
-                $tbl_array[] = "<td><a href=\"/premiumsingersong?artist=$artist->user_id\">See musics</a></td>";
+                $tbl_array[] = "<td><a href=\"/premiumsingersong?artist=$artist->user_id\" class=\"music-btn\">See musics</a></td>";
                 break;
+
+            case "NEW":
+                $tbl_array[] = "<td><button class='subscribeButton' artistID=$artist->user_id>Subscribe</button></td>";
+
         }
         $tbl_array[] = "</tr>";
     }
