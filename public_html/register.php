@@ -79,6 +79,7 @@ if (isset($_POST["register"])){
         $password = md5($password);
         $user = $STORE->insertUser($email, $username, $password);
         $_SESSION["username"] = $user->getUsername();
+        $_SESSION["user_id"] = $user->getUserId();
         header("Location: index.php");
     }
 

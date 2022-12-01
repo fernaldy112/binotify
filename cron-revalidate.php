@@ -3,6 +3,7 @@
 require_once(__DIR__."/src/Store/DataStore.php");
 require_once(__DIR__."/src/env.php");
 
+$f = fopen(".log", "wb");
 
 set_time_limit(0);
 
@@ -37,6 +38,8 @@ if (count($pendingSubs) > 0) {
 }
 
 foreach ($updatedSubs as $sub) {
+  fwrite($f, "Updating\n");
+  fwrite($f, var_export($sub));
   $STORE->updateSubscription($sub["creator_id"], $sub["subscriber_id"], $sub["status"]);
 }
 
