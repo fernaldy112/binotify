@@ -68,6 +68,7 @@ $main = template("components/premiumsinger/main.html")->bind([
 css("css/user_list.css");
 css("css/styles.css");
 css("css/shared.css");
+css("css/subscribe.css");
 css("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 css("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 js("js/auth.js");
