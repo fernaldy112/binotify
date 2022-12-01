@@ -4,6 +4,7 @@ require_once(__DIR__."/src/Store/DataStore.php");
 require_once(__DIR__."/src/env.php");
 
 $f = fopen(".log", "wb");
+fwrite($f, "Revalidating...\n");
 
 set_time_limit(0);
 
@@ -11,7 +12,6 @@ $client = new SoapClient("http://soap/subscription?wsdl");
 $header = new SoapHeader("http://binotify.com", "ApiKey", getenv("API_KEY"));
 $client->__setSoapHeaders($header);
 
-echo "Revalidating ...\n";
 
 $pendingSubs = $STORE->getPendingSubscriptions();
 
