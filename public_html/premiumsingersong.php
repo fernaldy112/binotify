@@ -21,10 +21,25 @@ if (!array_key_exists("username", $_SESSION)) {
 
 $singer_id = $_GET["artist"];
 $user_id = $_SESSION["user_id"];
-$data = file_get_contents("http://rest/songList/$user_id/$singer_id");
+if ($singer_id) {
+    $data = file_get_contents("http://rest/songList/$user_id/$singer_id");
+    $artistPremiumSongList = json_decode($data);
+} else {
+    $subscription = $STORE->getSubscriptionById($user_id);
+    $data = [];
+    foreach ($subscription as $sub) {
+        $artistId = $sub["creator_id"];
+        if ($sub["status"] == "ACCEPTED") {
+            $songs = json_decode(file_get_contents("http://rest/songList/$user_id/$artistId"));
+            foreach ($songs as $song) {
+                $data[] = $song;
+            }
+        }
+    }
+    $artistPremiumSongList = $data;
+}
 $restServiceIp = "localhost:8081";
 
-$artistPremiumSongList = json_decode($data);
 
 function make_tabel($artistPremiumSongList){
     global $restServiceIp;
