@@ -17,12 +17,13 @@ of LAMP (Linux-Apache-MySQL-PHP) and is self-contained using Docker. The website
 consists of basic functionalities you could find in various online music
 streaming services. It can list recently added songs in its homepage; search
 for musics based on title, artist, and published year; play music using
-customized audio player; and many more. Binotify also supports authentication
-because of which users can sign up and log in to the site. It also provides
+customized audio player; and many more. Users can see list of premium artists and
+subscribe to them in order to listen to their premium songs. Binotify also supports 
+authentication because of which users can sign up and log in to the site. It also provides
 admin functionalities, such as adding new songs, adding new albums, modifying
 existing song or album data, which can only be done using admin account.
 This project is made to fulfill
-`Tugas Besar 1 IF3110 Pengembangan Aplikasi Berbasis Web`.
+`Tugas Besar 2 IF3110 Pengembangan Aplikasi Berbasis Web`.
 
 ## Getting Started
 
@@ -51,9 +52,9 @@ With the default setup, the composed `mysql` image will be pre-populated with
 usable musics and albums data. In accordance with the data, you will need to
 populate the container with music and cover image files.
 
-This step can be done manually by moving these
+This step can be done manually by moving `assets` folder in
 [files](https://drive.google.com/drive/folders/1jnCas8bkn277-HpWwX5v5lKysBz6oiUq)
-to your local copy inside the `assets` directory.
+to your local copy replacing the `assets` directory.
 
 ### Composing
 
@@ -86,7 +87,7 @@ For testing purposes, you may use the credentials
 username: admin1
 password: 123456
 ```
-to log in as an admin.
+to log in as an admin
 
 ## Demo
 
@@ -149,6 +150,10 @@ These are some screen captures of Binotify UI on various pages.
 ![](demo/search-pagination.png)
 29. Users list page
 ![](demo/user-list.png)
+30. Premium artists list page
+![](demo/premium-artist.png)
+31. Premium songs list page
+![](demo/premium-song.png)
 
 
 ## Contributors
