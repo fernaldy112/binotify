@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: db:3306
--- Generation Time: Nov 29, 2022 at 02:13 AM
+-- Host: appdb:3306
+-- Generation Time: Dec 02, 2022 at 05:23 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.19
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db`
+-- Database: `appdb`
 --
 
 -- --------------------------------------------------------
@@ -182,7 +182,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `email`, `password`, `username`, `isAdmin`) VALUES
-(1, 'admin1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'admin1', 1);
+(1, 'admin1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'admin1', 1),
+(2, 'example1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'example1', 0);
 
 --
 -- Indexes for dumped tables
@@ -234,7 +235,7 @@ ALTER TABLE `song`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
